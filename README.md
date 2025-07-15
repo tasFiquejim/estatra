@@ -53,7 +53,7 @@ npm run dev
 
 ## 🛠️ Built With
 
-- **Framework**: Laravel 10
+- **Framework**: Laravel 12
 - **Frontend**: TailwindCSS + AlpineJS
 - **Real-time**: Laravel Livewire
 - **Database**: MySQL
