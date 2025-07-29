@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('lease_id')->constrained('leases')->cascadeOnDelete();
+            $table->string('receipt_number')->nullable()->unique();
+            $table->date('payment_date');
+            $table->date('rent_period')->unique();
+            $table->unique(['lease_id', 'rent_period']);
+            $table->decimal('rent_amount', 10, 2);
+            $table->decimal('service_charge', 10, 2)->nullable();
+            $table->string('payment_method')->default('cash');
+            $table->string('status')->default('unpaid');
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }

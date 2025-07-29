@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('property_expenses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
+            $table->date('expense_date');
+            $table->string('category');
+            $table->decimal('amount', 10, 2);
+            $table->string('invoice_number')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

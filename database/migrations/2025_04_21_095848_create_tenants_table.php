@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('tenants', function (Blueprint $table) {
             $table->id();
+            $table->string('first_name');
+            $table->string('last_name')->nullable();
+            $table->string('phone')->index();
+            $table->string('email')->nullable()->index();
+            $table->string('occupation')->nullable();
+            $table->string('national_id')->nullable();
+            $table->string('address')->nullable();
+            $table->string('emergency_contact')->nullable();
+            $table->integer('family_members')->nullable();
             $table->timestamps();
+            $table->softDeletes(); 
         });
     }
 

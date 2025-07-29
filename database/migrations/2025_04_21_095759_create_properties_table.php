@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('property_name');
             $table->text('description')->nullable();
             $table->string('property_type')->nullable();
-            $table->string('location');
+            $table->string('property_photo')->nullable();
+            $table->string('address');
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }
