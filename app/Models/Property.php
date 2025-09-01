@@ -12,14 +12,28 @@ class Property extends Model
         'property_name',
         'description',
         'property_type',
-        'location', 
-    ];
+        'property_photo',
+        'address',
+        'city',
+        'state',
+        'zip_code',
+        'country',  ];
 
     /**
      * Get the user that owns the property.
      */
-    public function user() : BelongsTo  
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class , 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeForUser($query, $userId)
+    {
+        return $query->where('user_id', $userId);
     }
 }
