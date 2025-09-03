@@ -17,7 +17,9 @@ class Property extends Model
         'city',
         'state',
         'zip_code',
-        'country',  ];
+        'country', 
+        'status',
+    ];
 
     /**
      * Get the user that owns the property.

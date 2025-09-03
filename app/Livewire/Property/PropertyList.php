@@ -8,8 +8,11 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+
 #[Layout('layouts.app')]
+
 #[Title('Properties')]
+
 class PropertyList extends Component
 {
     use WithPagination;
@@ -28,7 +31,7 @@ class PropertyList extends Component
         $this->resetPage();
     }
 
-    public function sortBy(string $field): void
+    public function sortByField(string $field): void
     {
         if ($this->sortBy === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
@@ -40,13 +43,16 @@ class PropertyList extends Component
 
     public function deleteProperty(Property $property): void
     {
-        $this->authorize('delete', $property);
-
-        $property->delete();
-
-        $this->dispatch('property-deleted', [
-            'message' => 'Property deleted successfully!'
-        ]);
+        try {
+            $property->delete();
+            $this->dispatch('property-deleted', [
+                'message' => 'Property deleted successfully!'
+            ]);
+        } catch (\Exception $e) {
+            $this->dispatch('property-error', [
+                'message' => 'Failed to delete property. Please try again.'
+            ]);
+        }
     }
     #[Computed]
     public function properties()

@@ -6,15 +6,16 @@ use App\Livewire\Property\PropertyList;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('register');
 });
 
-Route::prefix('v1')->group(function () {
-    Route::get('/property-add', PropertyForm::class)->name('property.create');
-    Route::get('/property', PropertyList::class)->name('property.index');
-    // Route::get('/property/{property}/edit', PropertyForm::class)->name('property.edit');
-    // Route::view('/properties/{property}/edit', 'property.edit')->name('property.edit');
-});
+Route::middleware(['auth'])
+    ->prefix('v1')
+    ->group(function () {
+        Route::get('/property-add', PropertyForm::class)->name('property.create');
+        Route::get('/property', PropertyList::class)->name('property.index');
+        Route::get('/property/{property}/edit', PropertyForm::class)->name('property.edit');
+    });
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
