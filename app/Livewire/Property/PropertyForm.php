@@ -4,11 +4,10 @@ namespace App\Livewire\Property;
 
 use Livewire\Component;
 use App\Models\Property;
-use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.app')]
 
@@ -18,47 +17,37 @@ class PropertyForm extends Component
     use WithFileUploads;
 
     public ?Property $property = null;
-
-    #[Rule('required|string|max:255')]
     public string $property_name = '';
-
-    #[Rule('required|string')]
     public string $address = '';
-
-    #[Rule('nullable|string')]
     public string $description = '';
-
-    #[Rule('required|in:apartment,house,commercial')]
     public string $property_type = 'apartment';
-
-    #[Rule('required|in:active,inactive')]
     public string $status = 'active';
-
-    // Add missing location fields
-    #[Rule('nullable|string|max:255')]
     public string $city = '';
-
-    #[Rule('nullable|string|max:255')]
     public string $state = '';
-
-    #[Rule('nullable|string|max:20')]
     public string $zip_code = '';
-
-    #[Rule('nullable|string|max:255')]
     public string $country = '';
-
-    // Fix field name to match model
-    #[Rule('nullable|image|max:2048')]
-    public $property_photo;
+    public $property_photo = null;
 
     public bool $isEdit = false;
+
+    protected $rules = [
+        'property_name' => 'required|string|max:255',
+        'address' => 'required|string',
+        'description' => 'nullable|string',
+        'property_type' => 'required|in:apartment,house,commercial',
+        'status' => 'required|in:active,inactive',
+        'city' => 'nullable|string|max:255',
+        'state' => 'nullable|string|max:255',
+        'zip_code' => 'nullable|string|max:20',
+        'country' => 'nullable|string|max:255',
+        'property_photo' => 'nullable|image|max:2048'
+    ];
 
     public function mount(Property $property): void
     {
         if (! $property?->exists) {
             return;
         }
-
         $this->property   = $property;
         $this->isEdit     = true;
         $this->fill([
@@ -85,6 +74,9 @@ class PropertyForm extends Component
         $validated = $this->validate();
 
         if ($this->property_photo) {
+            if ($this->isEdit && $this->property->property_photo) {
+                Storage::disk('public')->delete($this->property->property_photo);
+            }
             $validated['property_photo'] = $this->property_photo->store('properties', 'public');
         }
 

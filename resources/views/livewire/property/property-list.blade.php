@@ -125,9 +125,12 @@
                                         @endif
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                                {{ $property->property_name }}</div>
+                                                <a href="{{ route('property.show', $property) }}"
+                                                    class="hover:text-blue-600 dark:hover:text-blue-400">
+                                                    {{ $property->property_name }}
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                     {{ $property->address }}

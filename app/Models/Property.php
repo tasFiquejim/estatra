@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Property extends Model
 {
@@ -17,7 +18,7 @@ class Property extends Model
         'city',
         'state',
         'zip_code',
-        'country', 
+        'country',
         'status',
     ];
 
@@ -28,7 +29,11 @@ class Property extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+    public function units(): HasMany
+    {
+        return $this->hasMany(Unit::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
