@@ -132,12 +132,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('property.index') }}" @click="selected = 'Property'" class="menu-item group"
-                            :class="selected === 'Property' || (typeof page !== 'undefined' && page === 'property') ?
+                        <a href="{{ route('tenant.index') }}" @click="selected = 'Tenant'" class="menu-item group"
+                            :class="selected === 'Tenant' || (typeof page !== 'undefined' && page === 'tenant') ?
                                 'menu-item-active' : 'menu-item-inactive'">
 
                             <svg class="transition-colors"
-                                :class="selected === 'Property' || (typeof page !== 'undefined' && page === 'property') ?
+                                :class="selected === 'Tenant' || (typeof page !== 'undefined' && page === 'tenant') ?
                                     'menu-item-icon-active' : 'menu-item-icon-inactive'"
                                 width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -147,7 +147,7 @@
                             </svg>
 
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                Properties
+                                Tenants
                             </span>
                         </a>
                     </li>

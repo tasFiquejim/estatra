@@ -186,10 +186,6 @@
                 <p class="mt-1 text-xs text-gray-400">
                     Add your first unit to get started.
                 </p>
-                <a href="{{ route('unit.create', $property) }}"
-                   class="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700">
-                    Add First Unit
-                </a>
             </div>
         </div>
     @endif

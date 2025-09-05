@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Unit\UnitForm;
+use App\Livewire\Tenant\TenantForm;
+use App\Livewire\Tenant\TenantList;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Property\PropertyForm;
 use App\Livewire\Property\PropertyList;
@@ -21,6 +23,11 @@ Route::middleware(['auth'])
 
         Route::get('/property/{property}/unit-add', UnitForm::class)->name('unit.create');
         Route::get('/property/{property}/unit/{unit}/edit', UnitForm::class)->name('unit.edit');
+
+        Route::get('/tenant-add', TenantForm::class)->name('tenant.create');
+        Route::get('/tenant/{tenant}/edit', TenantForm::class)->name('tenant.edit');
+        Route::get('/tenants', TenantList::class)->name('tenant.index');
+
     });
 Route::get('/dashboard', function () {
     return view('dashboard');
