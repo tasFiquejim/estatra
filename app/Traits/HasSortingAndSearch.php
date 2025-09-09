@@ -49,7 +49,28 @@ trait HasSortingAndSearch
             }
         });
     }
+    protected function applyAdvancedSearch($query, array $searchConfig)
+    {
+        if (empty($this->search)) {
+            return $query;
+        }
 
+        return $query->where(function ($q) use ($searchConfig) {
+            foreach ($searchConfig as $config) {
+                if (isset($config['relation'])) {
+                    // Relationship search
+                    $q->orWhereHas($config['relation'], function ($relationQuery) use ($config) {
+                        foreach ($config['fields'] as $field) {
+                            $relationQuery->orWhere($field, 'like', '%' . $this->search . '%');
+                        }
+                    });
+                } else {
+                    // Direct column search
+                    $q->orWhere($config['field'], 'like', '%' . $this->search . '%');
+                }
+            }
+        });
+    }
     /**
      * Apply sorting to query
      */

@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Unit\UnitForm;
+use App\Livewire\Lease\LeaseForm;
+use App\Livewire\Lease\LeaseList;
 use App\Livewire\Tenant\TenantForm;
 use App\Livewire\Tenant\TenantList;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,11 @@ Route::middleware(['auth'])
         Route::get('/tenant-add', TenantForm::class)->name('tenant.create');
         Route::get('/tenant/{tenant}/edit', TenantForm::class)->name('tenant.edit');
         Route::get('/tenants', TenantList::class)->name('tenant.index');
+
+        Route::get('/lease-add', LeaseForm::class)->name('lease.create');
+        Route::get('/lease/{lease}/edit', LeaseForm::class)->name('lease.edit');
+        Route::get('/leases', LeaseList::class)->name('lease.index');
+        
 
     });
 Route::get('/dashboard', function () {
