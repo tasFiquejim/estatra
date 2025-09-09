@@ -63,34 +63,6 @@
                 @error('size') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
             </div>
 
-            <!-- Rent Amount -->
-            <div>
-                <label for="rent_amount" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Monthly Rent <span class="text-red-500">*</span>
-                </label>
-                <input type="number" 
-                       wire:model="rent_amount" 
-                       id="rent_amount"
-                       step="0.01"
-                       placeholder="0.00"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                @error('rent_amount') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-            </div>
-
-            <!-- Service Charge -->
-            <div>
-                <label for="service_charge" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Service Charge
-                </label>
-                <input type="number" 
-                       wire:model="service_charge" 
-                       id="service_charge"
-                       step="0.01"
-                       placeholder="0.00"
-                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                @error('service_charge') <p class="mt-1 text-sm text-red-600">{{ $message }}</p> @enderror
-            </div>
-
             <!-- Status -->
             <div>
                 <label for="status" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">

@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('property_id')->constrained('properties')->cascadeOnDelete();
             $table->string('unit_name');
-            $table->integer('floor_number')->nullable();
+            $table->string('floor_number')->nullable();
             $table->float('size')->nullable();
-            $table->decimal('rent_amount', 10, 2);
-            $table->decimal('service_charge', 10, 2)->nullable();
             $table->text('notes')->nullable();
             $table->string('status')->default('available')->index();;
             $table->timestamps();

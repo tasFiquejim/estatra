@@ -18,8 +18,7 @@ return new class extends Migration
             $table->date('payment_date');
             $table->date('rent_period')->unique();
             $table->unique(['lease_id', 'rent_period']);
-            $table->decimal('rent_amount', 10, 2);
-            $table->decimal('service_charge', 10, 2)->nullable();
+            $table->decimal('amount_paid', 10, 2);
             $table->string('payment_method')->default('cash');
             $table->string('status')->default('unpaid');
             $table->text('notes')->nullable();

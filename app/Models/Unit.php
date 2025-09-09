@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Unit extends Model
 {
@@ -11,18 +13,16 @@ class Unit extends Model
         'unit_name',
         'floor_number',
         'size',
-        'rent_amount',
-        'service_charge',
         'notes',
         'status',
     ];
 
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
     }
 
-    public function leases()
+    public function leases(): HasMany
     {
         return $this->hasMany(Lease::class);
     }

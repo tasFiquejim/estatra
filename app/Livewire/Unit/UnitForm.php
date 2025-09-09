@@ -18,8 +18,6 @@ class UnitForm extends Component
     public string $unit_name = '';
     public string $floor_number = '';
     public string $size = '';
-    public string $rent_amount = '';
-    public string $service_charge = '';
     public string $notes = '';
     public string $status = 'available';
 
@@ -28,8 +26,6 @@ class UnitForm extends Component
         'unit_name' => 'required|string|max:255',
         'floor_number' => 'nullable|string|max:10',
         'size' => 'nullable|numeric',
-        'rent_amount' => 'required|numeric|min:0',
-        'service_charge' => 'nullable|numeric|min:0',
         'notes' => 'nullable|string|max:1000',
         'status' => 'required|in:available,occupied,maintenance',
     ];
@@ -45,8 +41,6 @@ class UnitForm extends Component
                 'unit_name' => $unit->unit_name,
                 'floor_number' => $unit->floor_number ?? '',
                 'size' => $unit->size ?? '',
-                'rent_amount' => $unit->rent_amount,
-                'service_charge' => $unit->service_charge ?? '',
                 'notes' => $unit->notes ?? '',
                 'status' => $unit->status,
             ]);
