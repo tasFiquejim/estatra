@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+        <title>NestCalc</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('images/favicon_io/site.webmanifest') }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -19,8 +24,8 @@
 </head>
 
 <body class="font-sans text-gray-900">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-        <div class="w-full bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+    <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
+        <div class="w-full overflow-hidden bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>

@@ -6,8 +6,13 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>NestCalc</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('images/favicon_io/site.webmanifest') }}">
     <title>
-       NestCalc
+        NestCalc
     </title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
@@ -44,8 +49,9 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         {{-- <include src="./partials/breadcrumb.html" /> --}}
                     </div>
                     <!-- Breadcrumb End -->
-                   
-                    <div class="min-h-screen rounded-2xl border border-gray-200 bg-white py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-6 xl:py-8">
+
+                    <div
+                        class="min-h-screen rounded-2xl border border-gray-200 bg-white py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-6 xl:py-8">
                         {{-- <div class="mx-auto w-full max-w-[630px] text-center">
                             <h3 class="mb-4 font-semibold text-gray-800 text-theme-xl dark:text-white/90 sm:text-2xl">
                                 Card Title Here
@@ -57,7 +63,7 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                 dashboard and other pages
                             </p>
                         </div> --}}
-                         {{ $slot }}
+                        {{ $slot }}
                     </div>
                 </div>
             </main>

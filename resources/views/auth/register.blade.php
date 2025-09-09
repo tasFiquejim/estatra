@@ -43,7 +43,7 @@
                             </p>
                         </div>
                         <div>
-                            <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+                            {{-- <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
                                 <button
                                     class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -73,29 +73,29 @@
 
                                     Sign up with X
                                 </button>
-                            </div>
-                            <div class="relative py-3 sm:py-5">
+                            </div> --}}
+                            {{-- <div class="relative py-3 sm:py-5">
                                 <div class="absolute inset-0 flex items-center">
                                     <div class="w-full border-t border-gray-200 dark:border-gray-800"></div>
                                 </div>
                                 <div class="relative flex justify-center text-sm">
                                     <span class="p-2 text-gray-400 bg-white dark:bg-gray-900 sm:px-5 sm:py-2">Or</span>
                                 </div>
-                            </div>
+                            </div> --}}
                             <form method="POST" action="{{ route('register') }}">
                                 @csrf
 
                                 <!-- Name -->
                                 <div>
                                     <x-input-label for="first_name" :value="__('first_name')" />
-                                    <x-text-input id="first_name" class="block mt-1 w-full" type="text"
+                                    <x-text-input id="first_name" class="block w-full mt-1" type="text"
                                         name="first_name" :value="old('first_name')" required autofocus
                                         autocomplete="first_name" />
                                     <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
                                 </div>
                                 <div>
                                     <x-input-label for="last_name" :value="__('last_name')" />
-                                    <x-text-input id="last_name" class="block mt-1 w-full" type="text"
+                                    <x-text-input id="last_name" class="block w-full mt-1" type="text"
                                         name="last_name" :value="old('last_name')" required autofocus
                                         autocomplete="last_name" />
                                     <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
@@ -104,7 +104,7 @@
                                 <!-- Email Address -->
                                 <div class="mt-4">
                                     <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                                    <x-text-input id="email" class="block w-full mt-1" type="email" name="email"
                                         :value="old('email')" required autocomplete="username" />
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
@@ -113,7 +113,7 @@
                                 <div class="mt-4">
                                     <x-input-label for="password" :value="__('Password')" />
 
-                                    <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                    <x-text-input id="password" class="block w-full mt-1" type="password"
                                         name="password" required autocomplete="new-password" />
 
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -123,14 +123,14 @@
                                 <div class="mt-4">
                                     <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-                                    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
+                                    <x-text-input id="password_confirmation" class="block w-full mt-1" type="password"
                                         name="password_confirmation" required autocomplete="new-password" />
 
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                 </div>
 
                                 <div class="flex items-center justify-end mt-4">
-                                    <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                    <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                         href="{{ route('login') }}">
                                         {{ __('Already registered?') }}
                                     </a>
@@ -157,16 +157,16 @@
                         <include src="./partials/common-grid-shape.html"></include>
                         <div class="flex flex-col items-center max-w-xs">
                             <a href="index.html" class="block mb-4">
-                                <img src="./images/logo/auth-logo.svg" alt="Logo" />
+                                <img src="./images/logo/logolinetextW2.png" alt="Logo" />
                             </a>
-                            <p class="text-center text-gray-400 dark:text-white/60">
+                            {{-- <p class="text-center text-gray-400 dark:text-white/60">
                                 Free and Open-Source Tailwind CSS Admin Dashboard Template
-                            </p>
+                            </p> --}}
                         </div>
                     </div>
                 </div>
                 <!-- Toggler -->
-                <div class="fixed z-50 hidden bottom-6 right-6 sm:block">
+                {{-- <div class="fixed z-50 hidden bottom-6 right-6 sm:block">
                     <button
                         class="inline-flex items-center justify-center text-white transition-colors rounded-full size-14 bg-brand-500 hover:bg-brand-600"
                         @click.prevent="darkMode = !darkMode">
@@ -183,7 +183,7 @@
                                 fill="" />
                         </svg>
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- ===== Page Wrapper End ===== -->

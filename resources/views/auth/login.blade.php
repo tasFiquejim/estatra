@@ -17,11 +17,11 @@
         <!-- ===== Preloader End ===== -->
 
         <!-- ===== Page Wrapper Start ===== -->
-        <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
-            <div class="relative flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
+        <div class="relative p-6 bg-white z-1 sm:p-0 dark:bg-gray-900">
+            <div class="relative flex flex-col justify-center w-full h-screen sm:p-0 lg:flex-row dark:bg-gray-900">
                 <!-- Form -->
-                <div class="flex w-full flex-1 flex-col lg:w-1/2">
-                    {{-- <div class="mx-auto w-full max-w-md pt-10">
+                <div class="flex flex-col flex-1 w-full lg:w-1/2">
+                    {{-- <div class="w-full max-w-md pt-10 mx-auto">
                         <a href="{{ route('home') }}"
                             class="inline-flex items-center text-sm text-gray-500 transition-colors hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
                             <svg class="stroke-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -32,11 +32,11 @@
                             Back to dashboard
                         </a>
                     </div> --}}
-                    <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
+                    <div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
                         <div>
                             <div class="mb-5 sm:mb-8">
                                 <h1
-                                    class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
+                                    class="mb-2 font-semibold text-gray-800 text-title-sm sm:text-title-md dark:text-white/90">
                                     Sign In
                                 </h1>
                                 <p class="text-sm text-gray-500 dark:text-gray-400">
@@ -44,9 +44,9 @@
                                 </p>
                             </div>
                             <div>
-                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
+                                {{-- <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5">
                                     <button
-                                        class="inline-flex items-center justify-center gap-3 rounded-lg bg-gray-100 px-7 py-3 text-sm font-normal text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+                                        class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -65,7 +65,7 @@
                                         Sign in with Google
                                     </button>
                                     <button
-                                        class="inline-flex items-center justify-center gap-3 rounded-lg bg-gray-100 px-7 py-3 text-sm font-normal text-gray-700 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
+                                        class="inline-flex items-center justify-center gap-3 py-3 text-sm font-normal text-gray-700 transition-colors bg-gray-100 rounded-lg px-7 hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-white/90 dark:hover:bg-white/10">
                                         <svg width="21" class="fill-current" height="20" viewBox="0 0 21 20"
                                             fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -81,19 +81,19 @@
                                     </div>
                                     <div class="relative flex justify-center text-sm">
                                         <span
-                                            class="bg-white p-2 text-gray-400 sm:px-5 sm:py-2 dark:bg-gray-900">Or</span>
+                                            class="p-2 text-gray-400 bg-white sm:px-5 sm:py-2 dark:bg-gray-900">Or</span>
                                     </div>
-                                </div>
-                                <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">
+                                </div> --}}
+                                {{-- <h2 class="text-2xl font-bold text-center text-gray-800 dark:text-white">
                                     Login
-                                </h2>
+                                </h2> --}}
                                 <form method="POST" action="{{ route('login') }}" class="mt-6">
                                     @csrf
 
                                     <!-- Email Address -->
                                     <div>
                                         <x-input-label for="email" :value="__('Email')" />
-                                        <x-text-input id="email" class="block mt-1 w-full" type="email"
+                                        <x-text-input id="email" class="block w-full mt-1" type="email"
                                             name="email" :value="old('email')" required autofocus
                                             autocomplete="username" />
                                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
@@ -103,26 +103,26 @@
                                     <div class="mt-4">
                                         <x-input-label for="password" :value="__('Password')" />
 
-                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                        <x-text-input id="password" class="block w-full mt-1" type="password"
                                             name="password" required autocomplete="current-password" />
 
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
                                     <!-- Remember Me -->
-                                    <div class="mt-4 block">
+                                    <div class="block mt-4">
                                         <label for="remember_me" class="inline-flex items-center">
                                             <input id="remember_me" type="checkbox"
-                                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
+                                                class="text-indigo-600 border-gray-300 rounded shadow-sm focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                                                 name="remember" />
                                             <span
-                                                class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                                                class="text-sm text-gray-600 ms-2 dark:text-gray-400">{{ __('Remember me') }}</span>
                                         </label>
                                     </div>
 
-                                    <div class="mt-4 flex items-center justify-end">
+                                    <div class="flex items-center justify-end mt-4">
                                         @if (Route::has('password.request'))
-                                            <a class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                                            <a class="text-sm text-gray-600 underline rounded-md hover:text-gray-900 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                                                 href="{{ route('password.request') }}">
                                                 {{ __('Forgot your password?') }}
                                             </a>
@@ -135,7 +135,7 @@
                                 </form>
                                 <div class="mt-5">
                                     <p
-                                        class="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
+                                        class="text-sm font-normal text-center text-gray-700 sm:text-start dark:text-gray-400">
                                         Don't have an account?
                                         <a href="{{ route('register') }}"
                                             class="text-brand-500 hover:text-brand-600 dark:text-brand-400">Sign Up</a>
@@ -146,24 +146,24 @@
                     </div>
                 </div>
 
-                <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
-                    <div class="z-1 flex items-center justify-center">
+                <div class="relative items-center hidden w-full h-full bg-brand-950 lg:grid lg:w-1/2 dark:bg-white/5">
+                    <div class="flex items-center justify-center z-1">
                         <!-- ===== Common Grid Shape Start ===== -->
                         <include src="./partials/common-grid-shape.html"></include>
-                        <div class="flex max-w-xs flex-col items-center">
-                            <a href="index.html" class="mb-4 block">
-                                <img src="./images/logo/auth-logo.svg" alt="Logo" />
+                        <div class="flex flex-col items-center max-w-xs">
+                            <a href="index.html" class="block mb-4">
+                                <img src="./images/logo/logolinetextW2.png" alt="Logo" />
                             </a>
-                            <p class="text-center text-gray-400 dark:text-white/60">
+                            {{-- <p class="text-center text-gray-400 dark:text-white/60">
                                 Free and Open-Source Tailwind CSS Admin Dashboard Template
-                            </p>
+                            </p> --}}
                         </div>
                     </div>
                 </div>
                 <!-- Toggler -->
-                <div class="fixed right-6 bottom-6 z-50 hidden sm:block">
+                {{-- <div class="fixed z-50 hidden right-6 bottom-6 sm:block">
                     <button
-                        class="bg-brand-500 hover:bg-brand-600 inline-flex size-14 items-center justify-center rounded-full text-white transition-colors"
+                        class="inline-flex items-center justify-center text-white transition-colors rounded-full bg-brand-500 hover:bg-brand-600 size-14"
                         @click.prevent="darkMode = !darkMode">
                         <svg class="hidden fill-current dark:block" width="20" height="20" viewBox="0 0 20 20"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,7 +178,7 @@
                                 fill="" />
                         </svg>
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
         <!-- ===== Page Wrapper End ===== -->

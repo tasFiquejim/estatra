@@ -5,12 +5,14 @@
         class="flex items-center gap-2 pt-8 sidebar-header pb-7">
         <a href="index.html">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                <img class="dark:hidden" src="/images/logo/logo-dark.svg" alt="Logo" />
-                <img class="hidden dark:block" src="/images/logo/logo-dark.svg" alt="Logo" />
+                <img class="dark:hidden" src="/images/logo/logolinetextB2.png" alt="Logo" />
+                <img class="hidden dark:block" src="/images/logo/logolinetextW2.png" alt="Logo" />
             </span>
 
-            <img class="logo-icon" :class="sidebarToggle ? 'lg:block' : 'hidden'" src="/images/logo/logo-icon.svg"
-                alt="Logo" />
+            <span class="logo-collapsed" :class="sidebarToggle ? 'block' : 'hidden'">
+                <img class="logo-icon dark:hidden" src="/images/logo/logoB.png" alt="Logo" />
+                <img class="hidden logo-icon dark:block" src="/images/logo/logoW.png" alt="Logo" />
+            </span>
         </a>
     </div>
     <!-- SIDEBAR HEADER -->

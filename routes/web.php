@@ -10,7 +10,7 @@ use App\Livewire\Property\PropertyShow;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
-    return redirect()->route('register');
+    return redirect()->route('login');
 });
 
 Route::middleware(['auth'])
