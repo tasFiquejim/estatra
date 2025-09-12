@@ -31,22 +31,20 @@ class LeaseForm extends Component
         $rules = [
             'unit_id' => 'required|exists:units,id',
             'tenant_id' => 'required|exists:tenants,id',
+            'start_date' => $this->isEdit
+                ? ['required', 'date']
+                : ['required', 'date', 'after_or_equal:today'],
             'end_date' => 'nullable|date|after:start_date',
             'security_deposit' => 'nullable|numeric|min:0',
             'rent_amount' => 'required|numeric|min:0',
             'service_charge' => 'nullable|numeric|min:0',
             'status' => 'required|in:active,expired,terminated',
         ];
-
-        if ($this->isEdit) {
-            $rules['start_date'] = 'required|date';
-        } else {
-            $rules['start_date'] = 'required|date|after_or_equal:today';
-        }
-
-        return $rules;
     }
-
+    public function title(): string
+    {
+        return $this->isEdit ? 'Edit Lease' : 'Add New Lease';
+    }
     public function mount(Lease $lease): void
     {
         if ($lease && $lease->exists) {
@@ -105,7 +103,7 @@ class LeaseForm extends Component
     {
         return $this->redirect(route('lease.index'));
     }
-#[Computed]
+    #[Computed]
     public function getAvailableUnitsProperty()
     {
         if ($this->isEdit) {
@@ -123,7 +121,7 @@ class LeaseForm extends Component
             ->get()
             ->groupBy('property.property_name');
     }
-#[Computed]
+    #[Computed]
     public function getTenantsProperty()
     {
         return Tenant::orderBy('first_name')

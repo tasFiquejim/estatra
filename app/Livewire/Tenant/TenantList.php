@@ -11,7 +11,7 @@ use App\Traits\HasSortingAndSearch;
 
 #[Layout('layouts.app')]
 
-#[Title('Properties')]
+#[Title('Tenants')]
 
 class TenantList extends Component
 {

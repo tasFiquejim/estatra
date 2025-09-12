@@ -6,17 +6,16 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>NestCalc</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicon_io/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon_io/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon_io/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ asset('images/favicon_io/site.webmanifest') }}">
     <title>
-        NestCalc
+        {{ config('app.name'). ' - ' }}{{ isset($title) ? $title : '' }}
     </title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
-    @livewireStyles()
+    @livewireStyles()a
 </head>
 
 <body x-data="{ page: 'blank', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));

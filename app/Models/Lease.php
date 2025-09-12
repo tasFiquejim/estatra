@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Lease extends Model
@@ -11,6 +13,7 @@ class Lease extends Model
         'start_date',
         'end_date',
         'rent_amount',
+        'service_charge',
         'security_deposit',
         'tenant_id',
         'unit_id',
@@ -23,6 +26,10 @@ class Lease extends Model
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
+    public function setEndDateAttribute($value)
+    {
+        $this->attributes['end_date'] = $value ?: null;
+    }
 
     public function tenant(): BelongsTo
     {
@@ -31,5 +38,9 @@ class Lease extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
+    }
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
     }
 }

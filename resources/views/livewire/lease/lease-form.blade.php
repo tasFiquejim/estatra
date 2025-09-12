@@ -14,7 +14,7 @@
                 </li>
             </ol>
         </nav>
-        {{-- <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">{{ $this->title() }}</h1> --}}
+        <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">{{ $this->title() }}</h1>
     </div>
 
     <!-- Form -->
@@ -79,7 +79,7 @@
         <div class="mb-8">
             <h3 class="mb-4 text-lg font-medium text-gray-900 dark:text-white">Lease Terms</h3>
 
-            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="grid grid-cols-3 gap-6 md:grid-cols-3">
                 <!-- Start Date -->
                 <div>
                     <label for="start_date" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
