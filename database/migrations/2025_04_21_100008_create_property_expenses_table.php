@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('expense_date');
             $table->string('category');
             $table->decimal('amount', 10, 2);
-            $table->string('invoice_number')->nullable();
+            $table->string('invoice_number')->nullable()->unique();
             $table->text('description')->nullable();
             $table->timestamps();
         });
