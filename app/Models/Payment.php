@@ -20,7 +20,7 @@ class Payment extends Model
 
     protected $casts = [
         'payment_date' => 'datetime',
-        'rent_period' => 'date',
+        'rent_period' => 'date:Y-m',
     ];
 
     public function lease(): BelongsTo

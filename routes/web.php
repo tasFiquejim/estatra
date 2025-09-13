@@ -5,6 +5,8 @@ use App\Livewire\Lease\LeaseForm;
 use App\Livewire\Lease\LeaseList;
 use App\Livewire\Tenant\TenantForm;
 use App\Livewire\Tenant\TenantList;
+use App\Livewire\Payment\PaymentForm;
+use App\Livewire\Payment\PaymentList;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Property\PropertyForm;
 use App\Livewire\Property\PropertyList;
@@ -33,8 +35,10 @@ Route::middleware(['auth'])
         Route::get('/lease-add', LeaseForm::class)->name('lease.create');
         Route::get('/lease/{lease}/edit', LeaseForm::class)->name('lease.edit');
         Route::get('/leases', LeaseList::class)->name('lease.index');
-        
 
+        Route::get('/add-payment', PaymentForm::class)->name('payment.create');
+        Route::get('payment/{payment}/edit', PaymentForm::class)->name('payment.edit');
+        Route::get('/payments', PaymentList::class)->name('payment.index');
     });
 Route::get('/dashboard', function () {
     return view('dashboard');

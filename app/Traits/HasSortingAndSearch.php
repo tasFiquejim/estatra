@@ -65,7 +65,6 @@ trait HasSortingAndSearch
                         }
                     });
                 } else {
-                    // Direct column search
                     $q->orWhere($config['field'], 'like', '%' . $this->search . '%');
                 }
             }

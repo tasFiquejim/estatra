@@ -2,11 +2,14 @@
 
 namespace App\Livewire\Payment;
 
+use Carbon\Carbon;
+use App\Models\Lease;
 use App\Models\Payment;
 use Livewire\Component;
 use Livewire\Attributes\Title;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Computed;
 
 #[Layout('layouts.app')]
 
@@ -40,7 +43,6 @@ class PaymentForm extends Component
             ],
             'amount_paid' => 'required|numeric|min:0',
             'payment_method' => 'required|in:cash,bank_transfer,mobile_payment,cheque',
-            'receipt_number' => 'nullable|string|max:255',
             'notes' => 'nullable|string|max:1000',
             'status' => 'required|in:paid,unpaid,partial',
         ];
@@ -68,7 +70,6 @@ class PaymentForm extends Component
             'rent_period' => $payment->rent_period->format('Y-m-d'),
             'amount_paid' => $payment->amount_paid,
             'payment_method' => $payment->payment_method,
-            'receipt_number' => $payment->receipt_number ?? '',
             'notes' => $payment->notes ?? '',
             'status' => $payment->status,
         ]);
@@ -76,6 +77,79 @@ class PaymentForm extends Component
     public function title(): string
     {
         return $this->isEdit ? 'Edit Payment' : 'Add New Payment';
+    }
+
+    public function save()
+    {
+        if (!$this->isEdit && empty($this->receipt_number)) {
+            $this->receipt_number = $this->generateReceptNo();
+        }
+        if (!empty($this->rent_period)) {
+            $this->rent_period = Carbon::parse($this->rent_period)->startOfMonth()->format('Y-m-d');
+        }
+        $validated = $this->validate();
+
+        if ($this->isEdit) {
+            $this->payment->update($validated);
+            $message = 'Payment record updated successfully!';
+        } else {
+            $validated['receipt_number'] = $this->receipt_number;
+            Payment::create($validated);
+            $message = 'Payment recorded successfully!';
+        }
+        session()->flash('success', $message);
+
+        return $this->redirect(route('payment.index'));
+    }
+    private function generateReceptNo()
+    {
+        $lastNumber = Payment::whereNotNull('receipt_number')
+            ->orderBy('id', 'desc')
+            ->first();
+        $nextNumber = $lastNumber ? ((int)$lastNumber->receipt_number) + 1 : 1;
+
+        return str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+    }
+
+    public function cancel()
+    {
+        return $this->redirect(route('payment.index'));
+    }
+    public function  updatedLeaseId($value)
+    {
+        if ($value) {
+            $lease = Lease::find($value);
+            if ($lease) {
+
+                $totalRent = $lease->rent_amount +  ($lease->service_charge ?? 0);
+                $this->amount_paid = $totalRent;
+            }
+        }
+    }
+    #[Computed]
+    public function activeLeases()
+    {
+        return Lease::with(['unit.property', 'tenant'])
+            ->where('status', 'active')
+            ->get()
+            ->map(function ($lease) {
+                return [
+                    'id' => $lease->id,
+                    'display' => $lease->unit->property->property_name . ' - Unit ' . $lease->unit->unit_name . ' (' . $lease->tenant->first_name . ' ' . $lease->tenant->last_name . ')',
+                    // 'tenant_name' => $lease->tenant->first_name . ' ' . $lease->tenant->last_name,
+                    // 'property_unit' => $lease->unit->property->property_name . ' - Unit ' . $lease->unit->unit_name,
+                    // 'total_rent' => $lease->rent_amount + ($lease->service_charge ?? 0)
+                ];
+            });
+    }
+
+    #[Computed]
+    public function selectedLease()
+    {
+        if (!$this->lease_id) {
+            return null;
+        }
+        return Lease::with(['unit.property', 'tenant'])->find($this->lease_id);
     }
 
     public function render()
