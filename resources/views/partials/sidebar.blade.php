@@ -37,7 +37,7 @@
 
                 <ul class="flex flex-col gap-4 mb-6">
                     <!-- Menu Item Dashboard -->
-                    <li>
+                    {{-- <li>
                         <a href="#" @click.prevent="selected = (selected === 'Dashboard' ? '':'Dashboard')"
                             class="menu-item group"
                             :class="(selected === 'Dashboard') || (page === 'ecommerce' || page === 'analytics' ||
@@ -83,7 +83,7 @@
                             </ul>
                         </div>
                         <!-- Dropdown Menu End -->
-                    </li>
+                    </li> --}}
                     <!-- Menu Item Dashboard -->
 
                     <!-- Menu Item Calendar -->
@@ -113,6 +113,30 @@
                             </span>
                         </a>
                     </li> --}}
+                    <li>
+                        <a href="{{ route('dashboard') }}" @click="selected = 'Dashboard'" class="menu-item group"
+                            :class="selected === 'Dashboard' || (typeof page !== 'undefined' && page === 'dashboard') ?
+                                'menu-item-active' : 'menu-item-inactive'">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-layout-grid">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                <path
+                                    d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                <path
+                                    d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                                <path
+                                    d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z" />
+                            </svg>
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Dashboard
+                            </span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('property.index') }}" @click="selected = 'Property'" class="menu-item group"
                             :class="selected === 'Property' || (typeof page !== 'undefined' && page === 'property') ?
@@ -230,21 +254,22 @@
 
                     <!-- Menu Item Profile -->
                     <li>
-                        <a href="profile.html" @click="selected = (selected === 'Profile' ? '':'Profile')"
-                            class="menu-item group"
+                        <a href="{{ route('profile.edit') }}"
+                            @click="selected = (selected === 'Profile' ? '':'Profile')" class="menu-item group"
                             :class="(selected === 'Profile') && (page === 'profile') ? 'menu-item-active' :
                             'menu-item-inactive'">
-                            <svg :class="(selected === 'Profile') && (page === 'profile') ? 'menu-item-icon-active' :
-                            'menu-item-icon-inactive'"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M12 3.5C7.30558 3.5 3.5 7.30558 3.5 12C3.5 14.1526 4.3002 16.1184 5.61936 17.616C6.17279 15.3096 8.24852 13.5955 10.7246 13.5955H13.2746C15.7509 13.5955 17.8268 15.31 18.38 17.6167C19.6996 16.119 20.5 14.153 20.5 12C20.5 7.30558 16.6944 3.5 12 3.5ZM17.0246 18.8566V18.8455C17.0246 16.7744 15.3457 15.0955 13.2746 15.0955H10.7246C8.65354 15.0955 6.97461 16.7744 6.97461 18.8455V18.856C8.38223 19.8895 10.1198 20.5 12 20.5C13.8798 20.5 15.6171 19.8898 17.0246 18.8566ZM2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM11.9991 7.25C10.8847 7.25 9.98126 8.15342 9.98126 9.26784C9.98126 10.3823 10.8847 11.2857 11.9991 11.2857C13.1135 11.2857 14.0169 10.3823 14.0169 9.26784C14.0169 8.15342 13.1135 7.25 11.9991 7.25ZM8.48126 9.26784C8.48126 7.32499 10.0563 5.75 11.9991 5.75C13.9419 5.75 15.5169 7.32499 15.5169 9.26784C15.5169 11.2107 13.9419 12.7857 11.9991 12.7857C10.0563 12.7857 8.48126 11.2107 8.48126 9.26784Z"
-                                    fill="" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
                             </svg>
 
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                User Profile
+                                Profile
                             </span>
                         </a>
                     </li>

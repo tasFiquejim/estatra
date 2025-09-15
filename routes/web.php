@@ -14,6 +14,7 @@ use App\Livewire\V1\Property\PropertyForm;
 use App\Livewire\V1\Property\PropertyList;
 use App\Livewire\V1\Property\PropertyShow;
 use App\Http\Controllers\ProfileController;
+use App\Livewire\V1\Dashboard\Dashboard;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::middleware(['auth'])
     ->prefix('v1')
     ->group(function () {
+        Route::get('/dashboard', Dashboard::class)->name('dashboard');
+        
         Route::get('/property-add', PropertyForm::class)->name('property.create');
         Route::get('/property/{property}', PropertyShow::class)->name('property.show');
         Route::get('/property', PropertyList::class)->name('property.index');
@@ -46,9 +49,9 @@ Route::middleware(['auth'])
         Route::get('expense/{propertyExpense}/edit', ExpenseForm::class)->name('expense.edit');
         Route::get('/expenses', ExpenseList::class)->name('expense.index');
     });
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
