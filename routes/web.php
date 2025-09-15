@@ -43,7 +43,7 @@ Route::middleware(['auth'])
         Route::get('/payments', PaymentList::class)->name('payment.index');
 
         Route::get('/add-expense', ExpenseForm::class)->name('expense.create');
-        Route::get('expense/{expense}/edit', ExpenseForm::class)->name('expense.edit');
+        Route::get('expense/{propertyExpense}/edit', ExpenseForm::class)->name('expense.edit');
         Route::get('/expenses', ExpenseList::class)->name('expense.index');
     });
 Route::get('/dashboard', function () {

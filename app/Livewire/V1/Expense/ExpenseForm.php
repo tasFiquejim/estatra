@@ -79,7 +79,7 @@ class ExpenseForm extends Component
             'expense_date' => $propertyExpense->expense_date->format('Y-m-d'),
             'category' => $propertyExpense->category,
             'amount' => $propertyExpense->amount,
-            'description' => $propertyExpense->description,
+            'description' => $propertyExpense->description ?? '',
         ]);
     }
 
