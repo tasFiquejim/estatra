@@ -1,16 +1,18 @@
 <?php
 
-use App\Livewire\Unit\UnitForm;
-use App\Livewire\Lease\LeaseForm;
-use App\Livewire\Lease\LeaseList;
-use App\Livewire\Tenant\TenantForm;
-use App\Livewire\Tenant\TenantList;
-use App\Livewire\Payment\PaymentForm;
-use App\Livewire\Payment\PaymentList;
+use App\Livewire\V1\Unit\UnitForm;
+use App\Livewire\V1\Lease\LeaseForm;
+use App\Livewire\V1\Lease\LeaseList;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Property\PropertyForm;
-use App\Livewire\Property\PropertyList;
-use App\Livewire\Property\PropertyShow;
+use App\Livewire\V1\Tenant\TenantForm;
+use App\Livewire\V1\Tenant\TenantList;
+use App\Livewire\V1\Expense\ExpenseForm;
+use App\Livewire\V1\Expense\ExpenseList;
+use App\Livewire\V1\Payment\PaymentForm;
+use App\Livewire\V1\Payment\PaymentList;
+use App\Livewire\V1\Property\PropertyForm;
+use App\Livewire\V1\Property\PropertyList;
+use App\Livewire\V1\Property\PropertyShow;
 use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
@@ -39,6 +41,10 @@ Route::middleware(['auth'])
         Route::get('/add-payment', PaymentForm::class)->name('payment.create');
         Route::get('payment/{payment}/edit', PaymentForm::class)->name('payment.edit');
         Route::get('/payments', PaymentList::class)->name('payment.index');
+
+        Route::get('/add-expense', ExpenseForm::class)->name('expense.create');
+        Route::get('expense/{expense}/edit', ExpenseForm::class)->name('expense.edit');
+        Route::get('/expenses', ExpenseList::class)->name('expense.index');
     });
 Route::get('/dashboard', function () {
     return view('dashboard');

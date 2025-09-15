@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Lease;
+namespace App\Livewire\V1\Lease;
 
 use Livewire\Component;
 use App\Models\Lease;
@@ -48,6 +48,6 @@ class LeaseList extends Component
 
     public function render()
     {
-        return view('livewire.lease.lease-list');
+        return view('livewire.v1.lease.lease-list');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Payment;
+namespace App\Livewire\V1\Payment;
 
 use Carbon\Carbon;
 use App\Models\Lease;
@@ -154,6 +154,6 @@ class PaymentForm extends Component
 
     public function render()
     {
-        return view('livewire.payment.payment-form');
+        return view('livewire.v1.payment.payment-form');
     }
 }

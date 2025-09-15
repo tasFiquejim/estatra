@@ -118,14 +118,22 @@
                             :class="selected === 'Property' || (typeof page !== 'undefined' && page === 'property') ?
                                 'menu-item-active' : 'menu-item-inactive'">
 
-                            <svg class="transition-colors"
-                                :class="selected === 'Property' || (typeof page !== 'undefined' && page === 'property') ?
-                                    'menu-item-icon-active' : 'menu-item-icon-inactive'"
-                                width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-buildings">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M4 21v-15c0 -1 1 -2 2 -2h5c1 0 2 1 2 2v15" />
+                                <path d="M16 8h2c1 0 2 1 2 2v11" />
+                                <path d="M3 21h18" />
+                                <path d="M10 12v0" />
+                                <path d="M10 16v0" />
+                                <path d="M10 8v0" />
+                                <path d="M7 12v0" />
+                                <path d="M7 16v0" />
+                                <path d="M7 8v0" />
+                                <path d="M17 12v0" />
+                                <path d="M17 16v0" />
                             </svg>
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                                 Properties
@@ -153,10 +161,17 @@
                         <a href="{{ route('lease.index') }}" @click="selected = 'Lease'" class="menu-item group"
                             :class="selected === 'Lease' || (typeof page !== 'undefined' && page === 'lease') ?
                                 'menu-item-active' : 'menu-item-inactive'">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-contract">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M8 21h-2a3 3 0 0 1 -3 -3v-1h5.5" />
+                                <path d="M17 8.5v-3.5a2 2 0 1 1 2 2h-2" />
+                                <path d="M19 3h-11a3 3 0 0 0 -3 3v11" />
+                                <path d="M9 7h4" />
+                                <path d="M9 11h4" />
+                                <path d="M18.42 12.61a2.1 2.1 0 0 1 2.97 2.97l-6.39 6.42h-3v-3z" />
                             </svg>
 
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
@@ -171,15 +186,42 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
                                 stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-device-ipad-dollar">
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-credit-card-refund">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M13 21h-7a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5" />
-                                <path d="M9 18h4" />
-                                <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
-                                <path d="M19 21v1m0 -8v1" />
+                                <path d="M12 19h-6a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v4.5" />
+                                <path d="M3 10h18" />
+                                <path d="M7 15h.01" />
+                                <path d="M11 15h2" />
+                                <path d="M16 19h6" />
+                                <path d="M19 16l-3 3l3 3" />
                             </svg>
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
                                 Payment
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('expense.index') }}" @click="selected = 'Expense'" class="menu-item group"
+                            :class="selected === 'Expense' || (typeof page !== 'undefined' && page === 'expense') ?
+                                'menu-item-active' : 'menu-item-inactive'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-calculator">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path
+                                    d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                <path
+                                    d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+                                <path d="M8 14l0 .01" />
+                                <path d="M12 14l0 .01" />
+                                <path d="M16 14l0 .01" />
+                                <path d="M8 17l0 .01" />
+                                <path d="M12 17l0 .01" />
+                                <path d="M16 17l0 .01" />
+                            </svg>
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Expense
                             </span>
                         </a>
                     </li>

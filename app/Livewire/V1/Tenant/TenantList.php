@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Tenant;
+namespace App\Livewire\V1\Tenant;
 
 use App\Models\Tenant;
 use Livewire\Component;
@@ -44,6 +44,6 @@ class TenantList extends Component
 
     public function render()
     {
-        return view('livewire.tenant.tenant-list');
+        return view('livewire.v1.tenant.tenant-list');
     }
 }

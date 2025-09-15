@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Payment;
+namespace App\Livewire\V1\Payment;
 
 use App\Models\Payment;
 use Livewire\Component;
@@ -37,6 +37,6 @@ class PaymentList extends Component
 
     public function render()
     {
-        return view('livewire.payment.payment-list');
+        return view('livewire.v1.payment.payment-list');
     }
 }

@@ -98,8 +98,9 @@
                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
                                 Method & Status
                             </th>
-                            <th class="relative px-6 py-3">
-                                <span class="sr-only">Actions</span>
+                            <th
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-gray-500 uppercase dark:text-gray-400">
+                                Actions
                             </th>
                         </tr>
                     </thead>

@@ -55,20 +55,23 @@ trait HasSortingAndSearch
             return $query;
         }
 
-        return $query->where(function ($q) use ($searchConfig) {
-            foreach ($searchConfig as $config) {
-                if (isset($config['relation'])) {
-                    // Relationship search
-                    $q->orWhereHas($config['relation'], function ($relationQuery) use ($config) {
+       return $query->where(function ($q) use ($searchConfig) {
+        foreach ($searchConfig as $config) {
+            if (isset($config['relation'])) {
+                // Relationship search
+                $q->orWhereHas($config['relation'], function ($relationQuery) use ($config) {
+                    $relationQuery->where(function($subQuery) use ($config) {
                         foreach ($config['fields'] as $field) {
-                            $relationQuery->orWhere($field, 'like', '%' . $this->search . '%');
+                            $subQuery->orWhere($field, 'like', '%' . $this->search . '%');
                         }
                     });
-                } else {
-                    $q->orWhere($config['field'], 'like', '%' . $this->search . '%');
-                }
+                });
+            } else {
+                // Direct field search
+                $q->orWhere($config['field'], 'like', '%' . $this->search . '%');
             }
-        });
+        }
+    });
     }
     /**
      * Apply sorting to query

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Property;
+namespace App\Livewire\V1\Property;
 
 use Livewire\Component;
 use App\Models\Property;
@@ -45,6 +45,6 @@ class PropertyList extends Component
 
     public function render()
     {
-        return view('livewire.property.property-list');
+        return view('livewire.v1.property.property-list');
     }
 }

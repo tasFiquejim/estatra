@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Lease;
+namespace App\Livewire\V1\Lease;
 
 use App\Models\Unit;
 use App\Models\Lease;
@@ -40,6 +40,7 @@ class LeaseForm extends Component
             'service_charge' => 'nullable|numeric|min:0',
             'status' => 'required|in:active,expired,terminated',
         ];
+        return $rules;
     }
     public function title(): string
     {
@@ -137,6 +138,6 @@ class LeaseForm extends Component
 
     public function render()
     {
-        return view('livewire.lease.lease-form');
+        return view('livewire.v1.lease.lease-form');
     }
 }

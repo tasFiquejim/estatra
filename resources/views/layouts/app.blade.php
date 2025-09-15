@@ -15,7 +15,7 @@
     </title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
 
-    @livewireStyles()a
+    @livewireStyles()
 </head>
 
 <body x-data="{ page: 'blank', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));

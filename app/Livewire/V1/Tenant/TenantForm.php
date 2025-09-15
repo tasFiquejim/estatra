@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Tenant;
+namespace App\Livewire\V1\Tenant;
 
 use App\Models\Tenant;
 use Livewire\Component;
@@ -106,6 +106,6 @@ class TenantForm extends Component
     }
     public function render()
     {
-        return view('livewire.tenant.tenant-form');
+        return view('livewire.v1.tenant.tenant-form');
     }
 }
