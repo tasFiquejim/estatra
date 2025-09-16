@@ -38,6 +38,6 @@ class UnitList extends Component
 
     public function render()
     {
-        return view('livewire.unit.unit-list');
+        return view('livewire.v1.unit.unit-list');
     }
 }

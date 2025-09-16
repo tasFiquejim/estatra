@@ -66,7 +66,7 @@
         </div> --}}
 
         <div class="p-6">
-            @livewire('unit.unit-list', ['property' => $property])
+            @livewire('v1.unit.unit-list', ['property' => $property])
         </div>
     </div>
 </div>

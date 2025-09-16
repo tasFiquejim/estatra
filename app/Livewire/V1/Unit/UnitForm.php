@@ -75,6 +75,6 @@ class UnitForm extends Component
     }
     public function render()
     {
-        return view('livewire.unit.unit-form');
+        return view('livewire.v1.unit.unit-form');
     }
 }
