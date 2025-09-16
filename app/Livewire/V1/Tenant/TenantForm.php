@@ -26,18 +26,6 @@ class TenantForm extends Component
 
     public bool $isEdit = false;
 
-    protected $rules = [
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
-        'email' => 'required|email|max:255|unique:tenants,email',
-        'phone' => 'required|string|max:20',
-        'occupation' => 'nullable|string|max:255',
-        'national_id' => 'nullable|string|max:50',
-        'address' => 'nullable|string|max:500',
-        'emergency_contact' => 'nullable|string|max:255',
-        'family_members' => 'nullable|string|max:1000',
-    ];
-
     public function mount(Tenant $tenant): void
     {
         if ($tenant && $tenant->exists) {
@@ -64,7 +52,7 @@ class TenantForm extends Component
             'last_name' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
             'occupation' => 'nullable|string|max:255',
-            'national_id' => 'nullable|string|max:50',
+            'national_id' => 'required|digits_between:10,17',
             'address' => 'nullable|string|max:500',
             'emergency_contact' => 'nullable|string|max:255',
             'family_members' => 'nullable|int|',
