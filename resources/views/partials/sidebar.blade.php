@@ -2,16 +2,16 @@
     class="sidebar fixed left-0 top-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-black lg:static lg:translate-x-0">
     <!-- SIDEBAR HEADER -->
     <div :class="sidebarToggle ? 'justify-center' : 'justify-between'"
-        class="flex items-center gap-2 py-6 sidebar-header">
+        class="flex items-center gap-2 pt-6 mx-auto sidebar-header">
         <a href="index.html">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
-                <img class="dark:hidden" src="/images/logo/logolinetextB2.svg" alt="Logo" />
-                <img class="hidden dark:block" src="/images/logo/logolinetextW2.svg" alt="Logo" />
+                <img class="h-24 dark:hidden" src="/images/logo/logolinetextB2.svg" alt="Logo" />
+                <img class="hidden h-24 dark:block" src="/images/logo/logolinetextW2.svg" alt="Logo" />
             </span>
 
             <span class="logo-collapsed" :class="sidebarToggle ? 'block' : 'hidden'">
-                <img class="logo-icon dark:hidden" src="/images/logo/logoB.png" alt="Logo" />
-                <img class="hidden logo-icon dark:block" src="/images/logo/logoW.png" alt="Logo" />
+                <img class="h-10 logo-icon dark:hidden" src="/images/logo/logoB.png" alt="Logo" />
+                <img class="hidden h-10 logo-icon dark:block" src="/images/logo/logoW.png" alt="Logo" />
             </span>
         </a>
     </div>

@@ -33,8 +33,8 @@
             <!-- Hamburger Toggle BTN -->
 
             <a href="index.html" class="lg:hidden">
-                <img class="dark:hidden" src="./images/logo/logo.svg" alt="Logo" />
-                <img class="hidden dark:block" src="./images/logo/logo-dark.svg" alt="Logo" />
+                  <img class="h-14 dark:hidden " src="/images/logo/logolinetextB2.svg" alt="Logo" />
+                <img class="hidden h-14 dark:block" src="/images/logo/logolinetextW2.svg" alt="Logo" />
             </a>
 
             <!-- Application nav menu button -->
@@ -384,7 +384,7 @@
                 <a class="flex items-center text-gray-700 dark:text-gray-400" href="#"
                     @click.prevent="dropdownOpen = ! dropdownOpen">
                     <span
-                        class="mr-3 overflow-hidden rounded-full h-11 w-11 flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+                        class="flex items-center justify-center mr-3 overflow-hidden bg-gray-100 rounded-full h-11 w-11 dark:bg-gray-800">
                         <svg class="fill-gray-500 group-hover:fill-gray-700 dark:fill-gray-400 dark:group-hover:fill-gray-300"
                             width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
