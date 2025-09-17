@@ -1,15 +1,15 @@
 <div align="center">
+  
+<div align="center">
+  <img src="public/images/logo/logolinetextW2.svg" alt="NestCalc Logo" width="120">
+</div>
 
-# 🏠 NestCalc
-
-### Smart Property Management for Bangladeshi House Owners
+## NestCalc - Property & Tenant Management for House/Flat Owners
 
 [![Laravel][Laravel.com]][Laravel-url]
 [![Tailwind][TailwindCSS.com]][Tailwind-url]
 [![Alpine][Alpine.js]][Alpine-url]
 [![Livewire][Livewire.com]][Livewire-url]
-
-[View Demo](https://your-demo-link.com) · [Report Bug](https://github.com/yourusername/nestcalc/issues) · [Request Feature](https://github.com/yourusername/nestcalc/issues)
 
 </div>
 
@@ -23,11 +23,11 @@ NestCalc simplifies property management for Bangladeshi house owners. Track rent
 
 ### 🎯 Key Features
 
-- **Smart Rent Management**: Track payments, due dates, and tenant history
-- **Bill Tracker**: Manage electricity, water, and maintenance costs
-- **Financial Insights**: Get instant profit/loss calculations
-- **Document Storage**: Keep all property documents organized
-- **Report Generation**: Export detailed financial reports
+- **Property & Unit Management**: Add houses, apartments, and individual rental units.
+- **Tenant & Lease Tracking**: Store tenant details and manage active leases.
+- **Rent Payments**: Record and track rental payments for each tenant.
+- **Property Expenses**:  Log expenses like utilities, repairs, and upkeep.
+- **Maintenance Logs**: Keep track of maintenance requests and completed work.
 
 ## ⚡ Quick Start
 
@@ -68,46 +68,9 @@ npm run dev
   <img src="/api/placeholder/250/500" alt="Reports">
 </div>
 
-## 🗺️ Roadmap
-
-- [x] Core rent management
-- [x] Bill tracking system
-- [x] Basic reporting
-- [ ] bKash/Nagad integration
-- [ ] SMS notifications
-- [ ] Tenant portal
-- [ ] Mobile app
-- [ ] Multi-language support
-
-## 💡 Usage Examples
-
-```php
-// Example code for rent calculation
-public function calculateMonthlyProfit($propertyId)
-{
-    $totalRent = $this->getTotalRent($propertyId);
-    $totalExpenses = $this->getTotalExpenses($propertyId);
-    return $totalRent - $totalExpenses;
-}
-```
-
-## 🤝 Contributing
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## 📝 License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-
-## 📫 Contact
-
-Your Name - [@yourtwitter](https://twitter.com/yourusername) - email@example.com
-
-Project Link: [https://github.com/yourusername/nestcalc](https://github.com/yourusername/nestcalc)
+Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ---
 
