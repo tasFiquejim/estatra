@@ -10,8 +10,8 @@
             </span>
 
             <span class="logo-collapsed" :class="sidebarToggle ? 'block' : 'hidden'">
-                <img class="h-10 logo-icon dark:hidden" src="/images/logo/logoB.png" alt="Logo" />
-                <img class="hidden h-10 logo-icon dark:block" src="/images/logo/logoW.png" alt="Logo" />
+                <img class="h-10 logo-icon dark:hidden" src="/images/logo/logoB.svg" alt="Logo" />
+                <img class="hidden h-10 logo-icon dark:block" src="/images/logo/logoW.svg" alt="Logo" />
             </span>
         </a>
     </div>
