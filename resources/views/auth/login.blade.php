@@ -151,9 +151,9 @@
                         <!-- ===== Common Grid Shape Start ===== -->
                         <include src="./partials/common-grid-shape.html"></include>
                         <div class="flex flex-col items-center max-w-xs">
-                            <a href="index.html" class="block mb-4">
+                             <div class="block mb-4">
                                 <img src="./images/logo/logolinetextW2.svg" alt="Logo" />
-                            </a>
+                            </div>
                             {{-- <p class="text-center text-gray-400 dark:text-white/60">
                                 Free and Open-Source Tailwind CSS Admin Dashboard Template
                             </p> --}}

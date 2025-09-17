@@ -3,7 +3,7 @@
     <!-- SIDEBAR HEADER -->
     <div :class="sidebarToggle ? 'justify-center' : 'justify-between'"
         class="flex items-center gap-2 pt-6 mx-auto sidebar-header">
-        <a href="index.html">
+        <a href="{{ route('dashboard') }}">
             <span class="logo" :class="sidebarToggle ? 'hidden' : ''">
                 <img class="h-24 dark:hidden" src="/images/logo/logolinetextB2.svg" alt="Logo" />
                 <img class="hidden h-24 dark:block" src="/images/logo/logolinetextW2.svg" alt="Logo" />
@@ -185,9 +185,9 @@
                         <a href="{{ route('lease.index') }}" @click="selected = 'Lease'" class="menu-item group"
                             :class="selected === 'Lease' || (typeof page !== 'undefined' && page === 'lease') ?
                                 'menu-item-active' : 'menu-item-inactive'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round"
                                 class="icon icon-tabler icons-tabler-outline icon-tabler-contract">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M8 21h-2a3 3 0 0 1 -3 -3v-1h5.5" />
@@ -250,7 +250,28 @@
                         </a>
                     </li>
 
-                    <!-- Menu Item Calendar -->
+                    <li>
+                        <a href="{{ route('maintenance.index') }}" @click="selected = 'Maintenance'"
+                            class="menu-item group"
+                            :class="selected === 'Maintenance' || (typeof page !== 'undefined' && page === 'maintenance') ?
+                                'menu-item-active' : 'menu-item-inactive'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-tools">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" />
+                                <path d="M14.5 5.5l4 4" />
+                                <path d="M12 8l-5 -5l-4 4l5 5" />
+                                <path d="M7 8l-1.5 1.5" />
+                                <path d="M16 12l5 5l-4 4l-5 -5" />
+                                <path d="M16 17l-1.5 1.5" />
+                            </svg>
+                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Maintenance
+                            </span>
+                        </a>
+                    </li>
 
                     <!-- Menu Item Profile -->
                     <li>

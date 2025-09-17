@@ -130,10 +130,10 @@
                                 </div>
 
                                 <div class="flex items-center justify-end mt-4">
-                                    <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                                    {{-- <a class="text-sm text-gray-600 underline rounded-md dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                                         href="{{ route('login') }}">
                                         {{ __('Already registered?') }}
-                                    </a>
+                                    </a> --}}
 
                                     <x-primary-button class="ms-4">
                                         {{ __('Register') }}
@@ -156,9 +156,9 @@
                         <!-- ===== Common Grid Shape Start ===== -->
                         <include src="./partials/common-grid-shape.html"></include>
                         <div class="flex flex-col items-center max-w-xs">
-                            <a href="index.html" class="block mb-4">
+                        <div class="block mb-4">
                                 <img src="./images/logo/logolinetextW2.svg" alt="Logo" />
-                            </a>
+                        </div>
                             {{-- <p class="text-center text-gray-400 dark:text-white/60">
                                 Free and Open-Source Tailwind CSS Admin Dashboard Template
                             </p> --}}
