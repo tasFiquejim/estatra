@@ -83,6 +83,10 @@
                                 </th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
+                                    Units
+                                </th>
+                                <th
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-gray-400">
                                     Status
                                 </th>
                                 <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
@@ -157,6 +161,9 @@
                                             {{ ucfirst($property->property_type) }}
                                         </span>
                                     </td>
+                                       <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
+                                        <div class="font-medium text-gray-900 text-center dark:text-white">{{ $property->units->count() }}</div>
+                                    </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         @if ($property->status === 'active')
                                             <span
@@ -178,7 +185,6 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         <div class="font-medium text-gray-900 dark:text-white">{{ $property->created_at->format('M j, Y') }}</div>
-                                        <div class="text-xs text-gray-500">{{ $property->created_at->format('g:i A') }}</div>
                                     </td>
                                     <td
                                         class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
