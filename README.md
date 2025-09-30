@@ -1,10 +1,10 @@
 <div align="center">
   
-<div align="center">
-  <img src="public/images/logo/logolinetextW2.svg" alt="NestCalc Logo" width="120">
+<div>
+  <img src="public/images/logo/logolinetextW2.svg" alt="Estatra Logo" width="120">
 </div>
 
-## NestCalc - Property & Tenant Management for House/Flat Owners
+## Estatra - Property & Tenant Management for House/Flat Owners
 
 [![Laravel][Laravel.com]][Laravel-url]
 [![Tailwind][TailwindCSS.com]][Tailwind-url]
@@ -15,11 +15,7 @@
 
 ## ✨ About The Project
 
-<div align="center">
-  <img src="/api/placeholder/800/400" alt="NestCalc Screenshot">
-</div>
-
-NestCalc simplifies property management for Bangladeshi house owners. Track rents, bills, and expenses in one place with our intuitive dashboard.
+Estatra makes it simple for house owners to manage rentals. Track rents, bills, expenses, and maintenance in one place with an intuitive dashboard.
 
 ### 🎯 Key Features
 
@@ -33,7 +29,8 @@ NestCalc simplifies property management for Bangladeshi house owners. Track rent
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/nestcalc.git
+git clone https://github.com/tasFiquejim/estatra.git
+cd estatra
 
 # Install dependencies
 composer install
@@ -53,20 +50,11 @@ npm run dev
 
 ## 🛠️ Built With
 
-- **Framework**: Laravel 12
+- **Framework**: Laravel 12+
 - **Frontend**: TailwindCSS + AlpineJS
 - **Real-time**: Laravel Livewire
 - **Database**: MySQL
 - **Authentication**: Laravel Breeze
-- **Reporting**: Laravel Excel
-
-## 📱 Screenshots
-
-<div align="center">
-  <img src="/api/placeholder/250/500" alt="Mobile View">
-  <img src="/api/placeholder/250/500" alt="Dashboard">
-  <img src="/api/placeholder/250/500" alt="Reports">
-</div>
 
 ## 📝 License
 
