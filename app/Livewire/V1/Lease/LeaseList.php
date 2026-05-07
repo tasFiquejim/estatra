@@ -2,12 +2,13 @@
 
 namespace App\Livewire\V1\Lease;
 
-use Livewire\Component;
+use App\Enums\UnitStatus;
 use App\Models\Lease;
 use App\Traits\HasSortingAndSearch;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
@@ -18,7 +19,7 @@ class LeaseList extends Component
     public function deleteLease(Lease $lease): void
     {
         try {
-            $lease->unit->update(['status' => 'available']);
+            $lease->unit->update(['status' => UnitStatus::Available]);
 
             $lease->delete();
             $this->dispatch('lease-deleted', [

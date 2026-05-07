@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\LeaseStatus;
 use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lease extends Model
 {
@@ -25,6 +26,7 @@ class Lease extends Model
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'status' => LeaseStatus::class,
     ];
     public function setEndDateAttribute($value)
     {

@@ -2,11 +2,13 @@
 
 namespace App\Livewire\V1\Unit;
 
-use App\Models\Unit;
-use Livewire\Component;
+use App\Enums\UnitStatus;
 use App\Models\Property;
-use Livewire\Attributes\Title;
+use App\Models\Unit;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 #[Title('Units')]
@@ -22,13 +24,16 @@ class UnitForm extends Component
     public string $status = 'available';
 
     public bool $isEdit = false;
-    protected $rules = [
-        'unit_name' => 'required|string|max:255',
-        'floor_number' => 'nullable|string|max:10',
-        'size' => 'nullable|numeric',
-        'notes' => 'nullable|string|max:1000',
-        'status' => 'required|in:available,occupied,maintenance',
-    ];
+    protected function rules()
+    {
+        return [
+            'unit_name' => 'required|string|max:255',
+            'floor_number' => 'nullable|string|max:10',
+            'size' => 'nullable|numeric',
+            'notes' => 'nullable|string|max:1000',
+            'status' => ['required', Rule::enum(UnitStatus::class)],
+        ];
+    }
 
     public function mount(Property $property, ?Unit $unit): void
     {
@@ -42,7 +47,7 @@ class UnitForm extends Component
                 'floor_number' => $unit->floor_number ?? '',
                 'size' => $unit->size ?? '',
                 'notes' => $unit->notes ?? '',
-                'status' => $unit->status,
+                'status' => $unit->status?->value ?? $this->status,
             ]);
         }
     }

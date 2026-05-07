@@ -2,14 +2,16 @@
 
 namespace App\Livewire\V1\Payment;
 
-use Carbon\Carbon;
+use App\Enums\PaymentMethod;
+use App\Enums\PaymentStatus;
 use App\Models\Lease;
 use App\Models\Payment;
-use Livewire\Component;
-use Livewire\Attributes\Title;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
@@ -42,9 +44,9 @@ class PaymentForm extends Component
                     ->ignore($this->isEdit ? $this->payment->id : null)
             ],
             'amount_paid' => 'required|numeric|min:0',
-            'payment_method' => 'required|in:cash,bank_transfer,mobile_payment,cheque',
+            'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
             'notes' => 'nullable|string|max:1000',
-            'status' => 'required|in:paid,unpaid,partial',
+            'status' => ['required', Rule::enum(PaymentStatus::class)],
         ];
 
         return $rules;
@@ -69,9 +71,9 @@ class PaymentForm extends Component
             'payment_date' => $payment->payment_date->format('Y-m-d'),
             'rent_period' => $payment->rent_period->format('Y-m-d'),
             'amount_paid' => $payment->amount_paid,
-            'payment_method' => $payment->payment_method,
+            'payment_method' => $payment->payment_method?->value ?? $this->payment_method,
             'notes' => $payment->notes ?? '',
-            'status' => $payment->status,
+            'status' => $payment->status?->value ?? $this->status,
         ]);
     }
     public function title(): string
@@ -130,7 +132,7 @@ class PaymentForm extends Component
     public function activeLeases()
     {
         return Lease::with(['unit.property', 'tenant'])
-            ->where('status', 'active')
+            ->where('status', \App\Enums\LeaseStatus::Active)
             ->get()
             ->map(function ($lease) {
                 return [

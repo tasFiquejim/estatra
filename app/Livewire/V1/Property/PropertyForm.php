@@ -2,12 +2,14 @@
 
 namespace App\Livewire\V1\Property;
 
-use Livewire\Component;
+use App\Enums\PropertyStatus;
 use App\Models\Property;
-use Livewire\WithFileUploads;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.app')]
 
@@ -30,18 +32,21 @@ class PropertyForm extends Component
 
     public bool $isEdit = false;
 
-    protected $rules = [
-        'property_name' => 'required|string|max:255',
-        'address' => 'required|string',
-        'description' => 'nullable|string',
-        'property_type' => 'required|in:apartment,house,commercial',
-        'status' => 'required|in:active,inactive',
-        'city' => 'nullable|string|max:255',
-        'state' => 'nullable|string|max:255',
-        'zip_code' => 'nullable|string|max:20',
-        'country' => 'nullable|string|max:255',
-        'property_photo' => 'nullable|image|max:2048'
-    ];
+    protected function rules()
+    {
+        return [
+            'property_name' => 'required|string|max:255',
+            'address' => 'required|string',
+            'description' => 'nullable|string',
+            'property_type' => 'required|in:apartment,house,commercial',
+            'status' => ['required', Rule::enum(PropertyStatus::class)],
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'zip_code' => 'nullable|string|max:20',
+            'country' => 'nullable|string|max:255',
+            'property_photo' => 'nullable|image|max:2048'
+        ];
+    }
 
     public function mount(Property $property): void
     {
@@ -55,7 +60,7 @@ class PropertyForm extends Component
             'address'       => $property->address,
             'description'   => $property->description,
             'property_type' => $property->property_type ?? $this->property_type,
-            'status'        => $property->status ?? $this->status,
+            'status'        => $property->status?->value ?? $this->status,
             'city'          => $property->city,
             'state'         => $property->state,
             'zip_code'      => $property->zip_code,

@@ -2,13 +2,15 @@
 
 namespace App\Livewire\V1\Lease;
 
-use App\Models\Unit;
+use App\Enums\LeaseStatus;
 use App\Models\Lease;
 use App\Models\Tenant;
-use Livewire\Component;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
+use App\Models\Unit;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
@@ -38,7 +40,7 @@ class LeaseForm extends Component
             'security_deposit' => 'nullable|numeric|min:0',
             'rent_amount' => 'required|numeric|min:0',
             'service_charge' => 'nullable|numeric|min:0',
-            'status' => 'required|in:active,expired,terminated',
+            'status' => ['required', Rule::enum(LeaseStatus::class)],
         ];
         return $rules;
     }
@@ -59,7 +61,7 @@ class LeaseForm extends Component
                 'security_deposit' => $lease->security_deposit ?? '',
                 'rent_amount' => $lease->rent_amount,
                 'service_charge' => $lease->service_charge ?? '',
-                'status' => $lease->status,
+                'status' => $lease->status?->value ?? $this->status,
             ]);
         }
     }
@@ -70,7 +72,7 @@ class LeaseForm extends Component
 
         if (!$this->isEdit) {
             $unit = Unit::find($validated['unit_id']);
-            if ($unit->status !== 'available') {
+            if ($unit->status !== \App\Enums\UnitStatus::Available) {
                 $this->addError('unit_id', 'This unit is not available for lease.');
                 return;
             }
@@ -82,7 +84,7 @@ class LeaseForm extends Component
             $message = 'Lease updated successfully!';
         } else {
             Lease::create($validated);
-            Unit::find($validated['unit_id'])->update(['status' => 'occupied']);
+            Unit::find($validated['unit_id'])->update(['status' => \App\Enums\UnitStatus::Occupied]);
             $message = 'Lease created successfully!';
         }
 
@@ -94,10 +96,10 @@ class LeaseForm extends Component
     {
         $unit = $this->lease->unit;
 
-        if ($this->status === 'active') {
-            $unit->update(['status' => 'occupied']);
-        } elseif (in_array($this->status, ['expired', 'terminated'])) {
-            $unit->update(['status' => 'available']);
+        if ($this->status === \App\Enums\LeaseStatus::Active->value) {
+            $unit->update(['status' => \App\Enums\UnitStatus::Occupied]);
+        } elseif (in_array($this->status, [\App\Enums\LeaseStatus::Expired->value, \App\Enums\LeaseStatus::Terminated->value])) {
+            $unit->update(['status' => \App\Enums\UnitStatus::Available]);
         }
     }
     public function cancel()
@@ -110,7 +112,7 @@ class LeaseForm extends Component
         if ($this->isEdit) {
             return Unit::with('property')
                 ->where(function ($query) {
-                    $query->where('status', 'available')
+                    $query->where('status', \App\Enums\UnitStatus::Available)
                         ->orWhere('id', $this->lease->unit_id);
                 })
                 ->get()
@@ -118,7 +120,7 @@ class LeaseForm extends Component
         }
 
         return Unit::with('property')
-            ->where('status', 'available')
+            ->where('status', \App\Enums\UnitStatus::Available)
             ->get()
             ->groupBy('property.property_name');
     }

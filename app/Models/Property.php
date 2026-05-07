@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\PropertyStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -22,6 +23,10 @@ class Property extends Model
         'status',
     ];
 
+    protected $casts = [
+        'status' => PropertyStatus::class,
+    ];
+
     /**
      * Get the user that owns the property.
      */
@@ -36,7 +41,7 @@ class Property extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('status', 'active');
+        return $query->where('status', \App\Enums\PropertyStatus::Active);
     }
 
     public function scopeForUser($query, $userId)

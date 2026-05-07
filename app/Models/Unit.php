@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\UnitStatus;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
@@ -15,6 +16,10 @@ class Unit extends Model
         'size',
         'notes',
         'status',
+    ];
+
+    protected $casts = [
+        'status' => UnitStatus::class,
     ];
 
     public function property(): BelongsTo
@@ -29,6 +34,6 @@ class Unit extends Model
     
     public function scopeisAvailable($query)
     {
-        return $query->where('status', 'available');
+        return $query->where('status', \App\Enums\UnitStatus::Available);
     }
 }
