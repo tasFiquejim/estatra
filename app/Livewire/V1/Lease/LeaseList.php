@@ -9,6 +9,8 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
@@ -16,12 +18,11 @@ class LeaseList extends Component
 {
     use HasSortingAndSearch;
 
-    public function deleteLease(Lease $lease): void
+    public function deleteLease(Lease $lease, \App\Services\LeaseService $leaseService): void
     {
+        Gate::authorize('delete', $lease);
         try {
-            $lease->unit->update(['status' => UnitStatus::Available]);
-
-            $lease->delete();
+            $leaseService->deleteLease($lease);
             $this->dispatch('lease-deleted', [
                 'message' => 'Lease deleted successfully!'
             ]);

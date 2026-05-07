@@ -1,4 +1,4 @@
-@section('title', $isEdit ? 'Edit Lease' : 'Create Lease')
+@section('title', $form->isEdit ? 'Edit Lease' : 'Create Lease')
 
 <div class="space-y-5 sm:space-y-6">
     <!-- Breadcrumb Card -->
@@ -15,7 +15,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         <span
-                            class="text-gray-700 dark:text-gray-300">{{ $isEdit ? 'Edit Lease' : 'Create Lease' }}</span>
+                            class="text-gray-700 dark:text-gray-300">{{ $form->isEdit ? 'Edit Lease' : 'Create Lease' }}</span>
                     </li>
                 </ol>
             </nav>
@@ -38,7 +38,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Select Unit <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model="unit_id" id="unit_id"
+                            <select wire:model="form.unit_id" id="unit_id"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="">Choose a unit</option>
                                 @forelse ($this->availableUnits as $propertyName => $units)
@@ -59,7 +59,7 @@
                                     <option value="" disabled>No available units</option>
                                 @endforelse
                             </select>
-                            @error('unit_id')
+                            @error('form.unit_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -70,7 +70,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Select Tenant <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model="tenant_id" id="tenant_id"
+                            <select wire:model="form.tenant_id" id="tenant_id"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="">Choose a tenant</option>
                                 @foreach ($this->tenants as $tenant)
@@ -79,7 +79,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('tenant_id')
+                            @error('form.tenant_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -97,9 +97,9 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Lease Start Date <span class="text-red-500">*</span>
                             </label>
-                            <input type="date" wire:model="start_date" id="start_date"
+                            <input type="date" wire:model="form.start_date" id="start_date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('start_date')
+                            @error('form.start_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -110,9 +110,9 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Lease End Date
                             </label>
-                            <input type="date" wire:model="end_date" id="end_date"
+                            <input type="date" wire:model="form.end_date" id="end_date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('end_date')
+                            @error('form.end_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Leave blank for month-to-month
@@ -125,13 +125,13 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Lease Status <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model="status" id="status"
+                            <select wire:model="form.status" id="status"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="active">Active</option>
                                 <option value="expired">Expired</option>
                                 <option value="terminated">Terminated</option>
                             </select>
-                            @error('status')
+                            @error('form.status')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -149,10 +149,10 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Monthly Rent <span class="text-red-500">*</span>
                             </label>
-                            <input type="number" wire:model="rent_amount" id="rent_amount" step="0.01"
+                            <input type="number" wire:model="form.rent_amount" id="rent_amount" step="0.01"
                                 placeholder="0.00"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('rent_amount')
+                            @error('form.rent_amount')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -163,10 +163,10 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Monthly Service Charge
                             </label>
-                            <input type="number" wire:model="service_charge" id="service_charge" step="0.01"
+                            <input type="number" wire:model="form.service_charge" id="service_charge" step="0.01"
                                 placeholder="0.00"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('service_charge')
+                            @error('form.service_charge')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -177,25 +177,25 @@
                                 class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Security Deposit
                             </label>
-                            <input type="number" wire:model="security_deposit" id="security_deposit" step="0.01"
+                            <input type="number" wire:model="form.security_deposit" id="security_deposit" step="0.01"
                                 placeholder="0.00"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('security_deposit')
+                            @error('form.security_deposit')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
 
                     <!-- Total Monthly Amount Display -->
-                    @if ($rent_amount || $service_charge)
+                    @if ($form->rent_amount || $form->service_charge)
                         <div class="p-4 mt-4 rounded-lg bg-gray-50 dark:bg-gray-700">
                             <h5 class="text-sm font-medium text-gray-700 dark:text-gray-300">Monthly Total</h5>
                             <p class="text-lg font-semibold text-gray-900 dark:text-white">
-                                ৳{{ number_format((float) $rent_amount + (float) $service_charge, 2) }}
+                                ৳{{ number_format((float) $form->rent_amount + (float) $form->service_charge, 2) }}
                                 <span class="text-sm font-normal text-gray-500">
-                                    (Rent: ৳{{ number_format((float) $rent_amount, 2) }}
-                                    @if ($service_charge)
-                                        + Service: ৳{{ number_format((float) $service_charge, 2) }}
+                                    (Rent: ৳{{ number_format((float) $form->rent_amount, 2) }}
+                                    @if ($form->service_charge)
+                                        + Service: ৳{{ number_format((float) $form->service_charge, 2) }}
                                     @endif
                                     )
                                 </span>
@@ -213,8 +213,8 @@
                     <button type="submit"
                         class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         wire:loading.attr="disabled">
-                        <span wire:loading.remove>{{ $isEdit ? 'Update Lease' : 'Create Lease' }}</span>
-                        <span wire:loading>{{ $isEdit ? 'Updating...' : 'Creating...' }}</span>
+                        <span wire:loading.remove>{{ $form->isEdit ? 'Update Lease' : 'Create Lease' }}</span>
+                        <span wire:loading>{{ $form->isEdit ? 'Updating...' : 'Creating...' }}</span>
                     </button>
                 </div>
             </form>

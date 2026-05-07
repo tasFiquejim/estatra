@@ -1,4 +1,4 @@
-@section('title', $isEdit ? 'Edit Payment' : 'Record Payment')
+@section('title', $form->isEdit ? 'Edit Payment' : 'Record Payment')
 
 <div class="space-y-5 sm:space-y-6">
     <!-- Breadcrumb Card -->
@@ -13,7 +13,7 @@
                                 d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                 clip-rule="evenodd"></path>
                         </svg>
-                        <span class="text-gray-700 dark:text-gray-300">{{ $isEdit ? 'Edit Payment' : 'Record Payment' }}</span>
+                        <span class="text-gray-700 dark:text-gray-300">{{ $form->isEdit ? 'Edit Payment' : 'Record Payment' }}</span>
                     </li>
                 </ol>
             </nav>
@@ -35,7 +35,7 @@
                             <label for="lease_id" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Select Lease Agreement <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model.live="lease_id" id="lease_id"
+                            <select wire:model.live="form.lease_id" id="lease_id"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="">Choose a lease agreement</option>
                                 @foreach ($this->activeLeases as $lease)
@@ -44,7 +44,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            @error('lease_id')
+                            @error('form.lease_id')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -95,9 +95,9 @@
                             <label for="payment_date" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Payment Date <span class="text-red-500">*</span>
                             </label>
-                            <input type="date" wire:model="payment_date" id="payment_date"
+                            <input type="date" wire:model="form.payment_date" id="payment_date"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('payment_date')
+                            @error('form.payment_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -107,9 +107,9 @@
                             <label for="rent_period" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Rent Period (Month) <span class="text-red-500">*</span>
                             </label>
-                            <input type="month" wire:model="rent_period" id="rent_period"
+                            <input type="month" wire:model="form.rent_period" id="rent_period"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('rent_period')
+                            @error('form.rent_period')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Select the month for which rent is being paid</p>
@@ -120,9 +120,9 @@
                             <label for="amount_paid" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Amount Paid <span class="text-red-500">*</span>
                             </label>
-                            <input type="number" wire:model="amount_paid" id="amount_paid" step="0.01" placeholder="0.00"
+                            <input type="number" wire:model="form.amount_paid" id="amount_paid" step="0.01" placeholder="0.00"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
-                            @error('amount_paid')
+                            @error('form.amount_paid')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -132,14 +132,14 @@
                             <label for="payment_method" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Payment Method <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model="payment_method" id="payment_method"
+                            <select wire:model="form.payment_method" id="payment_method"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="cash">Cash</option>
                                 <option value="bank_transfer">Bank Transfer</option>
                                 <option value="mobile_payment">Mobile Payment (bKash/Nagad)</option>
                                 <option value="cheque">Cheque</option>
                             </select>
-                            @error('payment_method')
+                            @error('form.payment_method')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -149,13 +149,13 @@
                             <label for="status" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                                 Payment Status <span class="text-red-500">*</span>
                             </label>
-                            <select wire:model="status" id="status"
+                            <select wire:model="form.status" id="status"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <option value="paid">Paid in Full</option>
                                 <option value="partial">Partial Payment</option>
                                 <option value="unpaid">Unpaid</option>
                             </select>
-                            @error('status')
+                            @error('form.status')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -170,9 +170,9 @@
                         <label for="notes" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                             Notes
                         </label>
-                        <textarea wire:model="notes" id="notes" rows="4" placeholder="Any additional notes about this payment..."
+                        <textarea wire:model="form.notes" id="notes" rows="4" placeholder="Any additional notes about this payment..."
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
-                        @error('notes')
+                        @error('form.notes')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
@@ -187,8 +187,8 @@
                     <button type="submit"
                         class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         wire:loading.attr="disabled">
-                        <span wire:loading.remove>{{ $isEdit ? 'Update Payment' : 'Record Payment' }}</span>
-                        <span wire:loading>{{ $isEdit ? 'Updating...' : 'Recording...' }}</span>
+                        <span wire:loading.remove>{{ $form->isEdit ? 'Update Payment' : 'Record Payment' }}</span>
+                        <span wire:loading>{{ $form->isEdit ? 'Updating...' : 'Recording...' }}</span>
                     </button>
                 </div>
             </form>

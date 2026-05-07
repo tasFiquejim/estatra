@@ -10,6 +10,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 
@@ -51,8 +52,10 @@ class PropertyForm extends Component
     public function mount(Property $property): void
     {
         if (! $property?->exists) {
+            Gate::authorize('create', Property::class);
             return;
         }
+        Gate::authorize('update', $property);
         $this->property   = $property;
         $this->isEdit     = true;
         $this->fill([

@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Units')]
@@ -38,16 +39,18 @@ class UnitForm extends Component
     public function mount(Property $property, ?Unit $unit): void
     {
         $this->property = $property;
+        Gate::authorize('update', $property);
 
-        if ($unit->exists) {
+        if ($unit && $unit->exists) {
+            Gate::authorize('update', $unit);
             $this->unit = $unit;
             $this->isEdit = true;
             $this->fill([
                 'unit_name' => $unit->unit_name,
-                'floor_number' => $unit->floor_number ?? '',
-                'size' => $unit->size ?? '',
-                'notes' => $unit->notes ?? '',
-                'status' => $unit->status?->value ?? $this->status,
+                'floor_number' => $unit->floor_number,
+                'size' => $unit->size,
+                'notes' => $unit->notes,
+                'status' => $unit->status->value ?? $this->status,
             ]);
         }
     }

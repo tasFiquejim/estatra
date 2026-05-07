@@ -6,124 +6,86 @@ use App\Enums\LeaseStatus;
 use App\Models\Lease;
 use App\Models\Tenant;
 use App\Models\Unit;
-use Illuminate\Validation\Rule;
+use App\Livewire\Forms\LeaseFormObject;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
 class LeaseForm extends Component
 {
-    public ?Lease $lease = null;
-    public string $unit_id = '';
-    public string $tenant_id = '';
-    public string $start_date = '';
-    public string $end_date = '';
-    public string $security_deposit = '';
-    public string $rent_amount = '';
-    public string $service_charge = '';
-    public string $status = 'active';
+    public LeaseFormObject $form;
 
-    public bool $isEdit = false;
-
-    protected function rules()
-    {
-        $rules = [
-            'unit_id' => 'required|exists:units,id',
-            'tenant_id' => 'required|exists:tenants,id',
-            'start_date' => $this->isEdit
-                ? ['required', 'date']
-                : ['required', 'date', 'after_or_equal:today'],
-            'end_date' => 'nullable|date|after:start_date',
-            'security_deposit' => 'nullable|numeric|min:0',
-            'rent_amount' => 'required|numeric|min:0',
-            'service_charge' => 'nullable|numeric|min:0',
-            'status' => ['required', Rule::enum(LeaseStatus::class)],
-        ];
-        return $rules;
-    }
     public function title(): string
     {
-        return $this->isEdit ? 'Edit Lease' : 'Add New Lease';
+        return $this->form->isEdit ? 'Edit Lease' : 'Add New Lease';
     }
+
     public function mount(Lease $lease): void
     {
         if ($lease && $lease->exists) {
-            $this->lease = $lease;
-            $this->isEdit = true;
-            $this->fill([
-                'unit_id' => $lease->unit_id,
-                'tenant_id' => $lease->tenant_id,
-                'start_date' => $lease->start_date->format('Y-m-d'),
-                'end_date' => $lease->end_date?->format('Y-m-d') ?? '',
-                'security_deposit' => $lease->security_deposit ?? '',
-                'rent_amount' => $lease->rent_amount,
-                'service_charge' => $lease->service_charge ?? '',
-                'status' => $lease->status?->value ?? $this->status,
-            ]);
-        }
-    }
-
-    public function save()
-    {
-        $validated = $this->validate();
-
-        if (!$this->isEdit) {
-            $unit = Unit::find($validated['unit_id']);
-            if ($unit->status !== \App\Enums\UnitStatus::Available) {
-                $this->addError('unit_id', 'This unit is not available for lease.');
-                return;
-            }
-        }
-
-        if ($this->isEdit) {
-            $this->lease->update($validated);
-            $this->updateUnitStatus();
-            $message = 'Lease updated successfully!';
+            Gate::authorize('update', $lease);
+            $this->form->setLease($lease);
         } else {
-            Lease::create($validated);
-            Unit::find($validated['unit_id'])->update(['status' => \App\Enums\UnitStatus::Occupied]);
-            $message = 'Lease created successfully!';
+            Gate::authorize('create', Lease::class);
         }
-
-        session()->flash('success', $message);
-        return $this->redirect(route('lease.index'));
     }
 
-    private function updateUnitStatus(): void
+    public function save(\App\Services\LeaseService $leaseService)
     {
-        $unit = $this->lease->unit;
+        $validated = $this->form->validate();
 
-        if ($this->status === \App\Enums\LeaseStatus::Active->value) {
-            $unit->update(['status' => \App\Enums\UnitStatus::Occupied]);
-        } elseif (in_array($this->status, [\App\Enums\LeaseStatus::Expired->value, \App\Enums\LeaseStatus::Terminated->value])) {
-            $unit->update(['status' => \App\Enums\UnitStatus::Available]);
+        try {
+            if ($this->form->isEdit) {
+                $leaseService->updateLease($this->form->lease, $validated);
+                $message = 'Lease updated successfully!';
+            } else {
+                $leaseService->createLease($validated);
+                $message = 'Lease created successfully!';
+            }
+
+            session()->flash('success', $message);
+            return $this->redirect(route('lease.index'));
+        } catch (\Exception $e) {
+            $this->addError('form.unit_id', $e->getMessage());
         }
     }
+
     public function cancel()
     {
         return $this->redirect(route('lease.index'));
     }
+
     #[Computed]
     public function getAvailableUnitsProperty()
     {
-        if ($this->isEdit) {
+        $userId = auth()->id();
+
+        if ($this->form->isEdit) {
             return Unit::with('property')
+                ->whereHas('property', function ($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                })
                 ->where(function ($query) {
                     $query->where('status', \App\Enums\UnitStatus::Available)
-                        ->orWhere('id', $this->lease->unit_id);
+                        ->orWhere('id', $this->form->lease->unit_id);
                 })
                 ->get()
                 ->groupBy('property.property_name');
         }
 
         return Unit::with('property')
+            ->whereHas('property', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
             ->where('status', \App\Enums\UnitStatus::Available)
             ->get()
             ->groupBy('property.property_name');
     }
+
     #[Computed]
     public function getTenantsProperty()
     {
