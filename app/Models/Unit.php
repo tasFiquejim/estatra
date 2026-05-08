@@ -22,6 +22,17 @@ class Unit extends Model
         'status' => UnitStatus::class,
     ];
 
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->whereHas('property', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
+            });
+        }
+    }
+
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);

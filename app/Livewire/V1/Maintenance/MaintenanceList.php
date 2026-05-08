@@ -21,10 +21,6 @@ class MaintenanceList extends Component
     {
         $query = MaintenanceLog::with(['property', 'unit']);
 
-        $query->whereHas('property', function ($q) {
-            $q->forUser(auth()->id());
-        });
-
         $query = $this->applyAdvancedSearch($query, [
             ['field' => 'issue_description'],
             ['field' => 'status'],

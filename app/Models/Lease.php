@@ -26,6 +26,17 @@ class Lease extends Model
         'end_date' => 'datetime',
         'status' => LeaseStatus::class,
     ];
+
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->whereHas('unit.property', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
+            });
+        }
+    }
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = $value ?: null;

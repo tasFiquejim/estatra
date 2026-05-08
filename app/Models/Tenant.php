@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Tenant extends Model
 {
     protected $fillable = [
+        'user_id',
         'first_name',
         'last_name',
         'email',
@@ -18,6 +19,15 @@ class Tenant extends Model
         'emergency_contact',
         'family_members',
     ];
+
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->where('user_id', auth()->id());
+            });
+        }
+    }
 
     public function leases(): HasMany
     {

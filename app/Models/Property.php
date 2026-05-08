@@ -27,6 +27,15 @@ class Property extends Model
         'status' => PropertyStatus::class,
     ];
 
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->where('user_id', auth()->id());
+            });
+        }
+    }
+
     /**
      * Get the user that owns the property.
      */

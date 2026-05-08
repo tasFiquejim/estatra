@@ -116,6 +116,7 @@ class DemoSeeder extends Seeder
         $tenants = [];
         foreach ($tenantData as $data) {
             $tenants[] = Tenant::create(array_merge($data, [
+                'user_id'           => $user->id,
                 'national_id'       => fake()->numerify('##########'),
                 'address'           => fake()->address(),
                 'emergency_contact' => fake()->name() . ' (' . fake()->phoneNumber() . ')',

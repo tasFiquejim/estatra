@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TenantFactory extends Factory
@@ -12,6 +13,7 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         return [
+            'user_id'           => User::factory(),
             'first_name'        => $this->faker->firstName(),
             'last_name'         => $this->faker->lastName(),
             'email'             => $this->faker->unique()->safeEmail(),

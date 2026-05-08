@@ -35,7 +35,7 @@ class PropertyList extends Component
     #[Computed]
     public function properties()
     {
-        $query = Property::query()->forUser(auth()->id());
+        $query = Property::query();
 
         $query = $this->applySearch($query, ['property_name', 'address']);
         $query = $this->applySorting($query);

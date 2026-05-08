@@ -28,6 +28,17 @@ class Payment extends Model
         'payment_method' => PaymentMethod::class,
     ];
 
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->whereHas('lease.unit.property', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
+            });
+        }
+    }
+
     public function lease(): BelongsTo
     {
         return $this->belongsTo(Lease::class);

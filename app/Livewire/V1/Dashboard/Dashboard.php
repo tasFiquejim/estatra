@@ -22,21 +22,19 @@ class Dashboard extends Component
     #[Computed]
     public function totalProperties(): int
     {
-        return Property::forUser(auth()->id())->count();
+        return Property::count();
     }
 
     #[Computed]
     public function totalUnits(): int
     {
-        return Unit::whereHas('property', fn($q) => $q->forUser(auth()->id()))->count();
+        return Unit::count();
     }
 
     #[Computed]
     public function occupiedUnits(): int
     {
-        return Unit::whereHas('property', fn($q) => $q->forUser(auth()->id()))
-            ->where('status', UnitStatus::Occupied)
-            ->count();
+        return Unit::where('status', UnitStatus::Occupied)->count();
     }
 
     #[Computed]
@@ -51,16 +49,13 @@ class Dashboard extends Component
     #[Computed]
     public function activeTenantsCount(): int
     {
-        return Lease::whereHas('unit.property', fn($q) => $q->forUser(auth()->id()))
-            ->where('status', LeaseStatus::Active)
-            ->count();
+        return Lease::where('status', LeaseStatus::Active)->count();
     }
 
     #[Computed]
     public function monthlyIncome(): float
     {
-        return (float) Payment::whereHas('lease.unit.property', fn($q) => $q->forUser(auth()->id()))
-            ->whereMonth('payment_date', now()->month)
+        return (float) Payment::whereMonth('payment_date', now()->month)
             ->whereYear('payment_date', now()->year)
             ->sum('amount_paid');
     }
@@ -68,8 +63,7 @@ class Dashboard extends Component
     #[Computed]
     public function monthlyExpenses(): float
     {
-        return (float) PropertyExpense::whereHas('property', fn($q) => $q->forUser(auth()->id()))
-            ->whereMonth('expense_date', now()->month)
+        return (float) PropertyExpense::whereMonth('expense_date', now()->month)
             ->whereYear('expense_date', now()->year)
             ->sum('amount');
     }
@@ -84,7 +78,6 @@ class Dashboard extends Component
     public function expiringSoonLeases()
     {
         return Lease::with(['unit.property', 'tenant'])
-            ->whereHas('unit.property', fn($q) => $q->forUser(auth()->id()))
             ->where('status', LeaseStatus::Active)
             ->whereNotNull('end_date')
             ->whereBetween('end_date', [now(), now()->addDays(30)])
@@ -96,7 +89,6 @@ class Dashboard extends Component
     public function recentPayments()
     {
         return Payment::with(['lease.tenant', 'lease.unit.property'])
-            ->whereHas('lease.unit.property', fn($q) => $q->forUser(auth()->id()))
             ->latest('payment_date')
             ->limit(5)
             ->get();

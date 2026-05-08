@@ -28,6 +28,17 @@ class MaintenanceLog extends Model
         'status'           => MaintenanceStatus::class,
     ];
 
+    protected static function booted(): void
+    {
+        if (auth()->check()) {
+            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
+                $builder->whereHas('property', function ($query) {
+                    $query->where('user_id', auth()->id());
+                });
+            });
+        }
+    }
+
     // Mutators for nullable fields
     public function setUnitIdAttribute($value)
     {

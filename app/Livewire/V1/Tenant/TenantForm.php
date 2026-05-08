@@ -80,6 +80,7 @@ class TenantForm extends Component
             $this->tenant->update($validated);
             $message = 'Tenant updated successfully!';
         } else {
+            $validated['user_id'] = auth()->id();
             Tenant::create($validated);
             $message = 'Tenant created successfully!';
         }
