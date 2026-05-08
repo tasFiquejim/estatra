@@ -40,13 +40,24 @@ npm install
 cp .env.example .env
 php artisan key:generate
 
-# Run migrations
-php artisan migrate
+# Run migrations and seed demo data
+php artisan migrate --seed
 
 # Start development server
 php artisan serve
 npm run dev
 ```
+
+## 🔑 Demo Credentials
+
+After seeding, log in with the pre-created demo account:
+
+| Field    | Value                |
+|----------|----------------------|
+| Email    | `demo@estatra.com`   |
+| Password | `password`           |
+
+The demo account includes **3 properties**, **12 units**, **8 active tenants**, **3 months of rent history**, and maintenance/expense records — ready to explore all features.
 
 ## 🛠️ Built With
 

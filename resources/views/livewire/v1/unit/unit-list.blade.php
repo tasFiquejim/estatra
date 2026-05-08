@@ -152,7 +152,7 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                    @if ($unit->status === 'available')
+                                    @if ($unit->status === \App\Enums\UnitStatus::Available)
                                         <span
                                             class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">
                                             <svg class="mr-1.5 h-2 w-2 fill-green-500" viewBox="0 0 6 6">
@@ -160,7 +160,7 @@
                                             </svg>
                                             Available
                                         </span>
-                                    @elseif($unit->status === 'occupied')
+                                    @elseif($unit->status === \App\Enums\UnitStatus::Occupied)
                                         <span
                                             class="inline-flex items-center rounded-full bg-blue-100 px-2.5 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
                                             <svg class="mr-1.5 h-2 w-2 fill-blue-500" viewBox="0 0 6 6">
@@ -168,7 +168,7 @@
                                             </svg>
                                             Occupied
                                         </span>
-                                    @elseif($unit->status === 'maintenance')
+                                    @elseif($unit->status === \App\Enums\UnitStatus::Maintenance)
                                         <span
                                             class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
                                             <svg class="mr-1.5 h-2 w-2 fill-yellow-500" viewBox="0 0 6 6">

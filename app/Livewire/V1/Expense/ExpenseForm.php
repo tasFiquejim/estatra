@@ -8,6 +8,7 @@ use Livewire\Attributes\Title;
 use App\Models\PropertyExpense;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 
@@ -40,7 +41,10 @@ class ExpenseForm extends Component
         $this->expense_date = now()->format('Y-m-d');
         $this->propertyExpense = $propertyExpense;
         if ($propertyExpense && $propertyExpense->exists) {
+            Gate::authorize('update', $propertyExpense);
             $this->initializeForEdit($propertyExpense);
+        } else {
+            Gate::authorize('create', PropertyExpense::class);
         }
     }
 

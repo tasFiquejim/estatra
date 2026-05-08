@@ -104,7 +104,7 @@
                         Status
                     </h4>
                     <div class="flex items-center">
-                        @if ($property->status === 'active')
+                        @if ($property->status === \App\Enums\PropertyStatus::Active)
                             <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">
                                 <svg class="mr-1.5 h-2 w-2 fill-green-500" viewBox="0 0 6 6">
                                     <circle cx="3" cy="3" r="3" />

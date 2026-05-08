@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\MaintenanceStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -21,9 +22,10 @@ class MaintenanceLog extends Model
 
     protected $casts = [
         'maintenance_date' => 'date',
-        'product_cost' => 'decimal:2',
-        'service_cost' => 'decimal:2',
-        'total_cost' => 'decimal:2',
+        'product_cost'     => 'decimal:2',
+        'service_cost'     => 'decimal:2',
+        'total_cost'       => 'decimal:2',
+        'status'           => MaintenanceStatus::class,
     ];
 
     // Mutators for nullable fields
@@ -63,15 +65,13 @@ class MaintenanceLog extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    // Helper methods
-    public static function getStatuses()
+    // Use MaintenanceStatus::cases() to get all statuses
+    /** @deprecated Use MaintenanceStatus enum directly */
+    public static function getStatuses(): array
     {
-        return [
-            'pending' => 'Pending',
-            'in_progress' => 'In Progress',
-            'completed' => 'Completed',
-            'on_hold' => 'On Hold'
-        ];
+        return collect(MaintenanceStatus::cases())
+            ->mapWithKeys(fn($case) => [$case->value => $case->label()])
+            ->all();
     }
 
     public function calculateTotalCost()

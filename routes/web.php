@@ -15,6 +15,7 @@ use App\Livewire\V1\Property\PropertyForm;
 use App\Livewire\V1\Property\PropertyList;
 use App\Livewire\V1\Property\PropertyShow;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiptController;
 use App\Livewire\V1\Maintenance\MaintenanceForm;
 use App\Livewire\V1\Maintenance\MaintenanceList;
 
@@ -44,8 +45,9 @@ Route::middleware(['auth'])
         Route::get('/leases/{lease}/edit', LeaseForm::class)->name('lease.edit');
 
         Route::get('/payments', PaymentList::class)->name('payment.index');
-        Route::get('/paymets/create', PaymentForm::class)->name('payment.create');
+        Route::get('/payments/create', PaymentForm::class)->name('payment.create');
         Route::get('payments/{payment}/edit', PaymentForm::class)->name('payment.edit');
+        Route::get('payments/{payment}/receipt', [ReceiptController::class, 'download'])->name('payment.receipt');
 
         Route::get('/expenses', ExpenseList::class)->name('expense.index');
         Route::get('/expenses/create', ExpenseForm::class)->name('expense.create');

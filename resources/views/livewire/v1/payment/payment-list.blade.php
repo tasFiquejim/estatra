@@ -2,7 +2,7 @@
 
 <div class="space-y-5 sm:space-y-6">
     <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-        
+
         <!-- Header Section -->
         <div class="px-5 py-4 sm:px-6 sm:py-5">
             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -119,7 +119,8 @@
                                                 class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-lg dark:bg-gray-800">
                                                 <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v2a2 2 0 002 2z" />
                                                 </svg>
                                             </div>
@@ -168,7 +169,8 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        <div class="font-medium text-gray-900 dark:text-white">{{ $payment->payment_date->format('M j, Y') }}</div>
+                                        <div class="font-medium text-gray-900 dark:text-white">
+                                            {{ $payment->payment_date->format('M j, Y') }}</div>
                                         <div class="text-xs text-gray-500">
                                             {{ $payment->payment_date->format('D') }}
                                         </div>
@@ -177,29 +179,29 @@
                                         <div class="space-y-2">
                                             <span
                                                 class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium 
-                                                {{ $payment->payment_method === 'cash'
+                                                {{ $payment->payment_method === \App\Enums\PaymentMethod::Cash
                                                     ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
-                                                    : ($payment->payment_method === 'bank_transfer'
+                                                    : ($payment->payment_method === \App\Enums\PaymentMethod::BankTransfer
                                                         ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                                                        : ($payment->payment_method === 'mobile_payment'
+                                                        : ($payment->payment_method === \App\Enums\PaymentMethod::MobilePayment
                                                             ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
                                                             : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300')) }}">
-                                                {{ str_replace('_', ' ', ucfirst($payment->payment_method)) }}
+                                                {{ str_replace('_', ' ', ucfirst($payment->payment_method->value)) }}
                                             </span>
                                             <div>
                                                 <span
                                                     class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-                                                    {{ $payment->status === 'paid'
+                                                    {{ $payment->status === \App\Enums\PaymentStatus::Paid
                                                         ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                                                        : ($payment->status === 'partial'
+                                                        : ($payment->status === \App\Enums\PaymentStatus::Partial
                                                             ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
                                                             : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300') }}">
-                                                    @if ($payment->status === 'paid')
+                                                    @if ($payment->status === \App\Enums\PaymentStatus::Paid)
                                                         <svg class="w-2 h-2 mr-1 fill-green-500" viewBox="0 0 6 6">
                                                             <circle cx="3" cy="3" r="3" />
                                                         </svg>
                                                         Paid
-                                                    @elseif($payment->status === 'partial')
+                                                    @elseif($payment->status === \App\Enums\PaymentStatus::Partial)
                                                         <svg class="w-2 h-2 mr-1 fill-yellow-500" viewBox="0 0 6 6">
                                                             <circle cx="3" cy="3" r="3" />
                                                         </svg>
@@ -221,11 +223,24 @@
                                                 class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-gray-200 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-600">
                                                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
                                                     viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
                                                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
                                                 Edit
                                             </a>
+                                            @if ($payment->receipt_number)
+                                                <a href="{{ route('payment.receipt', $payment) }}" target="_blank"
+                                                    class="inline-flex items-center rounded-lg border border-blue-300 bg-blue-50 px-3 py-1.5 text-xs font-medium text-blue-700 hover:bg-blue-100 focus:outline-hidden focus:ring-2 focus:ring-blue-200 dark:border-blue-800 dark:bg-blue-500/10 dark:text-blue-400 dark:hover:bg-blue-500/20">
+                                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                    </svg>
+                                                    Receipt
+                                                </a>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -240,7 +255,8 @@
                                             </svg>
                                             <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No payment records
                                                 found.</p>
-                                            <p class="mt-1 text-xs text-gray-400">Record your first payment to get started.
+                                            <p class="mt-1 text-xs text-gray-400">Record your first payment to get
+                                                started.
                                             </p>
                                         </div>
                                     </td>

@@ -183,7 +183,7 @@
                                                     ? now()->diffInDays($lease->end_date, false)
                                                     : null;
                                             @endphp
-                                            @if ($lease->status === 'active' && $daysRemaining !== null)
+                                            @if ($lease->status === \App\Enums\LeaseStatus::Active && $daysRemaining !== null)
                                                 <div
                                                     class="text-xs {{ $daysRemaining < 30 ? 'text-orange-600' : 'text-gray-400' }}">
                                                     @if ($daysRemaining > 0)
@@ -211,17 +211,17 @@
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         <span
                                             class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-                                            {{ $lease->status === 'active'
+                                            {{ $lease->status === \App\Enums\LeaseStatus::Active
                                                 ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                                                : ($lease->status === 'expired'
+                                                : ($lease->status === \App\Enums\LeaseStatus::Expired
                                                     ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
                                                     : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300') }}">
-                                            @if ($lease->status === 'active')
+                                            @if ($lease->status === \App\Enums\LeaseStatus::Active)
                                                 <svg class="mr-1.5 h-2 w-2 fill-green-500" viewBox="0 0 6 6">
                                                     <circle cx="3" cy="3" r="3" />
                                                 </svg>
                                                 Active
-                                            @elseif($lease->status === 'expired')
+                                            @elseif($lease->status === \App\Enums\LeaseStatus::Expired)
                                                 <svg class="mr-1.5 h-2 w-2 fill-red-500" viewBox="0 0 6 6">
                                                     <circle cx="3" cy="3" r="3" />
                                                 </svg>

@@ -19,8 +19,6 @@ class Lease extends Model
         'tenant_id',
         'unit_id',
         'property_id',
-        'payment_frequency',
-        'notes',
     ];
 
     protected $casts = [

@@ -147,24 +147,24 @@
                                             </div>
                                             <span
                                                 class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium
-                                        {{ $maintenance->status === 'completed'
+                                        {{ $maintenance->status === \App\Enums\MaintenanceStatus::Completed
                                             ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
-                                            : ($maintenance->status === 'in_progress'
+                                            : ($maintenance->status === \App\Enums\MaintenanceStatus::InProgress
                                                 ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
-                                                : ($maintenance->status === 'scheduled'
+                                                : ($maintenance->status === \App\Enums\MaintenanceStatus::Scheduled
                                                     ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
                                                     : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300')) }}">
-                                                @if ($maintenance->status === 'completed')
+                                                @if ($maintenance->status === \App\Enums\MaintenanceStatus::Completed)
                                                     <svg class="mr-1.5 h-2 w-2 fill-green-500" viewBox="0 0 6 6">
                                                         <circle cx="3" cy="3" r="3" />
                                                     </svg>
                                                     Completed
-                                                @elseif($maintenance->status === 'in_progress')
+                                                @elseif($maintenance->status === \App\Enums\MaintenanceStatus::InProgress)
                                                     <svg class="mr-1.5 h-2 w-2 fill-blue-500" viewBox="0 0 6 6">
                                                         <circle cx="3" cy="3" r="3" />
                                                     </svg>
                                                     In Progress
-                                                @elseif($maintenance->status === 'scheduled')
+                                                @elseif($maintenance->status === \App\Enums\MaintenanceStatus::Scheduled)
                                                     <svg class="mr-1.5 h-2 w-2 fill-yellow-500" viewBox="0 0 6 6">
                                                         <circle cx="3" cy="3" r="3" />
                                                     </svg>

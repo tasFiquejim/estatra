@@ -10,6 +10,7 @@ use App\Models\MaintenanceLog;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 
@@ -54,7 +55,10 @@ class MaintenanceForm extends Component
         $this->maintenanceLog = $maintenanceLog;
 
         if ($maintenanceLog->exists) {
+            Gate::authorize('update', $maintenanceLog);
             $this->initializeForEdit($maintenanceLog);
+        } else {
+            Gate::authorize('create', MaintenanceLog::class);
         }
     }
     public function initializeForEdit(MaintenanceLog $maintenanceLog)

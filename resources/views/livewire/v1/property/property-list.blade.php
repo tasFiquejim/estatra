@@ -165,7 +165,7 @@
                                         <div class="font-medium text-gray-900 text-center dark:text-white">{{ $property->units->count() }}</div>
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        @if ($property->status === 'active')
+                                        @if ($property->status === \App\Enums\PropertyStatus::Active)
                                             <span
                                                 class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-300">
                                                 <svg class="mr-1.5 h-2 w-2 fill-green-500" viewBox="0 0 6 6">
