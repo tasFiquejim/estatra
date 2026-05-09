@@ -6,7 +6,7 @@ use App\Models\PropertyExpense;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ExpensePolicy
+class PropertyExpensePolicy
 {
     use HandlesAuthorization;
 

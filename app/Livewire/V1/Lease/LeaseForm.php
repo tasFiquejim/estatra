@@ -3,15 +3,16 @@
 namespace App\Livewire\V1\Lease;
 
 use App\Enums\LeaseStatus;
+use App\Livewire\Forms\LeaseFormObject;
 use App\Models\Lease;
 use App\Models\Tenant;
 use App\Models\Unit;
-use App\Livewire\Forms\LeaseFormObject;
+use App\Services\LeaseService;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
@@ -34,7 +35,7 @@ class LeaseForm extends Component
         }
     }
 
-    public function save(\App\Services\LeaseService $leaseService)
+    public function save(LeaseService $leaseService)
     {
         $validated = $this->form->validate();
 
