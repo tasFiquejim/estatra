@@ -26,7 +26,7 @@ class ReceiptService
             'payment' => $payment,
         ])->setPaper('a4', 'portrait');
 
-        $filename = 'receipt-' . $payment->receipt_number . '.pdf';
+        $filename = 'receipt-'.$payment->receipt_number.'.pdf';
 
         return $pdf->download($filename);
     }

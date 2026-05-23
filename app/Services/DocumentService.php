@@ -21,7 +21,7 @@ class DocumentService
         Gate::authorize('view', $payment);
 
         $data = [
-            'payment' => $payment->load(['lease.tenant', 'lease.unit.property'])
+            'payment' => $payment->load(['lease.tenant', 'lease.unit.property']),
         ];
 
         return Pdf::loadView('pdf.receipt', $data);
@@ -44,7 +44,7 @@ class DocumentService
 
         $totalIncome = $payments->sum('amount_paid');
         $totalExpenses = $expenses->sum('amount');
-        
+
         $totalUnits = Unit::count();
         $activeLeases = Lease::where('status', LeaseStatus::Active)->count();
         $occupancyRate = $totalUnits > 0 ? round(($activeLeases / $totalUnits) * 100) : 0;
@@ -58,7 +58,7 @@ class DocumentService
             'monthName' => date('F', mktime(0, 0, 0, $month, 10)),
             'year' => $year,
             'activeTenants' => $activeLeases,
-            'occupancyRate' => $occupancyRate
+            'occupancyRate' => $occupancyRate,
         ];
 
         return Pdf::loadView('pdf.owner_statement', $data);

@@ -19,7 +19,7 @@ class LeaseServiceTest extends TestCase
     {
         $unit = Unit::factory()->occupied()->create();
         $tenant = Tenant::factory()->create();
-        $service = new LeaseService();
+        $service = new LeaseService;
 
         $leaseData = [
             'unit_id' => $unit->id,
@@ -33,11 +33,12 @@ class LeaseServiceTest extends TestCase
 
         $service->createLease($leaseData);
     }
+
     public function test_it_creates_a_lease_and_updates_unit_status(): void
     {
         $unit = Unit::factory()->available()->create();
         $tenant = Tenant::factory()->create();
-        $service = new LeaseService();
+        $service = new LeaseService;
 
         $leaseData = [
             'unit_id' => $unit->id,

@@ -22,10 +22,10 @@ class MaintenanceLog extends Model
 
     protected $casts = [
         'maintenance_date' => 'date',
-        'product_cost'     => 'decimal:2',
-        'service_cost'     => 'decimal:2',
-        'total_cost'       => 'decimal:2',
-        'status'           => MaintenanceStatus::class,
+        'product_cost' => 'decimal:2',
+        'service_cost' => 'decimal:2',
+        'total_cost' => 'decimal:2',
+        'status' => MaintenanceStatus::class,
     ];
 
     protected static function booted(): void
@@ -81,7 +81,7 @@ class MaintenanceLog extends Model
     public static function getStatuses(): array
     {
         return collect(MaintenanceStatus::cases())
-            ->mapWithKeys(fn($case) => [$case->value => $case->label()])
+            ->mapWithKeys(fn ($case) => [$case->value => $case->label()])
             ->all();
     }
 

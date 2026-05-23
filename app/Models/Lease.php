@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\LeaseStatus;
-use App\Models\Tenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Lease extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'start_date',
         'end_date',
@@ -39,6 +39,7 @@ class Lease extends Model
             });
         }
     }
+
     public function setEndDateAttribute($value)
     {
         $this->attributes['end_date'] = $value ?: null;
@@ -47,11 +48,13 @@ class Lease extends Model
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
-    }   
+    }
+
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
     }
+
     public function payments(): HasMany
     {
         return $this->hasMany(Payment::class);

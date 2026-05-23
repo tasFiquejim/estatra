@@ -1,23 +1,23 @@
 <?php
 
-use App\Livewire\V1\Unit\UnitForm;
-use App\Livewire\V1\Lease\LeaseForm;
-use App\Livewire\V1\Lease\LeaseList;
-use Illuminate\Support\Facades\Route;
-use App\Livewire\V1\Tenant\TenantForm;
-use App\Livewire\V1\Tenant\TenantList;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReceiptController;
 use App\Livewire\V1\Dashboard\Dashboard;
 use App\Livewire\V1\Expense\ExpenseForm;
 use App\Livewire\V1\Expense\ExpenseList;
+use App\Livewire\V1\Lease\LeaseForm;
+use App\Livewire\V1\Lease\LeaseList;
+use App\Livewire\V1\Maintenance\MaintenanceForm;
+use App\Livewire\V1\Maintenance\MaintenanceList;
 use App\Livewire\V1\Payment\PaymentForm;
 use App\Livewire\V1\Payment\PaymentList;
 use App\Livewire\V1\Property\PropertyForm;
 use App\Livewire\V1\Property\PropertyList;
 use App\Livewire\V1\Property\PropertyShow;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ReceiptController;
-use App\Livewire\V1\Maintenance\MaintenanceForm;
-use App\Livewire\V1\Maintenance\MaintenanceList;
+use App\Livewire\V1\Tenant\TenantForm;
+use App\Livewire\V1\Tenant\TenantList;
+use App\Livewire\V1\Unit\UnitForm;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -64,4 +64,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

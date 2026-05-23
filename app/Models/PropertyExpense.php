@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PropertyExpense extends Model
@@ -37,19 +37,21 @@ class PropertyExpense extends Model
     {
         return $this->belongsTo(Property::class);
     }
+
     public function invoiceNumber(): Attribute
     {
         return Attribute::make(
-            set: fn($value) => empty($value) ? null : $value,
+            set: fn ($value) => empty($value) ? null : $value,
         );
     }
 
     public function description(): Attribute
     {
         return Attribute::make(
-            set: fn($value) => empty($value) ? null : $value,
+            set: fn ($value) => empty($value) ? null : $value,
         );
     }
+
     public static function getCategories()
     {
         return [
@@ -61,7 +63,7 @@ class PropertyExpense extends Model
             'taxes' => 'Property Taxes',
             'water' => 'Water Bill',
             'electricity' => 'Electricity Bill',
-            'other' => 'Other'
+            'other' => 'Other',
         ];
     }
 }

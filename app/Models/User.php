@@ -48,6 +48,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     /**
      * Get the properties for the user.
      */

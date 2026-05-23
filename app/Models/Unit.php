@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Unit extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'property_id',
         'unit_name',
@@ -44,7 +45,7 @@ class Unit extends Model
     {
         return $this->hasMany(Lease::class);
     }
-    
+
     public function scopeisAvailable($query)
     {
         return $query->where('status', \App\Enums\UnitStatus::Available);

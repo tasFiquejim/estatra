@@ -9,7 +9,6 @@ use App\Models\Payment;
 use App\Models\Property;
 use App\Models\PropertyExpense;
 use App\Models\Unit;
-use Carbon\Carbon;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -41,7 +40,9 @@ class Dashboard extends Component
     public function occupancyRate(): float
     {
         $total = $this->totalUnits;
-        if ($total === 0) return 0;
+        if ($total === 0) {
+            return 0;
+        }
 
         return round(($this->occupiedUnits / $total) * 100, 1);
     }

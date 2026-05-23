@@ -3,17 +3,16 @@
 namespace App\Livewire\V1\Payment;
 
 use App\Models\Payment;
-use Livewire\Component;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Computed;
 use App\Traits\HasSortingAndSearch;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
 #[Title('Payments')]
 class PaymentList extends Component
-
 {
     use HasSortingAndSearch;
 
@@ -32,6 +31,7 @@ class PaymentList extends Component
         ]);
 
         $query = $this->applySorting($query);
+
         return $query->paginate(10);
     }
 

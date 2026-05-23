@@ -2,15 +2,15 @@
 
 namespace App\Livewire\V1\Maintenance;
 
-use App\Models\Unit;
-use Livewire\Component;
-use App\Models\Property;
-use Livewire\WithFileUploads;
 use App\Models\MaintenanceLog;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Computed;
+use App\Models\Property;
+use App\Models\Unit;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 #[Layout('layouts.app')]
 
@@ -22,13 +22,21 @@ class MaintenanceForm extends Component
     public ?MaintenanceLog $maintenanceLog = null;
 
     public string $property_id = '';
+
     public string $unit_id = '';
+
     public string $maintenance_date = '';
+
     public string $issue_description = '';
+
     public string $product_cost = '';
+
     public string $service_cost = '';
+
     public string $total_cost = '';
+
     public string $status = 'pending';
+
     public $photo;
 
     public bool $isEdit = false;
@@ -61,6 +69,7 @@ class MaintenanceForm extends Component
             Gate::authorize('create', MaintenanceLog::class);
         }
     }
+
     public function initializeForEdit(MaintenanceLog $maintenanceLog)
     {
         $this->isEdit = true;
@@ -75,6 +84,7 @@ class MaintenanceForm extends Component
             'status' => $maintenanceLog->status,
         ]);
     }
+
     public function updatedPropertyId($value)
     {
         $this->unit_id = '';
@@ -119,6 +129,7 @@ class MaintenanceForm extends Component
         }
 
         session()->flash('success', $message);
+
         return $this->redirect(route('maintenance.index'));
     }
 
@@ -144,7 +155,7 @@ class MaintenanceForm extends Component
     #[Computed]
     public function units()
     {
-        if (!$this->property_id) {
+        if (! $this->property_id) {
             return collect();
         }
 

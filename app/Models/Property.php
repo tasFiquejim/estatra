@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Property extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'property_name',
@@ -45,6 +46,7 @@ class Property extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
     public function units(): HasMany
     {
         return $this->hasMany(Unit::class);

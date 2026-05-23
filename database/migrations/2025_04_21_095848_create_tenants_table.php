@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('emergency_contact')->nullable();
             $table->integer('family_members')->nullable();
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

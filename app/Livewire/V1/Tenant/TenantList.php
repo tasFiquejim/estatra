@@ -3,11 +3,11 @@
 namespace App\Livewire\V1\Tenant;
 
 use App\Models\Tenant;
-use Livewire\Component;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Computed;
 use App\Traits\HasSortingAndSearch;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
@@ -22,16 +22,16 @@ class TenantList extends Component
         try {
             $tenant->delete();
             $this->dispatch('tenant-deleted', [
-                'message' => 'Tenant deleted successfully!'
+                'message' => 'Tenant deleted successfully!',
             ]);
         } catch (\Exception $e) {
             $this->dispatch('tenant-error', [
-                'message' => 'Failed to delete tenant. Please try again.'
+                'message' => 'Failed to delete tenant. Please try again.',
             ]);
         }
     }
-    #[Computed]
 
+    #[Computed]
     public function tenants()
     {
         $query = Tenant::query();

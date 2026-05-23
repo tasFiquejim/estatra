@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('service_charge', 10, 2)->nullable();
             $table->string('status')->default('active');
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

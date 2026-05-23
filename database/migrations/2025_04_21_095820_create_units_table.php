@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('floor_number')->nullable();
             $table->float('size')->nullable();
             $table->text('notes')->nullable();
-            $table->string('status')->default('available')->index();;
+            $table->string('status')->default('available')->index();
             $table->timestamps();
         });
     }

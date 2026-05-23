@@ -13,16 +13,16 @@ class TenantFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'           => User::factory(),
-            'first_name'        => $this->faker->firstName(),
-            'last_name'         => $this->faker->lastName(),
-            'email'             => $this->faker->unique()->safeEmail(),
-            'phone'             => $this->faker->phoneNumber(),
-            'occupation'        => $this->faker->jobTitle(),
-            'national_id'       => $this->faker->numerify('##########'),
-            'address'           => $this->faker->streetAddress() . ', ' . $this->faker->city(),
-            'emergency_contact' => $this->faker->name() . ' (' . $this->faker->phoneNumber() . ')',
-            'family_members'    => $this->faker->numberBetween(1, 5),
+            'user_id' => User::factory(),
+            'first_name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone' => $this->faker->phoneNumber(),
+            'occupation' => $this->faker->jobTitle(),
+            'national_id' => $this->faker->numerify('##########'),
+            'address' => $this->faker->streetAddress().', '.$this->faker->city(),
+            'emergency_contact' => $this->faker->name().' ('.$this->faker->phoneNumber().')',
+            'family_members' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

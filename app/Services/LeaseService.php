@@ -6,8 +6,8 @@ use App\Enums\LeaseStatus;
 use App\Enums\UnitStatus;
 use App\Models\Lease;
 use App\Models\Unit;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use Illuminate\Support\Facades\DB;
 
 class LeaseService
 {

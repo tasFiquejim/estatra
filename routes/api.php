@@ -10,6 +10,6 @@ Route::get('/user', function (Request $request) {
 
 Route::get('payments', function () {
     return response()->json(
-      Payment::paginate(15) 
+        Payment::paginate(15)
     );
 });

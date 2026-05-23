@@ -2,15 +2,13 @@
 
 namespace App\Livewire\V1\Lease;
 
-use App\Enums\UnitStatus;
 use App\Models\Lease;
 use App\Traits\HasSortingAndSearch;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Livewire\WithPagination;
-use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Leases')]
@@ -24,11 +22,11 @@ class LeaseList extends Component
         try {
             $leaseService->deleteLease($lease);
             $this->dispatch('lease-deleted', [
-                'message' => 'Lease deleted successfully!'
+                'message' => 'Lease deleted successfully!',
             ]);
         } catch (\Exception $e) {
             $this->dispatch('lease-error', [
-                'message' => 'Failed to delete lease. Please try again.'
+                'message' => 'Failed to delete lease. Please try again.',
             ]);
         }
     }
@@ -41,10 +39,11 @@ class LeaseList extends Component
         $query = $this->applyAdvancedSearch($query, [
             ['field' => 'status'],
             ['relation' => 'tenant', 'fields' => ['first_name', 'last_name']],
-            ['relation' => 'unit.property', 'fields' => ['property_name']]
+            ['relation' => 'unit.property', 'fields' => ['property_name']],
         ]);
 
         $query = $this->applySorting($query);
+
         return $query->paginate(10);
     }
 

@@ -14,7 +14,7 @@ class PropertyFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'       => User::factory(),
+            'user_id' => User::factory(),
             'property_name' => $this->faker->randomElement([
                 'Sunrise Apartments',
                 'Green Valley Residences',
@@ -23,15 +23,15 @@ class PropertyFactory extends Factory
                 'Elm Street Flats',
                 'Harmony Heights',
                 'City View Complex',
-            ]) . ' ' . $this->faker->buildingNumber(),
-            'description'      => $this->faker->sentence(10),
-            'property_type'    => $this->faker->randomElement(['apartment', 'house', 'commercial', 'duplex']),
-            'address'          => $this->faker->streetAddress(),
-            'city'             => $this->faker->randomElement(['Dhaka', 'Chittagong', 'Sylhet', 'Rajshahi']),
-            'state'            => $this->faker->randomElement(['Dhaka Division', 'Chattogram Division', 'Sylhet Division']),
-            'zip_code'         => $this->faker->postcode(),
-            'country'          => 'Bangladesh',
-            'status'           => PropertyStatus::Active,
+            ]).' '.$this->faker->buildingNumber(),
+            'description' => $this->faker->sentence(10),
+            'property_type' => $this->faker->randomElement(['apartment', 'house', 'commercial', 'duplex']),
+            'address' => $this->faker->streetAddress(),
+            'city' => $this->faker->randomElement(['Dhaka', 'Chittagong', 'Sylhet', 'Rajshahi']),
+            'state' => $this->faker->randomElement(['Dhaka Division', 'Chattogram Division', 'Sylhet Division']),
+            'zip_code' => $this->faker->postcode(),
+            'country' => 'Bangladesh',
+            'status' => PropertyStatus::Active,
         ];
     }
 

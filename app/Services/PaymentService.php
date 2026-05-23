@@ -17,10 +17,10 @@ class PaymentService
             }
 
             $payment = Payment::create($data);
-            
+
             $payment->load('lease.tenant');
             $tenant = $payment->lease->tenant;
-            
+
             if ($tenant && $tenant->email) {
                 Mail::to($tenant->email)->send(new PaymentReceiptMail($payment));
             }
@@ -35,6 +35,7 @@ class PaymentService
     {
         return DB::transaction(function () use ($payment, $data) {
             $payment->update($data);
+
             return $payment;
         });
     }
@@ -46,8 +47,8 @@ class PaymentService
             ->orderBy('id', 'desc')
             ->first();
 
-        $nextNumber = $lastNumber ? ((int)$lastNumber->receipt_number) + 1 : 1;
+        $nextNumber = $lastNumber ? ((int) $lastNumber->receipt_number) + 1 : 1;
 
-        return str_pad((string)$nextNumber, 4, '0', STR_PAD_LEFT);
+        return str_pad((string) $nextNumber, 4, '0', STR_PAD_LEFT);
     }
 }

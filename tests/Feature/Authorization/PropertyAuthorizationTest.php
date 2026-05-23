@@ -10,6 +10,7 @@ use Tests\TestCase;
 class PropertyAuthorizationTest extends TestCase
 {
     use RefreshDatabase;
+
     public function test_user_can_edit_his_own_property()
     {
         $this->withoutVite();
@@ -35,7 +36,6 @@ class PropertyAuthorizationTest extends TestCase
         ]);
 
         $response = $this->get(route('property.edit', $property->id));
-
 
         $response->assertNotfound();
     }

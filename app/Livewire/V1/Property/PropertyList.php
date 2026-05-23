@@ -2,14 +2,12 @@
 
 namespace App\Livewire\V1\Property;
 
-use Livewire\Component;
 use App\Models\Property;
 use App\Traits\HasSortingAndSearch;
-use Livewire\Attributes\Url;
-use Livewire\WithPagination;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
@@ -24,14 +22,15 @@ class PropertyList extends Component
         try {
             $property->delete();
             $this->dispatch('property-deleted', [
-                'message' => 'Property deleted successfully!'
+                'message' => 'Property deleted successfully!',
             ]);
         } catch (\Exception $e) {
             $this->dispatch('property-error', [
-                'message' => 'Failed to delete property. Please try again.'
+                'message' => 'Failed to delete property. Please try again.',
             ]);
         }
     }
+
     #[Computed]
     public function properties()
     {

@@ -2,13 +2,13 @@
 
 namespace App\Livewire\V1\Expense;
 
-use Livewire\Component;
 use App\Models\Property;
-use Livewire\Attributes\Title;
 use App\Models\PropertyExpense;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Computed;
 use Illuminate\Support\Facades\Gate;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
@@ -16,12 +16,19 @@ use Illuminate\Support\Facades\Gate;
 class ExpenseForm extends Component
 {
     public ?PropertyExpense $propertyExpense = null;
+
     public string $property_id = '';
+
     public string $expense_date = '';
+
     public string $category = '';
+
     public string $amount = '';
+
     public string $invoice_number = '';
+
     public string $description = '';
+
     public bool $isEdit = false;
 
     protected function rules(): array
@@ -33,6 +40,7 @@ class ExpenseForm extends Component
             'amount' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:1000',
         ];
+
         return $rules;
     }
 
@@ -50,7 +58,7 @@ class ExpenseForm extends Component
 
     public function save()
     {
-        if (!$this->isEdit && empty($this->invoice_number)) {
+        if (! $this->isEdit && empty($this->invoice_number)) {
             $this->invoice_number = $this->generateInvoiceNo();
         }
 
@@ -97,7 +105,7 @@ class ExpenseForm extends Component
         $lastNumber = PropertyExpense::whereNotNull('invoice_number')
             ->orderBy('id', 'desc')
             ->first();
-        $nextNumber = $lastNumber ? ((int)$lastNumber->invoice_number) + 1 : 1;
+        $nextNumber = $lastNumber ? ((int) $lastNumber->invoice_number) + 1 : 1;
 
         return str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
     }
@@ -112,7 +120,7 @@ class ExpenseForm extends Component
                 return [
                     'id' => $property->id,
                     'name' => $property->property_name,
-                    'address' => $property->address
+                    'address' => $property->address,
                 ];
             });
     }

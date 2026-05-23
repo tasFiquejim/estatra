@@ -13,12 +13,19 @@ class PaymentFormObject extends Form
     public ?Payment $payment = null;
 
     public string $lease_id = '';
+
     public string $payment_date = '';
+
     public string $rent_period = '';
+
     public string $amount_paid = '';
+
     public string $payment_method = 'cash';
+
     public string $receipt_number = '';
+
     public string $notes = '';
+
     public string $status = 'paid';
 
     public bool $isEdit = false;
@@ -33,7 +40,7 @@ class PaymentFormObject extends Form
                 'date',
                 Rule::unique('payments', 'rent_period')
                     ->where('lease_id', $this->lease_id)
-                    ->ignore($this->isEdit ? $this->payment->id : null)
+                    ->ignore($this->isEdit ? $this->payment->id : null),
             ],
             'amount_paid' => 'required|numeric|min:0',
             'payment_method' => ['required', Rule::enum(PaymentMethod::class)],
@@ -55,7 +62,7 @@ class PaymentFormObject extends Form
         $this->notes = $payment->notes ?? '';
         $this->status = $payment->status?->value ?? 'paid';
     }
-    
+
     public function messages(): array
     {
         return [

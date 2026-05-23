@@ -2,12 +2,12 @@
 
 namespace App\Livewire\V1\Maintenance;
 
-use Livewire\Component;
 use App\Models\MaintenanceLog;
-use Livewire\Attributes\Title;
-use Livewire\Attributes\Layout;
-use Livewire\Attributes\Computed;
 use App\Traits\HasSortingAndSearch;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\Title;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 
@@ -29,8 +29,10 @@ class MaintenanceList extends Component
         ]);
 
         $query = $this->applySorting($query);
+
         return $query->paginate(10);
     }
+
     public function render()
     {
         return view('livewire.v1.maintenance.maintenance-list');

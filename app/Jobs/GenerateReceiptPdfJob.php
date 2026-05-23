@@ -29,8 +29,8 @@ class GenerateReceiptPdfJob implements ShouldQueue
         ])->setPaper('a4', 'portrait');
 
         // Save it directly to the 'receipts' folder on the 'public' disk
-        $filename = 'receipts/receipt-' . $this->payment->receipt_number . '.pdf';
-        
+        $filename = 'receipts/receipt-'.$this->payment->receipt_number.'.pdf';
+
         Storage::disk('public')->put($filename, $pdf->output());
     }
 }

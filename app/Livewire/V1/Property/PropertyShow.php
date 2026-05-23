@@ -2,9 +2,9 @@
 
 namespace App\Livewire\V1\Property;
 
-use Livewire\Component;
 use App\Models\Property;
 use Livewire\Attributes\Layout;
+use Livewire\Component;
 
 #[Layout('layouts.app')]
 class PropertyShow extends Component
@@ -15,6 +15,7 @@ class PropertyShow extends Component
     {
         $this->property = $property->load('units');
     }
+
     public function render()
     {
         return view('livewire.v1.property.property-show');

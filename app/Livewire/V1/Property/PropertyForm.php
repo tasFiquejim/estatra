@@ -4,13 +4,13 @@ namespace App\Livewire\V1\Property;
 
 use App\Enums\PropertyStatus;
 use App\Models\Property;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 
@@ -20,15 +20,25 @@ class PropertyForm extends Component
     use WithFileUploads;
 
     public ?Property $property = null;
+
     public string $property_name = '';
+
     public string $address = '';
+
     public string $description = '';
+
     public string $property_type = 'apartment';
+
     public string $status = 'active';
+
     public string $city = '';
+
     public string $state = '';
+
     public string $zip_code = '';
+
     public string $country = '';
+
     public $property_photo = null;
 
     public bool $isEdit = false;
@@ -45,7 +55,7 @@ class PropertyForm extends Component
             'state' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:20',
             'country' => 'nullable|string|max:255',
-            'property_photo' => 'nullable|image|max:2048'
+            'property_photo' => 'nullable|image|max:2048',
         ];
     }
 
@@ -53,24 +63,24 @@ class PropertyForm extends Component
     {
         if (! $property?->exists) {
             Gate::authorize('create', Property::class);
+
             return;
         }
         Gate::authorize('update', $property);
-        $this->property   = $property;
-        $this->isEdit     = true;
+        $this->property = $property;
+        $this->isEdit = true;
         $this->fill([
             'property_name' => $property->property_name,
-            'address'       => $property->address,
-            'description'   => $property->description,
+            'address' => $property->address,
+            'description' => $property->description,
             'property_type' => $property->property_type ?? $this->property_type,
-            'status'        => $property->status?->value ?? $this->status,
-            'city'          => $property->city,
-            'state'         => $property->state,
-            'zip_code'      => $property->zip_code,
-            'country'       => $property->country,
+            'status' => $property->status?->value ?? $this->status,
+            'city' => $property->city,
+            'state' => $property->state,
+            'zip_code' => $property->zip_code,
+            'country' => $property->country,
         ]);
     }
-
 
     public function title(): string
     {

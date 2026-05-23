@@ -5,26 +5,32 @@ namespace App\Livewire\V1\Unit;
 use App\Enums\UnitStatus;
 use App\Models\Property;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Units')]
 class UnitForm extends Component
 {
     public ?Unit $unit = null;
+
     public Property $property;
 
     public string $unit_name = '';
+
     public string $floor_number = '';
+
     public string $size = '';
+
     public string $notes = '';
+
     public string $status = 'available';
 
     public bool $isEdit = false;
+
     protected function rules()
     {
         return [
@@ -57,7 +63,7 @@ class UnitForm extends Component
 
     public function title(): string
     {
-        return $this->isEdit ? 'Edit Unit' : 'Add Unit to ' . $this->property->property_name;
+        return $this->isEdit ? 'Edit Unit' : 'Add Unit to '.$this->property->property_name;
     }
 
     public function save()
@@ -74,6 +80,7 @@ class UnitForm extends Component
         }
 
         session()->flash('success', $message);
+
         return $this->redirect(route('property.show', $this->property));
     }
 
@@ -81,6 +88,7 @@ class UnitForm extends Component
     {
         return $this->redirect(route('property.show', $this->property));
     }
+
     public function render()
     {
         return view('livewire.v1.unit.unit-form');

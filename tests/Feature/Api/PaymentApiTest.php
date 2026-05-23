@@ -8,7 +8,8 @@ use Tests\TestCase;
 
 class PaymentApiTest extends TestCase
 {
-      use RefreshDatabase;
+    use RefreshDatabase;
+
     public function test_it_returns_paginated_payments_in_correct_json_format()
     {
         // 1. Arrange
@@ -27,12 +28,12 @@ class PaymentApiTest extends TestCase
                         'amount_paid',
                         'receipt_number',
                         'payment_date',
-                        'status'
-                    ]
+                        'status',
+                    ],
                 ],
                 'first_page_url',    // Assert pagination metadata exists
                 'next_page_url',
-                'total'
+                'total',
             ]);
         // Assert that the pagination works (we created 20, but page 1 should only have 15)
         $this->assertCount(15, $response->json('data'));

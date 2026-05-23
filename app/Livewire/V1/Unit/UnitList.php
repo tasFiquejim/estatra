@@ -2,16 +2,16 @@
 
 namespace App\Livewire\V1\Unit;
 
-use App\Models\Unit;
-use Livewire\Component;
 use App\Models\Property;
+use App\Models\Unit;
 use App\Traits\HasSortingAndSearch;
 use Livewire\Attributes\Computed;
-use Livewire\WithPagination;
+use Livewire\Component;
 
 class UnitList extends Component
 {
     use HasSortingAndSearch;
+
     public Property $property;
 
     public function mount(Property $property)
@@ -23,16 +23,17 @@ class UnitList extends Component
     {
         $unit->delete();
         $this->dispatch('unit-deleted', [
-            'message' => 'Unit deleted successfully!'
+            'message' => 'Unit deleted successfully!',
         ]);
     }
 
     #[Computed]
     public function units()
     {
-        $query = Unit::query()->whereBelongsTo($this->property); 
+        $query = Unit::query()->whereBelongsTo($this->property);
         $query = $this->applySearch($query, ['unit_name', 'floor_number', 'size']);
         $query = $this->applySorting($query);
+
         return $query->paginate(10);
     }
 

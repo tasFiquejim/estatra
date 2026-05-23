@@ -2,7 +2,6 @@
 
 namespace App\Livewire\V1\Lease;
 
-use App\Enums\LeaseStatus;
 use App\Livewire\Forms\LeaseFormObject;
 use App\Models\Lease;
 use App\Models\Tenant;
@@ -49,6 +48,7 @@ class LeaseForm extends Component
             }
 
             session()->flash('success', $message);
+
             return $this->redirect(route('lease.index'));
         } catch (\Exception $e) {
             $this->addError('form.unit_id', $e->getMessage());
@@ -95,8 +95,8 @@ class LeaseForm extends Component
             ->map(function ($tenant) {
                 return [
                     'id' => $tenant->id,
-                    'name' => $tenant->first_name . ' ' . $tenant->last_name,
-                    'email' => $tenant->email
+                    'name' => $tenant->first_name.' '.$tenant->last_name,
+                    'email' => $tenant->email,
                 ];
             });
     }

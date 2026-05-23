@@ -18,7 +18,6 @@ trait HasSortingAndSearch
     #[Url(except: 'desc')]
     public string $sortDirection = 'desc';
 
-
     public function updatingSearch()
     {
         $this->resetPage();
@@ -34,6 +33,7 @@ trait HasSortingAndSearch
         }
         $this->resetPage();
     }
+
     /**
      * Apply search to query for common fields
      */
@@ -45,34 +45,36 @@ trait HasSortingAndSearch
 
         return $query->where(function ($q) use ($searchFields) {
             foreach ($searchFields as $field) {
-                $q->orWhere($field, 'like', '%' . $this->search . '%');
+                $q->orWhere($field, 'like', '%'.$this->search.'%');
             }
         });
     }
+
     protected function applyAdvancedSearch($query, array $searchConfig)
     {
         if (empty($this->search)) {
             return $query;
         }
 
-       return $query->where(function ($q) use ($searchConfig) {
-        foreach ($searchConfig as $config) {
-            if (isset($config['relation'])) {
-                // Relationship search
-                $q->orWhereHas($config['relation'], function ($relationQuery) use ($config) {
-                    $relationQuery->where(function($subQuery) use ($config) {
-                        foreach ($config['fields'] as $field) {
-                            $subQuery->orWhere($field, 'like', '%' . $this->search . '%');
-                        }
+        return $query->where(function ($q) use ($searchConfig) {
+            foreach ($searchConfig as $config) {
+                if (isset($config['relation'])) {
+                    // Relationship search
+                    $q->orWhereHas($config['relation'], function ($relationQuery) use ($config) {
+                        $relationQuery->where(function ($subQuery) use ($config) {
+                            foreach ($config['fields'] as $field) {
+                                $subQuery->orWhere($field, 'like', '%'.$this->search.'%');
+                            }
+                        });
                     });
-                });
-            } else {
-                // Direct field search
-                $q->orWhere($config['field'], 'like', '%' . $this->search . '%');
+                } else {
+                    // Direct field search
+                    $q->orWhere($config['field'], 'like', '%'.$this->search.'%');
+                }
             }
-        }
-    });
+        });
     }
+
     /**
      * Apply sorting to query
      */

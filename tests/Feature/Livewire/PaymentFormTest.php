@@ -3,12 +3,8 @@
 namespace Tests\Feature\Livewire;
 
 use App\Livewire\V1\Payment\PaymentForm;
-use App\Livewire\V1\Property\PropertyForm;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -25,12 +21,12 @@ class PaymentFormTest extends TestCase
             ->set('form.lease_id', '')
             ->call('save')
 
-
             ->assertHasErrors([
                 'form.lease_id' => 'required',
                 'form.amount_paid' => 'min',
             ]);
     }
+
     public function test_it_returns_custom_error_messages_for_bad_input()
     {
         $user = User::factory()->create();

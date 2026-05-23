@@ -15,6 +15,7 @@ class PropertyFormTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
     public function test_it_can_upload_a_property_photo()
     {
         Storage::fake('public');
@@ -33,6 +34,6 @@ class PropertyFormTest extends TestCase
 
         // 3. Assert: Verify the file WAS uploaded to our fake disk
         // Livewire automatically generates a random hash name for uploaded files
-        Storage::disk('public')->assertExists('properties/' . $fakeImage->hashName());
+        Storage::disk('public')->assertExists('properties/'.$fakeImage->hashName());
     }
 }

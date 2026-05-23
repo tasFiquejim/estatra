@@ -19,14 +19,14 @@ class PaymentFactory extends Factory
         $receiptNumber = str_pad(self::$receiptCounter++, 4, '0', STR_PAD_LEFT);
 
         return [
-            'lease_id'       => Lease::factory(),
+            'lease_id' => Lease::factory(),
             'receipt_number' => $receiptNumber,
-            'payment_date'   => $this->faker->dateTimeBetween('-3 months', 'now'),
-            'rent_period'    => now()->startOfMonth(),
-            'amount_paid'    => 10000,
+            'payment_date' => $this->faker->dateTimeBetween('-3 months', 'now'),
+            'rent_period' => now()->startOfMonth(),
+            'amount_paid' => 10000,
             'payment_method' => $this->faker->randomElement(PaymentMethod::cases()),
-            'status'         => PaymentStatus::Paid,
-            'notes'          => $this->faker->optional(0.3)->sentence(5),
+            'status' => PaymentStatus::Paid,
+            'notes' => $this->faker->optional(0.3)->sentence(5),
         ];
     }
 

@@ -19,7 +19,7 @@ class PaymentServiceTest extends TestCase
     {
         // 1. Arrange (Set up the world)
         $lease = Lease::factory()->create();
-        $service = new PaymentService();
+        $service = new PaymentService;
 
         // Prepare the data array. Note: we are purposefully omitting 'receipt_number'
         $paymentData = [
@@ -51,7 +51,7 @@ class PaymentServiceTest extends TestCase
         // 1. Arrange: Intercept all outgoing emails
         Mail::fake();
 
-        $service = new PaymentService();
+        $service = new PaymentService;
         $lease = Lease::factory()->create();
 
         $paymentData = [

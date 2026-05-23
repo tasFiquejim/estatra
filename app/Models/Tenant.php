@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Tenant extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'first_name',
@@ -35,5 +36,4 @@ class Tenant extends Model
     {
         return $this->hasMany(Lease::class);
     }
-   
 }

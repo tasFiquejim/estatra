@@ -2,15 +2,15 @@
 
 namespace App\Livewire\V1\Payment;
 
+use App\Livewire\Forms\PaymentFormObject;
 use App\Models\Lease;
 use App\Models\Payment;
-use App\Livewire\Forms\PaymentFormObject;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Support\Facades\Gate;
 
 #[Layout('layouts.app')]
 #[Title('Payments')]
@@ -38,12 +38,12 @@ class PaymentForm extends Component
 
     public function save(\App\Services\PaymentService $paymentService)
     {
-        if (!empty($this->form->rent_period)) {
+        if (! empty($this->form->rent_period)) {
             $this->form->rent_period = Carbon::parse($this->form->rent_period)->startOfMonth()->format('Y-m-d');
         }
         $validated = $this->form->validate();
 
-        if (!$this->form->isEdit) {
+        if (! $this->form->isEdit) {
             $validated['receipt_number'] = $this->form->receipt_number;
         }
 
@@ -73,7 +73,7 @@ class PaymentForm extends Component
         if ($value) {
             $lease = Lease::find($value);
             if ($lease) {
-                $totalRent = $lease->rent_amount +  ($lease->service_charge ?? 0);
+                $totalRent = $lease->rent_amount + ($lease->service_charge ?? 0);
                 $this->form->amount_paid = $totalRent;
             }
         }
@@ -91,7 +91,7 @@ class PaymentForm extends Component
             ->map(function ($lease) {
                 return [
                     'id' => $lease->id,
-                    'display' => $lease->unit->property->property_name . ' - Unit ' . $lease->unit->unit_name . ' (' . $lease->tenant->first_name . ' ' . $lease->tenant->last_name . ')',
+                    'display' => $lease->unit->property->property_name.' - Unit '.$lease->unit->unit_name.' ('.$lease->tenant->first_name.' '.$lease->tenant->last_name.')',
                 ];
             });
     }
@@ -99,9 +99,10 @@ class PaymentForm extends Component
     #[Computed]
     public function selectedLease()
     {
-        if (!$this->form->lease_id) {
+        if (! $this->form->lease_id) {
             return null;
         }
+
         return Lease::with(['unit.property', 'tenant'])->find($this->form->lease_id);
     }
 
