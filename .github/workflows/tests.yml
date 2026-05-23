@@ -43,3 +43,24 @@ jobs:
 
     - name: Run Tests (PHPUnit)
       run: php artisan test
+
+  deploy:
+    name: Deploy to Production
+    needs: test # CRITICAL: This tells GitHub to wait for the tests to pass first!
+    if: github.ref == 'refs/heads/main' # Only deploy if we are merging to the main branch
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Simulate SSH Deployment
+      run: |
+        echo "🔒 Connecting to Live VPS via SSH Secure Key..."
+        sleep 2
+        echo "⬇️ Downloading latest code: git pull origin main"
+        sleep 2
+        echo "📦 Installing live packages: composer install --no-dev"
+        sleep 2
+        echo "🗄️ Updating Database: php artisan migrate --force"
+        sleep 2
+        echo "🔄 Restarting Queue Workers: php artisan queue:restart"
+        sleep 2
+        echo "✅ Deployment Successful! Your code is now live for customers! 🚀"
