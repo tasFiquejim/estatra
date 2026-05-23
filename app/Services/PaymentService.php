@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Mail\PaymentReceiptMail;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentService
 {
@@ -14,7 +16,18 @@ class PaymentService
                 $data['receipt_number'] = $this->generateReceiptNo();
             }
 
-            return Payment::create($data);
+            $payment = Payment::create($data);
+            
+            $payment->load('lease.tenant');
+            $tenant = $payment->lease->tenant;
+            
+            if ($tenant && $tenant->email) {
+                Mail::to($tenant->email)->send(new PaymentReceiptMail($payment));
+            }
+
+            \App\Jobs\GenerateReceiptPdfJob::dispatch($payment);
+
+            return $payment;
         });
     }
 

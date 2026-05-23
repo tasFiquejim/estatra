@@ -55,4 +55,12 @@ class PaymentFormObject extends Form
         $this->notes = $payment->notes ?? '';
         $this->status = $payment->status?->value ?? 'paid';
     }
+    
+    public function messages(): array
+    {
+        return [
+            'amount_paid.min' => 'Please enter a valid payment amount greater than zero.',
+            'lease_id.required' => 'You must select an active lease for this payment.',
+        ];
+    }
 }
