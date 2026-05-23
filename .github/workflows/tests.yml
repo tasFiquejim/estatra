@@ -7,9 +7,27 @@ on:
     branches: [ "main" ]
 
 jobs:
-  test:
+  lint:
+    name: Check Code Quality (Lint)
     runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+
+    - name: Install PHP Dependencies
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+    - name: Run Laravel Pint (Style Checker)
+      run: ./vendor/bin/pint --test
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -46,10 +64,9 @@ jobs:
 
   deploy:
     name: Deploy to Production
-    needs: test # CRITICAL: This tells GitHub to wait for the tests to pass first!
-    if: github.ref == 'refs/heads/main' # Only deploy if we are merging to the main branch
+    needs: [lint, test] # Waits for BOTH lint and test to pass!
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
     - name: Simulate SSH Deployment
       run: |
