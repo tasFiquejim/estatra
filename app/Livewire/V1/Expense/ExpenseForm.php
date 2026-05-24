@@ -23,7 +23,7 @@ class ExpenseForm extends Component
 
     public string $category = '';
 
-    public float|string $amount = '';
+    public $amount = '';
 
     public string $invoice_number = '';
 

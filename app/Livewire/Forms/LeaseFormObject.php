@@ -11,19 +11,19 @@ class LeaseFormObject extends Form
 {
     public ?Lease $lease = null;
 
-    public int|string $unit_id = '';
+    public $unit_id = '';
 
-    public int|string $tenant_id = '';
+    public $tenant_id = '';
 
     public string $start_date = '';
 
     public string $end_date = '';
 
-    public float|string|null $security_deposit = '';
+    public $security_deposit = '';
 
-    public float|string $rent_amount = '';
+    public $rent_amount = '';
 
-    public float|string|null $service_charge = '';
+    public $service_charge = '';
 
     public string $status = 'active';
 

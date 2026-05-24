@@ -12,13 +12,13 @@ class PaymentFormObject extends Form
 {
     public ?Payment $payment = null;
 
-    public int|string $lease_id = '';
+    public $lease_id = '';
 
     public string $payment_date = '';
 
     public string $rent_period = '';
 
-    public float|string $amount_paid = '';
+    public $amount_paid = '';
 
     public string $payment_method = 'cash';
 

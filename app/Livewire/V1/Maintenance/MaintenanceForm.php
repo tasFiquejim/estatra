@@ -29,11 +29,11 @@ class MaintenanceForm extends Component
 
     public string $issue_description = '';
 
-    public float|string $product_cost = '';
+    public $product_cost = '';
 
-    public float|string $service_cost = '';
+    public $service_cost = '';
 
-    public float|string $total_cost = '';
+    public $total_cost = '';
 
     public string $status = 'pending';
 
