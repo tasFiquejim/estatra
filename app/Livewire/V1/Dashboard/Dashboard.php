@@ -39,12 +39,12 @@ class Dashboard extends Component
     #[Computed]
     public function occupancyRate(): float
     {
-        $total = $this->totalUnits;
+        $total = $this->totalUnits();
         if ($total === 0) {
             return 0;
         }
 
-        return round(($this->occupiedUnits / $total) * 100, 1);
+        return round(($this->occupiedUnits() / $total) * 100, 1);
     }
 
     #[Computed]
@@ -72,7 +72,7 @@ class Dashboard extends Component
     #[Computed]
     public function netProfit(): float
     {
-        return $this->monthlyIncome - $this->monthlyExpenses;
+        return $this->monthlyIncome() - $this->monthlyExpenses();
     }
 
     #[Computed]

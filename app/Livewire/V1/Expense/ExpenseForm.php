@@ -23,7 +23,7 @@ class ExpenseForm extends Component
 
     public string $category = '';
 
-    public string $amount = '';
+    public float|string $amount = '';
 
     public string $invoice_number = '';
 
@@ -48,7 +48,7 @@ class ExpenseForm extends Component
     {
         $this->expense_date = now()->format('Y-m-d');
         $this->propertyExpense = $propertyExpense;
-        if ($propertyExpense && $propertyExpense->exists) {
+        if ($propertyExpense->exists) {
             Gate::authorize('update', $propertyExpense);
             $this->initializeForEdit($propertyExpense);
         } else {
@@ -107,7 +107,7 @@ class ExpenseForm extends Component
             ->first();
         $nextNumber = $lastNumber ? ((int) $lastNumber->invoice_number) + 1 : 1;
 
-        return str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        return str_pad((string) $nextNumber, 4, '0', STR_PAD_LEFT);
     }
 
     #[Computed]

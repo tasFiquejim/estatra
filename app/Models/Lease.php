@@ -8,6 +8,43 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property int $unit_id
+ * @property int|null $tenant_id
+ * @property string|null $document_path
+ * @property \Illuminate\Support\Carbon $start_date
+ * @property \Illuminate\Support\Carbon|null $end_date
+ * @property numeric|null $security_deposit
+ * @property numeric $rent_amount
+ * @property numeric|null $service_charge
+ * @property LeaseStatus $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ * @property-read int|null $payments_count
+ * @property-read \App\Models\Tenant|null $tenant
+ * @property-read \App\Models\Unit $unit
+ * @method static \Database\Factories\LeaseFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereDocumentPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereEndDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereRentAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereSecurityDeposit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereServiceCharge($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereStartDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereTenantId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereUnitId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Lease extends Model
 {
     use HasFactory;

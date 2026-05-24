@@ -25,8 +25,6 @@ class PaymentService
                 Mail::to($tenant->email)->send(new PaymentReceiptMail($payment));
             }
 
-            \App\Jobs\GenerateReceiptPdfJob::dispatch($payment);
-
             return $payment;
         });
     }

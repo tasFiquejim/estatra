@@ -47,7 +47,7 @@ class UnitForm extends Component
         $this->property = $property;
         Gate::authorize('update', $property);
 
-        if ($unit && $unit->exists) {
+        if ($unit->exists) {
             Gate::authorize('update', $unit);
             $this->unit = $unit;
             $this->isEdit = true;

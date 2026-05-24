@@ -23,7 +23,7 @@ class PaymentForm extends Component
         $this->form->payment_date = now()->format('Y-m-d');
         $this->form->rent_period = now()->startOfMonth()->format('Y-m-d');
 
-        if ($payment && $payment->exists) {
+        if ($payment->exists) {
             Gate::authorize('update', $payment);
             $this->form->setPayment($payment);
         } else {

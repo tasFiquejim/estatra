@@ -61,7 +61,7 @@ class PropertyForm extends Component
 
     public function mount(Property $property): void
     {
-        if (! $property?->exists) {
+        if (! $property->exists) {
             Gate::authorize('create', Property::class);
 
             return;
@@ -74,7 +74,7 @@ class PropertyForm extends Component
             'address' => $property->address,
             'description' => $property->description,
             'property_type' => $property->property_type ?? $this->property_type,
-            'status' => $property->status?->value ?? $this->status,
+            'status' => $property->status->value,
             'city' => $property->city,
             'state' => $property->state,
             'zip_code' => $property->zip_code,

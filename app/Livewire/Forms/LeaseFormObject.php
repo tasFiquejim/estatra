@@ -11,19 +11,19 @@ class LeaseFormObject extends Form
 {
     public ?Lease $lease = null;
 
-    public string $unit_id = '';
+    public int|string $unit_id = '';
 
-    public string $tenant_id = '';
+    public int|string $tenant_id = '';
 
     public string $start_date = '';
 
     public string $end_date = '';
 
-    public string $security_deposit = '';
+    public float|string|null $security_deposit = '';
 
-    public string $rent_amount = '';
+    public float|string $rent_amount = '';
 
-    public string $service_charge = '';
+    public float|string|null $service_charge = '';
 
     public string $status = 'active';
 
@@ -57,6 +57,6 @@ class LeaseFormObject extends Form
         $this->security_deposit = $lease->security_deposit ?? '';
         $this->rent_amount = $lease->rent_amount;
         $this->service_charge = $lease->service_charge ?? '';
-        $this->status = $lease->status?->value ?? 'active';
+        $this->status = $lease->status->value;
     }
 }

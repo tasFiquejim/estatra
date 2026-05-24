@@ -6,6 +6,31 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $property_id
+ * @property \Illuminate\Support\Carbon $expense_date
+ * @property string $category
+ * @property numeric $amount
+ * @property string|null $invoice_number
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Property $property
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereAmount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereCategory($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereExpenseDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereInvoiceNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense wherePropertyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class PropertyExpense extends Model
 {
     protected $fillable = [

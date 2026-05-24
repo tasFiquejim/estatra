@@ -6,6 +6,38 @@ use App\Enums\MaintenanceStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $property_id
+ * @property int|null $unit_id
+ * @property \Illuminate\Support\Carbon $maintenance_date
+ * @property string $issue_description
+ * @property numeric|null $product_cost
+ * @property numeric|null $service_cost
+ * @property numeric|null $total_cost
+ * @property MaintenanceStatus $status
+ * @property string|null $photo
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Property $property
+ * @property-read \App\Models\Unit|null $unit
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereIssueDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereMaintenanceDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereProductCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog wherePropertyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereServiceCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereTotalCost($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereUnitId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class MaintenanceLog extends Model
 {
     protected $fillable = [

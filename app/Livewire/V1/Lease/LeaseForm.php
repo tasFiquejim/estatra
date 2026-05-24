@@ -26,7 +26,7 @@ class LeaseForm extends Component
 
     public function mount(Lease $lease): void
     {
-        if ($lease && $lease->exists) {
+        if ($lease->exists) {
             Gate::authorize('update', $lease);
             $this->form->setLease($lease);
         } else {

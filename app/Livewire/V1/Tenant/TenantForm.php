@@ -36,7 +36,7 @@ class TenantForm extends Component
 
     public function mount(Tenant $tenant): void
     {
-        if ($tenant && $tenant->exists) {
+        if ($tenant->exists) {
             $this->tenant = $tenant;
             $this->isEdit = true;
             $this->fill([

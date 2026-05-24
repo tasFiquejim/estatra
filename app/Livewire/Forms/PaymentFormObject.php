@@ -12,13 +12,13 @@ class PaymentFormObject extends Form
 {
     public ?Payment $payment = null;
 
-    public string $lease_id = '';
+    public int|string $lease_id = '';
 
     public string $payment_date = '';
 
     public string $rent_period = '';
 
-    public string $amount_paid = '';
+    public float|string $amount_paid = '';
 
     public string $payment_method = 'cash';
 
@@ -58,9 +58,9 @@ class PaymentFormObject extends Form
         $this->payment_date = $payment->payment_date->format('Y-m-d');
         $this->rent_period = $payment->rent_period->format('Y-m-d');
         $this->amount_paid = $payment->amount_paid;
-        $this->payment_method = $payment->payment_method?->value ?? 'cash';
+        $this->payment_method = $payment->payment_method->value;
         $this->notes = $payment->notes ?? '';
-        $this->status = $payment->status?->value ?? 'paid';
+        $this->status = $payment->status->value;
     }
 
     public function messages(): array
