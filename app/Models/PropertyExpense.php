@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Property $property
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense query()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereInvoiceNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense wherePropertyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class PropertyExpense extends Model

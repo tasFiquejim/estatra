@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lease> $leases
  * @property-read int|null $leases_count
  * @property-read \App\Models\Property $property
+ *
  * @method static \Database\Factories\UnitFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit isAvailable()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit newModelQuery()
@@ -35,6 +36,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit whereUnitName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Unit extends Model

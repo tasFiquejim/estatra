@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Unit> $units
  * @property-read int|null $units_count
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Property active()
  * @method static \Database\Factories\PropertyFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Property forUser($userId)
@@ -46,6 +47,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Property whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Property whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Property whereZipCode($value)
+ *
  * @mixin \Eloquent
  */
 class Property extends Model

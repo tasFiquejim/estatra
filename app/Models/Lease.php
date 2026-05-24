@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $payments_count
  * @property-read \App\Models\Tenant|null $tenant
  * @property-read \App\Models\Unit $unit
+ *
  * @method static \Database\Factories\LeaseFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease newQuery()
@@ -43,6 +44,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereTenantId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereUnitId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Lease extends Model

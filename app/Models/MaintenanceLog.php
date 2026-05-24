@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Property $property
  * @property-read \App\Models\Unit|null $unit
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog query()
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereTotalCost($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereUnitId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MaintenanceLog whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class MaintenanceLog extends Model
