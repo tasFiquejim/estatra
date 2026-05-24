@@ -8,6 +8,7 @@ use Carbon\Carbon;
 class LateFeeService
 {
     public const PENALTY_RATE = 0.10;
+
     public const GRACE_PERIOD_DAYS = 4;
 
     /**

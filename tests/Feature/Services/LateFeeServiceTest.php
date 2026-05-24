@@ -23,17 +23,17 @@ class LateFeeServiceTest extends TestCase
         $property = Property::factory()->create(['user_id' => $user->id]);
         $unit = Unit::factory()->create(['property_id' => $property->id]);
         $tenant = Tenant::factory()->create();
-        
+
         $lease = Lease::factory()->create([
             'unit_id' => $unit->id,
             'tenant_id' => $tenant->id,
             'rent_amount' => 1000,
         ]);
 
-        $service = new LateFeeService();
-        
+        $service = new LateFeeService;
+
         // Assume rent period is January 2026. Payment made on Jan 4th.
-        $paymentDate = Carbon::parse('2026-01-04'); 
+        $paymentDate = Carbon::parse('2026-01-04');
         $rentPeriod = Carbon::parse('2026-01-01');
 
         // 2. Act: Call the unbuilt feature
@@ -49,17 +49,17 @@ class LateFeeServiceTest extends TestCase
         $property = Property::factory()->create(['user_id' => $user->id]);
         $unit = Unit::factory()->create(['property_id' => $property->id]);
         $tenant = Tenant::factory()->create();
-        
+
         $lease = Lease::factory()->create([
             'unit_id' => $unit->id,
             'tenant_id' => $tenant->id,
             'rent_amount' => 1000, // 10% of 1000 is 100
         ]);
 
-        $service = new LateFeeService();
-        
+        $service = new LateFeeService;
+
         // Payment made on Jan 6th (after the 5-day grace period)
-        $paymentDate = Carbon::parse('2026-01-06'); 
+        $paymentDate = Carbon::parse('2026-01-06');
         $rentPeriod = Carbon::parse('2026-01-01');
 
         $lateFee = $service->calculate($lease, $rentPeriod, $paymentDate);
