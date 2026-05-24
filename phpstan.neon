@@ -1,0 +1,17 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - app/
+
+    # Level 9 is the highest level (strictest)
+    # Level 5 is a great middle-ground for a Laravel project
+    level: 5
+
+    # Ignore specific errors if needed
+    ignoreErrors:
+        - '#Unsafe usage of new static\(\).#'
+
+    excludePaths:
+        - ./*/*/FileToBeExcluded.php
