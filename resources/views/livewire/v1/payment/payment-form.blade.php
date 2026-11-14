@@ -144,21 +144,6 @@
                             @enderror
                         </div>
 
-                        <!-- Payment Status -->
-                        <div>
-                            <label for="status" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Payment Status <span class="text-red-500">*</span>
-                            </label>
-                            <select wire:model="form.status" id="status"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                <option value="paid">Paid in Full</option>
-                                <option value="partial">Partial Payment</option>
-                                <option value="unpaid">Unpaid</option>
-                            </select>
-                            @error('form.status')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
                     </div>
                 </div>
 

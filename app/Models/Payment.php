@@ -4,23 +4,26 @@ namespace App\Models;
 
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
+use App\Models\Concerns\BelongsToOwner;
+use App\Models\Contracts\HasOwner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int|null $lease_id
  * @property string|null $receipt_number
- * @property \Illuminate\Support\Carbon $payment_date
- * @property \Illuminate\Support\Carbon $rent_period
+ * @property Carbon $payment_date
+ * @property Carbon $rent_period
  * @property numeric $amount_paid
  * @property PaymentMethod $payment_method
  * @property PaymentStatus $status
  * @property string|null $notes
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Lease|null $lease
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Lease|null $lease
  *
  * @method static \Database\Factories\PaymentFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newModelQuery()
@@ -40,9 +43,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class Payment extends Model
+class Payment extends Model implements HasOwner
 {
-    use HasFactory;
+    use BelongsToOwner, HasFactory;
 
     protected $fillable = [
         'lease_id',
@@ -62,15 +65,9 @@ class Payment extends Model
         'payment_method' => PaymentMethod::class,
     ];
 
-    protected static function booted(): void
+    public function ownerRelation(): ?string
     {
-        if (auth()->check()) {
-            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
-                $builder->whereHas('lease.unit.property', function ($query) {
-                    $query->where('user_id', auth()->id());
-                });
-            });
-        }
+        return 'lease.unit.property';
     }
 
     public function lease(): BelongsTo

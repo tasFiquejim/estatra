@@ -19,13 +19,6 @@
         </div>
     </div>
 
-    <!-- Flash Message -->
-    @if (session('success'))
-        <div class="px-4 py-3 text-sm border rounded-2xl border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-600/40 dark:bg-emerald-900/30 dark:text-emerald-100">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <!-- Form Card -->
     <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
         <div class="p-5 sm:p-6">
@@ -35,7 +28,7 @@
                         <!-- Property Name -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Property Name <span class="text-red-500">*</span></label>
-                            <input type="text" wire:model.defer="property_name"
+                            <input type="text" wire:model="property_name"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="e.g. Lakeview Apartment 3B">
                             @error('property_name')
@@ -46,7 +39,7 @@
                         <!-- Address -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Address <span class="text-red-500">*</span></label>
-                            <input type="text" wire:model.defer="address"
+                            <input type="text" wire:model="address"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="123 Main St">
                             @error('address')
@@ -57,7 +50,7 @@
                         <!-- City -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">City</label>
-                            <input type="text" wire:model.defer="city"
+                            <input type="text" wire:model="city"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="City">
                             @error('city')
@@ -68,7 +61,7 @@
                         <!-- State -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">State</label>
-                            <input type="text" wire:model.defer="state"
+                            <input type="text" wire:model="state"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="State">
                             @error('state')
@@ -79,7 +72,7 @@
                         <!-- Zip Code -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Zip Code</label>
-                            <input type="text" wire:model.defer="zip_code"
+                            <input type="text" wire:model="zip_code"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="12345">
                             @error('zip_code')
@@ -90,7 +83,7 @@
                         <!-- Country -->
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Country</label>
-                            <input type="text" wire:model.defer="country"
+                            <input type="text" wire:model="country"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="Country">
                             @error('country')
@@ -102,7 +95,7 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Property Type <span class="text-red-500">*</span></label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
-                                <select wire:model.defer="property_type"
+                                <select wire:model="property_type"
                                     class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                     :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                     @change="isOptionSelected = true">
@@ -125,7 +118,7 @@
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Status <span class="text-red-500">*</span></label>
                             <div x-data="{ isOptionSelected: false }" class="relative z-20 bg-transparent">
-                                <select wire:model.defer="status"
+                                <select wire:model="status"
                                     class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 pr-11 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                     :class="isOptionSelected && 'text-gray-800 dark:text-white/90'"
                                     @change="isOptionSelected = true">
@@ -146,7 +139,7 @@
                         <!-- Description (full width) -->
                         <div class="md:col-span-2">
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Description</label>
-                            <textarea rows="4" wire:model.defer="description"
+                            <textarea rows="4" wire:model="description"
                                 class="shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
                                 placeholder="Short description..."></textarea>
                             @error('description')

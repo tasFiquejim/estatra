@@ -4,8 +4,10 @@ namespace Database\Factories;
 
 use App\Enums\LeaseStatus;
 use App\Models\Lease;
+use App\Models\Property;
 use App\Models\Tenant;
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class LeaseFactory extends Factory
@@ -45,5 +47,16 @@ class LeaseFactory extends Factory
                 'status' => LeaseStatus::Expired,
             ];
         });
+    }
+
+    /**
+     * A lease whose unit (through its property) and tenant belong to $user.
+     */
+    public function ownedBy(User $user): static
+    {
+        return $this->state(fn () => [
+            'unit_id' => Unit::factory()->occupied()->for(Property::factory()->state(['user_id' => $user->id])),
+            'tenant_id' => Tenant::factory()->state(['user_id' => $user->id]),
+        ]);
     }
 }

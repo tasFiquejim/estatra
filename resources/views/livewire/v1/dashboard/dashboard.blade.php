@@ -19,6 +19,36 @@
         </div>
     </div>
 
+    {{-- ===== Rent this month: the first thing an owner needs to know ===== --}}
+    @php
+        $rent = $this->rent;
+        $rentPercent = $rent['expected'] > 0 ? min(100, round(($rent['collected'] / $rent['expected']) * 100)) : 0;
+    @endphp
+    <a href="{{ route('rent.index') }}"
+        class="block rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-blue-300 dark:border-gray-800 dark:bg-white/[0.03] dark:hover:border-blue-800 sm:p-6">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Rent for {{ now()->format('F') }}</p>
+                <p class="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
+                    ৳{{ number_format($rent['collected'], 2) }}
+                    <span class="text-base font-medium text-gray-400">of ৳{{ number_format($rent['expected'], 2) }} collected</span>
+                </p>
+            </div>
+            @if ($rent['due_count'] > 0)
+                <span class="inline-flex items-center self-start rounded-full bg-red-100 px-3 py-1 text-sm font-medium text-red-700 dark:bg-red-500/10 dark:text-red-400 sm:self-auto">
+                    {{ $rent['due_count'] }} {{ Str::plural('tenant', $rent['due_count']) }} still {{ $rent['due_count'] === 1 ? 'owes' : 'owe' }} ৳{{ number_format($rent['outstanding'], 2) }} →
+                </span>
+            @elseif ($rent['lease_count'] > 0)
+                <span class="inline-flex items-center self-start rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700 dark:bg-green-500/10 dark:text-green-400 sm:self-auto">
+                    Everyone has paid ✓
+                </span>
+            @endif
+        </div>
+        <div class="mt-4 h-2 w-full rounded-full bg-gray-100 dark:bg-gray-800">
+            <div class="h-2 rounded-full bg-green-500 transition-all duration-500" style="width: {{ $rentPercent }}%"></div>
+        </div>
+    </a>
+
     {{-- ===== Row 1: Property & Tenant Stats ===== --}}
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {{-- Occupancy Rate --}}
@@ -180,8 +210,6 @@
                         </span>
                     @endif
                 </div>
-                <a href="{{ route('lease.index') }}"
-                    class="text-xs text-blue-600 hover:underline dark:text-blue-400">View all</a>
             </div>
             <div class="p-5">
                 @forelse($this->expiringSoonLeases as $lease)

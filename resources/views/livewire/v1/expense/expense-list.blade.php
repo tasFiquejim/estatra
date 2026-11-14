@@ -9,6 +9,15 @@
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">Property Expenses</h3>
 
                 <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                    <!-- Open repairs filter -->
+                    <label class="inline-flex cursor-pointer items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+                        <input type="checkbox" wire:model.live="openRepairs" class="rounded border-gray-300 text-blue-600 dark:border-gray-700 dark:bg-gray-900">
+                        Repairs still to fix
+                        @if ($this->openRepairsCount > 0)
+                            <span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-500/10 dark:text-red-400">{{ $this->openRepairsCount }}</span>
+                        @endif
+                    </label>
+
                     <!-- Search -->
                     <div class="relative">
                         <input type="text" wire:model.live.debounce.500ms="search" placeholder="Search expenses..."
@@ -27,6 +36,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
                         Add Expense
+                    </a>
+                    <a href="{{ route('expense.create', ['category' => \App\Models\PropertyExpense::REPAIR]) }}"
+                        class="inline-flex items-center rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-white/5">
+                        Log a repair
                     </a>
                 </div>
             </div>
@@ -128,7 +141,7 @@
                                                     {{ $expense->property->property_name }}
                                                 </div>
                                                 <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                    {{ $expense->property->address }}
+                                                    {{ $expense->unit ? 'Unit '.$expense->unit->unit_name : $expense->property->address }}
                                                 </div>
                                             </div>
                                         </div>
@@ -153,8 +166,14 @@
                                                         : ($expense->category === 'security'
                                                             ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'
                                                             : 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'))) }}">
-                                            {{ ucfirst(str_replace('_', ' ', $expense->category)) }}
+                                            {{ \App\Models\PropertyExpense::getCategories()[$expense->category] ?? ucfirst($expense->category) }}
                                         </span>
+                                        @if ($expense->repair_status)
+                                            <span class="mt-1 block w-fit rounded-full px-2.5 py-0.5 text-xs font-medium
+                                                {{ $expense->repair_status === \App\Enums\RepairStatus::Open ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400' : 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400' }}">
+                                                {{ $expense->repair_status->label() }}
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         <div class="font-semibold text-gray-900 dark:text-white">

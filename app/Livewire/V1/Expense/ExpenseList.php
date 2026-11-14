@@ -7,6 +7,7 @@ use App\Traits\HasSortingAndSearch;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 #[Layout('layouts.app')]
@@ -16,10 +17,26 @@ class ExpenseList extends Component
 {
     use HasSortingAndSearch;
 
+    /** Show only repairs that still need fixing (replaces the old Maintenance screen). */
+    #[Url(except: false)]
+    public bool $openRepairs = false;
+
+    public function updatingOpenRepairs(): void
+    {
+        $this->resetPage();
+    }
+
+    #[Computed]
+    public function openRepairsCount(): int
+    {
+        return PropertyExpense::openRepairs()->count();
+    }
+
     #[Computed]
     public function expenses()
     {
-        $query = PropertyExpense::with('property');
+        $query = PropertyExpense::with(['property', 'unit'])
+            ->when($this->openRepairs, fn ($q) => $q->openRepairs());
         $query = $this->applyAdvancedSearch($query, [
             ['field' => 'category'],
             ['field' => 'description'],

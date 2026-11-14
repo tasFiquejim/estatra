@@ -1,4 +1,4 @@
-@section('title', $form->isEdit ? 'Edit Lease' : 'Create Lease')
+@section('title', 'Edit rent agreement')
 
 <div class="space-y-5 sm:space-y-6">
     <!-- Breadcrumb Card -->
@@ -6,8 +6,8 @@
         <div class="px-5 py-4 sm:px-6 sm:py-5">
             <nav class="flex mb-2" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 text-sm text-gray-500 dark:text-gray-400">
-                    <li><a href="{{ route('lease.index') }}"
-                            class="hover:text-gray-700 dark:hover:text-gray-300">Leases</a></li>
+                    <li><a href="{{ route('property.show', $form->lease->unit->property_id) }}"
+                            class="hover:text-gray-700 dark:hover:text-gray-300">{{ $form->lease->unit->property->property_name }}</a></li>
                     <li class="flex items-center">
                         <svg class="w-4 h-4 mx-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
@@ -15,7 +15,7 @@
                                 clip-rule="evenodd"></path>
                         </svg>
                         <span
-                            class="text-gray-700 dark:text-gray-300">{{ $form->isEdit ? 'Edit Lease' : 'Create Lease' }}</span>
+                            class="text-gray-700 dark:text-gray-300">Edit rent agreement</span>
                     </li>
                 </ol>
             </nav>
@@ -119,22 +119,6 @@
                                 lease</p>
                         </div>
 
-                        <!-- Status -->
-                        <div>
-                            <label for="status"
-                                class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                                Lease Status <span class="text-red-500">*</span>
-                            </label>
-                            <select wire:model="form.status" id="status"
-                                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                                <option value="active">Active</option>
-                                <option value="expired">Expired</option>
-                                <option value="terminated">Terminated</option>
-                            </select>
-                            @error('form.status')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
                     </div>
                 </div>
 

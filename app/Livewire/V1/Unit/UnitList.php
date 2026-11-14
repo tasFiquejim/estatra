@@ -30,7 +30,7 @@ class UnitList extends Component
     #[Computed]
     public function units()
     {
-        $query = Unit::query()->whereBelongsTo($this->property);
+        $query = Unit::query()->with('activeLease.tenant')->whereBelongsTo($this->property);
         $query = $this->applySearch($query, ['unit_name', 'floor_number', 'size']);
         $query = $this->applySorting($query);
 

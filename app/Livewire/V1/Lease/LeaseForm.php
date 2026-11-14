@@ -2,6 +2,7 @@
 
 namespace App\Livewire\V1\Lease;
 
+use App\Enums\UnitStatus;
 use App\Livewire\Forms\LeaseFormObject;
 use App\Models\Lease;
 use App\Models\Tenant;
@@ -21,17 +22,17 @@ class LeaseForm extends Component
 
     public function title(): string
     {
-        return $this->form->isEdit ? 'Edit Lease' : 'Add New Lease';
+        return 'Edit rent agreement';
     }
 
+    /**
+     * Edit-only: tenants move in through "Move in" on a unit, and leave through "Move out".
+     */
     public function mount(Lease $lease): void
     {
-        if ($lease->exists) {
-            Gate::authorize('update', $lease);
-            $this->form->setLease($lease);
-        } else {
-            Gate::authorize('create', Lease::class);
-        }
+        abort_unless($lease->exists, 404);
+        Gate::authorize('update', $lease);
+        $this->form->setLease($lease);
     }
 
     public function save(LeaseService $leaseService)
@@ -39,17 +40,12 @@ class LeaseForm extends Component
         $validated = $this->form->validate();
 
         try {
-            if ($this->form->isEdit) {
-                $leaseService->updateLease($this->form->lease, $validated);
-                $message = 'Lease updated successfully!';
-            } else {
-                $leaseService->createLease($validated);
-                $message = 'Lease created successfully!';
-            }
+            $leaseService->updateLease($this->form->lease, $validated);
+            $message = 'Rent agreement updated.';
 
             session()->flash('success', $message);
 
-            return $this->redirect(route('lease.index'));
+            return $this->redirect(route('property.show', $this->form->lease->unit->property_id));
         } catch (\Exception $e) {
             $this->addError('form.unit_id', $e->getMessage());
         }
@@ -57,7 +53,7 @@ class LeaseForm extends Component
 
     public function cancel()
     {
-        return $this->redirect(route('lease.index'));
+        return $this->redirect(route('property.show', $this->form->lease->unit->property_id));
     }
 
     #[Computed]
@@ -71,7 +67,7 @@ class LeaseForm extends Component
                     $query->where('user_id', $userId);
                 })
                 ->where(function ($query) {
-                    $query->where('status', \App\Enums\UnitStatus::Available)
+                    $query->where('status', UnitStatus::Available)
                         ->orWhere('id', $this->form->lease->unit_id);
                 })
                 ->get()
@@ -82,7 +78,7 @@ class LeaseForm extends Component
             ->whereHas('property', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })
-            ->where('status', \App\Enums\UnitStatus::Available)
+            ->where('status', UnitStatus::Available)
             ->get()
             ->groupBy('property.property_name');
     }

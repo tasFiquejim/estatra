@@ -2,21 +2,27 @@
 
 namespace App\Models;
 
+use App\Enums\RepairStatus;
+use App\Models\Concerns\BelongsToOwner;
+use App\Models\Contracts\HasOwner;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $property_id
- * @property \Illuminate\Support\Carbon $expense_date
+ * @property Carbon $expense_date
  * @property string $category
  * @property numeric $amount
  * @property string|null $invoice_number
  * @property string|null $description
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Property $property
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Property $property
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PropertyExpense newQuery()
@@ -33,36 +39,58 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @mixin \Eloquent
  */
-class PropertyExpense extends Model
+class PropertyExpense extends Model implements HasOwner
 {
+    use BelongsToOwner, HasFactory;
+
+    public const REPAIR = 'maintenance';
+
     protected $fillable = [
         'property_id',
+        'unit_id',
         'expense_date',
         'category',
+        'repair_status',
         'amount',
         'invoice_number',
         'description',
+        'photo',
     ];
 
     protected $casts = [
         'expense_date' => 'date',
         'amount' => 'decimal:2',
+        'repair_status' => RepairStatus::class,
     ];
 
-    protected static function booted(): void
+    public function ownerRelation(): ?string
     {
-        if (auth()->check()) {
-            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
-                $builder->whereHas('property', function ($query) {
-                    $query->where('user_id', auth()->id());
-                });
-            });
-        }
+        return 'property';
     }
 
     public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function isRepair(): bool
+    {
+        return $this->category === self::REPAIR;
+    }
+
+    /**
+     * Repairs that still need fixing.
+     *
+     * @param  Builder<self>  $query
+     */
+    public function scopeOpenRepairs(Builder $query): void
+    {
+        $query->where('category', self::REPAIR)->where('repair_status', RepairStatus::Open);
     }
 
     public function invoiceNumber(): Attribute
@@ -82,7 +110,7 @@ class PropertyExpense extends Model
     public static function getCategories()
     {
         return [
-            'maintenance' => 'Maintenance & Repairs',
+            self::REPAIR => 'Repairs & Maintenance',
             'utilities' => 'Utilities',
             'cleaning' => 'Cleaning',
             'security' => 'Security',

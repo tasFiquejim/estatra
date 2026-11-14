@@ -3,29 +3,33 @@
 namespace App\Models;
 
 use App\Enums\LeaseStatus;
+use App\Models\Concerns\BelongsToOwner;
+use App\Models\Contracts\HasOwner;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
  * @property int $unit_id
  * @property int|null $tenant_id
  * @property string|null $document_path
- * @property \Illuminate\Support\Carbon $start_date
- * @property \Illuminate\Support\Carbon|null $end_date
+ * @property Carbon $start_date
+ * @property Carbon|null $end_date
  * @property numeric|null $security_deposit
  * @property numeric $rent_amount
  * @property numeric|null $service_charge
  * @property LeaseStatus $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ * @property-read Collection<int, Payment> $payments
  * @property-read int|null $payments_count
- * @property-read \App\Models\Tenant|null $tenant
- * @property-read \App\Models\Unit $unit
+ * @property-read Tenant|null $tenant
+ * @property-read Unit $unit
  *
  * @method static \Database\Factories\LeaseFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Lease newModelQuery()
@@ -47,9 +51,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @mixin \Eloquent
  */
-class Lease extends Model
+class Lease extends Model implements HasOwner
 {
-    use HasFactory;
+    use BelongsToOwner, HasFactory;
 
     protected $fillable = [
         'start_date',
@@ -57,9 +61,10 @@ class Lease extends Model
         'rent_amount',
         'service_charge',
         'security_deposit',
+        'deposit_returned',
         'tenant_id',
         'unit_id',
-        'property_id',
+        'status',
     ];
 
     protected $casts = [
@@ -68,15 +73,17 @@ class Lease extends Model
         'status' => LeaseStatus::class,
     ];
 
-    protected static function booted(): void
+    public function ownerRelation(): ?string
     {
-        if (auth()->check()) {
-            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
-                $builder->whereHas('unit.property', function ($query) {
-                    $query->where('user_id', auth()->id());
-                });
-            });
-        }
+        return 'unit.property';
+    }
+
+    /**
+     * What the tenant owes each month: rent plus service charge.
+     */
+    public function monthlyCharge(): float
+    {
+        return round((float) $this->rent_amount + (float) ($this->service_charge ?? 0), 2);
     }
 
     public function setEndDateAttribute($value)

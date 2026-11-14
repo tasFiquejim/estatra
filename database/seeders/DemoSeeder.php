@@ -6,9 +6,9 @@ use App\Enums\LeaseStatus;
 use App\Enums\PaymentMethod;
 use App\Enums\PaymentStatus;
 use App\Enums\PropertyStatus;
+use App\Enums\RepairStatus;
 use App\Enums\UnitStatus;
 use App\Models\Lease;
-use App\Models\MaintenanceLog;
 use App\Models\Payment;
 use App\Models\Property;
 use App\Models\PropertyExpense;
@@ -198,7 +198,8 @@ class DemoSeeder extends Seeder
         }
 
         // ── 7. Property Expenses — 3 months per property ──────────────────
-        $expenseCategories = array_keys(PropertyExpense::getCategories());
+        // Repairs are seeded separately below, with a status.
+        $expenseCategories = array_diff(array_keys(PropertyExpense::getCategories()), [PropertyExpense::REPAIR]);
         $invoiceCounter = 1;
 
         foreach ($createdProperties as $property) {
@@ -218,7 +219,7 @@ class DemoSeeder extends Seeder
             }
         }
 
-        // ── 8. Maintenance Logs ────────────────────────────────────────────
+        // ── 8. Repairs (expenses in the "maintenance" category) ───────────
         $maintenanceIssues = [
             'Leaking pipe in bathroom',
             'Electrical socket not working in bedroom',
@@ -234,16 +235,14 @@ class DemoSeeder extends Seeder
                 $productCost = fake()->optional(0.7)->randomElement([200, 500, 800, 1500]);
                 $serviceCost = fake()->optional(0.8)->randomElement([300, 500, 1000, 2000]);
 
-                MaintenanceLog::create([
+                PropertyExpense::create([
                     'property_id' => $property->id,
-                    'unit_id' => null,
-                    'maintenance_date' => Carbon::now()->subDays(fake()->numberBetween(5, 60))->format('Y-m-d'),
-                    'issue_description' => fake()->randomElement($maintenanceIssues),
-                    'product_cost' => $productCost,
-                    'service_cost' => $serviceCost,
-                    'total_cost' => ($productCost ?? 0) + ($serviceCost ?? 0) ?: null,
-                    'status' => fake()->randomElement(['pending', 'in_progress', 'completed']),
-                    'photo' => null,
+                    'expense_date' => Carbon::now()->subDays(fake()->numberBetween(5, 60))->format('Y-m-d'),
+                    'category' => PropertyExpense::REPAIR,
+                    'repair_status' => fake()->randomElement([RepairStatus::Open, RepairStatus::Done, RepairStatus::Done]),
+                    'amount' => ($productCost ?? 0) + ($serviceCost ?? 0),
+                    'invoice_number' => str_pad($invoiceCounter++, 4, '0', STR_PAD_LEFT),
+                    'description' => fake()->randomElement($maintenanceIssues),
                 ]);
             }
         }

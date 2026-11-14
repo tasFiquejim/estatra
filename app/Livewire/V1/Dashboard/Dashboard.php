@@ -9,6 +9,7 @@ use App\Models\Payment;
 use App\Models\Property;
 use App\Models\PropertyExpense;
 use App\Models\Unit;
+use App\Services\RentService;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -18,6 +19,22 @@ use Livewire\Component;
 #[Title('Dashboard')]
 class Dashboard extends Component
 {
+    protected RentService $rentService;
+
+    public function boot(RentService $rentService): void
+    {
+        $this->rentService = $rentService;
+    }
+
+    /**
+     * This month's rent: expected, collected, still owed, and how many tenants owe.
+     */
+    #[Computed]
+    public function rent(): array
+    {
+        return $this->rentService->summaryFor(now());
+    }
+
     #[Computed]
     public function totalProperties(): int
     {

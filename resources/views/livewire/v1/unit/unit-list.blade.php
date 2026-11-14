@@ -168,6 +168,12 @@
                                             </svg>
                                             Occupied
                                         </span>
+                                        @if ($unit->activeLease?->tenant)
+                                            <div class="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                                                {{ $unit->activeLease->tenant->first_name }} {{ $unit->activeLease->tenant->last_name }}
+                                                · ৳{{ number_format($unit->activeLease->monthlyCharge(), 2) }}/mo
+                                            </div>
+                                        @endif
                                     @elseif($unit->status === \App\Enums\UnitStatus::Maintenance)
                                         <span
                                             class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
@@ -189,6 +195,21 @@
                                 <td
                                     class="relative py-4 pl-3 pr-4 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
                                     <div class="flex items-center justify-end gap-2">
+                                        @if ($unit->status === \App\Enums\UnitStatus::Available)
+                                            <a href="{{ route('unit.move-in', [$property, $unit]) }}"
+                                                class="inline-flex items-center rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-blue-700">
+                                                Move in
+                                            </a>
+                                        @elseif ($unit->activeLease)
+                                            <a href="{{ route('lease.edit', $unit->activeLease) }}"
+                                                class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800">
+                                                Edit rent
+                                            </a>
+                                            <a href="{{ route('lease.move-out', $unit->activeLease) }}"
+                                                class="inline-flex items-center rounded-lg border border-red-300 px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-50 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-900/20">
+                                                Move out
+                                            </a>
+                                        @endif
                                         <a href="{{ route('unit.edit', [$property, $unit]) }}"
                                             class="inline-flex items-center rounded-lg border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-gray-200 dark:border-gray-600 dark:text-gray-400 dark:hover:bg-gray-800 dark:focus:ring-gray-600">
                                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor"

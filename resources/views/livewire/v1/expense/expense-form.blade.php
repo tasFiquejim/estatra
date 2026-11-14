@@ -139,7 +139,10 @@
                 <!-- Description -->
                 <div>
                     <label for="description" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                        Description
+                        {{ $this->isRepair() ? 'What needs fixing?' : 'Description' }}
+                        @if ($this->isRepair())
+                            <span class="text-red-500">*</span>
+                        @endif
                     </label>
                     <textarea wire:model="description" id="description" rows="4"
                         placeholder="Any additional description about this expense..."
@@ -148,6 +151,58 @@
                         <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+
+                @if ($this->isRepair())
+                    <!-- Repair details: only for the "Repairs & Maintenance" category -->
+                    <div class="rounded-xl border border-gray-200 p-4 dark:border-gray-800">
+                        <h5 class="mb-4 text-sm font-medium text-gray-800 dark:text-white/90">Repair details</h5>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                            <div>
+                                <label for="unit_id" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Unit</label>
+                                <select wire:model="unit_id" id="unit_id" @disabled(! $property_id)
+                                    class="h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                                    <option value="">Whole property / common area</option>
+                                    @foreach ($this->units as $unit)
+                                        <option value="{{ $unit->id }}">{{ $unit->unit_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('unit_id')
+                                    <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div>
+                                <span class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Is it fixed?</span>
+                                <div class="flex gap-3">
+                                    @foreach (\App\Enums\RepairStatus::cases() as $option)
+                                        <label class="flex h-11 flex-1 cursor-pointer items-center justify-center rounded-lg border text-sm font-medium
+                                            {{ $repair_status === $option->value ? 'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400' : 'border-gray-300 text-gray-700 dark:border-gray-700 dark:text-gray-300' }}">
+                                            <input type="radio" wire:model.live="repair_status" value="{{ $option->value }}" class="sr-only">
+                                            {{ $option->label() }}
+                                        </label>
+                                    @endforeach
+                                </div>
+                                @error('repair_status')
+                                    <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label for="photo" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Photo (optional)</label>
+                                <input type="file" wire:model="photo" id="photo" accept="image/*"
+                                    class="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                                @error('photo')
+                                    <p class="mt-1.5 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                                @if ($photo)
+                                    <img src="{{ $photo->temporaryUrl() }}" alt="New photo" class="mt-3 max-w-xs rounded-lg shadow">
+                                @elseif ($isEdit && $propertyExpense?->photo)
+                                    <img src="{{ asset('storage/' . $propertyExpense->photo) }}" alt="Current photo" class="mt-3 max-w-xs rounded-lg shadow">
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <!-- Actions -->
                 <div class="flex justify-end gap-3 pt-6 border-t border-gray-200 dark:border-gray-700">

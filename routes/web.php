@@ -6,14 +6,14 @@ use App\Livewire\V1\Dashboard\Dashboard;
 use App\Livewire\V1\Expense\ExpenseForm;
 use App\Livewire\V1\Expense\ExpenseList;
 use App\Livewire\V1\Lease\LeaseForm;
-use App\Livewire\V1\Lease\LeaseList;
-use App\Livewire\V1\Maintenance\MaintenanceForm;
-use App\Livewire\V1\Maintenance\MaintenanceList;
+use App\Livewire\V1\Lease\MoveIn;
+use App\Livewire\V1\Lease\MoveOut;
 use App\Livewire\V1\Payment\PaymentForm;
 use App\Livewire\V1\Payment\PaymentList;
 use App\Livewire\V1\Property\PropertyForm;
 use App\Livewire\V1\Property\PropertyList;
 use App\Livewire\V1\Property\PropertyShow;
+use App\Livewire\V1\Rent\RentRoll;
 use App\Livewire\V1\Tenant\TenantForm;
 use App\Livewire\V1\Tenant\TenantList;
 use App\Livewire\V1\Unit\UnitForm;
@@ -40,9 +40,12 @@ Route::middleware(['auth'])
         Route::get('/tenants/create', TenantForm::class)->name('tenant.create');
         Route::get('/tenants/{tenant}/edit', TenantForm::class)->name('tenant.edit');
 
-        Route::get('/leases', LeaseList::class)->name('lease.index');
-        Route::get('/leases/create', LeaseForm::class)->name('lease.create');
+        // Tenants move in from a free unit and out from their lease (no separate Leases screen).
+        Route::get('/properties/{property}/units/{unit}/move-in', MoveIn::class)->name('unit.move-in');
+        Route::get('/leases/{lease}/move-out', MoveOut::class)->name('lease.move-out');
         Route::get('/leases/{lease}/edit', LeaseForm::class)->name('lease.edit');
+
+        Route::get('/rent', RentRoll::class)->name('rent.index');
 
         Route::get('/payments', PaymentList::class)->name('payment.index');
         Route::get('/payments/create', PaymentForm::class)->name('payment.create');
@@ -52,10 +55,6 @@ Route::middleware(['auth'])
         Route::get('/expenses', ExpenseList::class)->name('expense.index');
         Route::get('/expenses/create', ExpenseForm::class)->name('expense.create');
         Route::get('expenses/{propertyExpense}/edit', ExpenseForm::class)->name('expense.edit');
-
-        Route::get('/maintenances', MaintenanceList::class)->name('maintenance.index');
-        Route::get('/maintenances/create', MaintenanceForm::class)->name('maintenance.create');
-        Route::get('/maintenances/{maintenanceLog}/edit', MaintenanceForm::class)->name('maintenance.edit');
     });
 
 Route::middleware('auth')->group(function () {

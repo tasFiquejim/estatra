@@ -62,6 +62,12 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                                 dashboard and other pages
                             </p>
                         </div> --}}
+                        {{-- Success message after a save/redirect, shown on whatever page comes next --}}
+                        @if (session('success'))
+                            <div class="mb-5 rounded-2xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-900 dark:border-emerald-600/40 dark:bg-emerald-900/30 dark:text-emerald-100">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         {{ $slot }}
                     </div>
                 </div>

@@ -53,9 +53,10 @@ class UnitForm extends Component
             $this->isEdit = true;
             $this->fill([
                 'unit_name' => $unit->unit_name,
-                'floor_number' => $unit->floor_number,
-                'size' => $unit->size,
-                'notes' => $unit->notes,
+                // Optional fields can be NULL in the database; the form fields are strings.
+                'floor_number' => (string) ($unit->floor_number ?? ''),
+                'size' => (string) ($unit->size ?? ''),
+                'notes' => (string) ($unit->notes ?? ''),
                 'status' => $unit->status->value ?? $this->status,
             ]);
         }
@@ -70,6 +71,9 @@ class UnitForm extends Component
     {
         $validated = $this->validate();
         $validated['property_id'] = $this->property->id;
+
+        // Empty optional fields are saved as NULL, not "" (MySQL rejects "" for the numeric size column).
+        $validated = array_map(fn ($value) => $value === '' ? null : $value, $validated);
 
         if ($this->isEdit) {
             $this->unit->update($validated);

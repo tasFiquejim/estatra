@@ -3,6 +3,7 @@
 namespace Tests\Feature\Livewire;
 
 use App\Livewire\V1\Payment\PaymentForm;
+use App\Models\Lease;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -40,5 +41,20 @@ class PaymentFormTest extends TestCase
                 'form.amount_paid' => 'Please enter a valid payment amount greater than zero.',
                 'form.lease_id' => 'You must select an active lease for this payment.',
             ]);
+    }
+
+    public function test_it_rejects_a_lease_that_belongs_to_another_owner(): void
+    {
+        $owner = User::factory()->create();
+        $someoneElsesLease = Lease::factory()->create();
+
+        Livewire::actingAs($owner)
+            ->test(PaymentForm::class)
+            ->set('form.lease_id', $someoneElsesLease->id)
+            ->set('form.amount_paid', 1000)
+            ->call('save')
+            ->assertHasErrors(['form.lease_id']);
+
+        $this->assertDatabaseCount('payments', 0);
     }
 }

@@ -2,11 +2,17 @@
 
 namespace App\Models;
 
+use App\Enums\LeaseStatus;
 use App\Enums\UnitStatus;
+use App\Models\Concerns\BelongsToOwner;
+use App\Models\Contracts\HasOwner;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -16,11 +22,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property float|null $size
  * @property string|null $notes
  * @property UnitStatus $status
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Lease> $leases
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Lease> $leases
  * @property-read int|null $leases_count
- * @property-read \App\Models\Property $property
+ * @property-read Property $property
  *
  * @method static \Database\Factories\UnitFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Unit isAvailable()
@@ -39,9 +45,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @mixin \Eloquent
  */
-class Unit extends Model
+class Unit extends Model implements HasOwner
 {
-    use HasFactory;
+    use BelongsToOwner, HasFactory;
 
     protected $fillable = [
         'property_id',
@@ -56,15 +62,9 @@ class Unit extends Model
         'status' => UnitStatus::class,
     ];
 
-    protected static function booted(): void
+    public function ownerRelation(): ?string
     {
-        if (auth()->check()) {
-            static::addGlobalScope('user', function (\Illuminate\Database\Eloquent\Builder $builder) {
-                $builder->whereHas('property', function ($query) {
-                    $query->where('user_id', auth()->id());
-                });
-            });
-        }
+        return 'property';
     }
 
     public function property(): BelongsTo
@@ -72,13 +72,27 @@ class Unit extends Model
         return $this->belongsTo(Property::class);
     }
 
+    /**
+     * @return HasMany<Lease, $this>
+     */
     public function leases(): HasMany
     {
         return $this->hasMany(Lease::class);
     }
 
+    /**
+     * The lease of whoever lives here now (the newest active one).
+     */
+    public function activeLease(): HasOne
+    {
+        return $this->hasOne(Lease::class)->ofMany(
+            ['id' => 'max'],
+            fn ($query) => $query->where('status', LeaseStatus::Active),
+        );
+    }
+
     public function scopeisAvailable($query)
     {
-        return $query->where('status', \App\Enums\UnitStatus::Available);
+        return $query->where('status', UnitStatus::Available);
     }
 }

@@ -182,24 +182,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('lease.index') }}" @click="selected = 'Lease'" class="menu-item group"
-                            :class="selected === 'Lease' || (typeof page !== 'undefined' && page === 'lease') ?
+                        <a href="{{ route('rent.index') }}" @click="selected = 'Rent'" class="menu-item group"
+                            :class="selected === 'Rent' || (typeof page !== 'undefined' && page === 'rent') ?
                                 'menu-item-active' : 'menu-item-inactive'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-contract">
+                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-dollar">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M8 21h-2a3 3 0 0 1 -3 -3v-1h5.5" />
-                                <path d="M17 8.5v-3.5a2 2 0 1 1 2 2h-2" />
-                                <path d="M19 3h-11a3 3 0 0 0 -3 3v11" />
-                                <path d="M9 7h4" />
-                                <path d="M9 11h4" />
-                                <path d="M18.42 12.61a2.1 2.1 0 0 1 2.97 2.97l-6.39 6.42h-3v-3z" />
+                                <path d="M13 21h-7a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v3" />
+                                <path d="M16 3v4" />
+                                <path d="M8 3v4" />
+                                <path d="M4 11h12.5" />
+                                <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5" />
+                                <path d="M19 21v1m0 -8v1" />
                             </svg>
-
                             <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                Leases
+                                Rent
                             </span>
                         </a>
                     </li>
@@ -250,28 +248,6 @@
                         </a>
                     </li>
 
-                    <li>
-                        <a href="{{ route('maintenance.index') }}" @click="selected = 'Maintenance'"
-                            class="menu-item group"
-                            :class="selected === 'Maintenance' || (typeof page !== 'undefined' && page === 'maintenance') ?
-                                'menu-item-active' : 'menu-item-inactive'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-tools">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" />
-                                <path d="M14.5 5.5l4 4" />
-                                <path d="M12 8l-5 -5l-4 4l5 5" />
-                                <path d="M7 8l-1.5 1.5" />
-                                <path d="M16 12l5 5l-4 4l-5 -5" />
-                                <path d="M16 17l-1.5 1.5" />
-                            </svg>
-                            <span class="menu-item-text" :class="sidebarToggle ? 'lg:hidden' : ''">
-                                Maintenance
-                            </span>
-                        </a>
-                    </li>
 
                     <!-- Menu Item Profile -->
                     <li>

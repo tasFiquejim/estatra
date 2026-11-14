@@ -4,6 +4,9 @@ namespace App\Livewire\Forms;
 
 use App\Enums\LeaseStatus;
 use App\Models\Lease;
+use App\Models\Tenant;
+use App\Models\Unit;
+use App\Rules\OwnedRecord;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
@@ -32,8 +35,8 @@ class LeaseFormObject extends Form
     public function rules()
     {
         return [
-            'unit_id' => 'required|exists:units,id',
-            'tenant_id' => 'required|exists:tenants,id',
+            'unit_id' => ['required', new OwnedRecord(Unit::class)],
+            'tenant_id' => ['required', new OwnedRecord(Tenant::class)],
             'start_date' => $this->isEdit
                 ? ['required', 'date']
                 : ['required', 'date', 'after_or_equal:today'],
