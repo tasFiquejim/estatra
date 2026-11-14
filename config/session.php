@@ -214,4 +214,17 @@ return [
 
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Session Serialization
+    |--------------------------------------------------------------------------
+    |
+    | "json" (the Laravel 13 default) stores session data as JSON instead of
+    | PHP-serialized objects, which is safer. Switching from "php" logs
+    | everyone out once, because old sessions can't be read.
+    |
+    */
+
+    'serialization' => env('SESSION_SERIALIZATION', 'json'),
+
 ];

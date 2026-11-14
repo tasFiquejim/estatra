@@ -60,7 +60,7 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '24' # Vite 8 needs Node 20.19+ or 22.12+
 
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"

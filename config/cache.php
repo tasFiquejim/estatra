@@ -105,4 +105,18 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache_'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Serializable Classes
+    |--------------------------------------------------------------------------
+    |
+    | Which classes may be unserialized when read back from the cache. false
+    | means none: only plain values (strings, numbers, arrays) are cached.
+    | This blocks "unserialize" attacks if the cache store is ever tampered
+    | with. List classes here if you start caching objects (e.g. models).
+    |
+    */
+
+    'serializable_classes' => false,
+
 ];
